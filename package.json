@@ -1,0 +1,28 @@
+{
+  "name": "mittelstand-suite",
+  "version": "1.0.0",
+  "description": "All-in-One KI-Unternehmenssoftware für den Mittelstand",
+  "scripts": {
+    "test": "node --test",
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onsioliver-cyber/Claude.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onsioliver-cyber/Claude/issues"
+  },
+  "homepage": "https://github.com/onsioliver-cyber/Claude#readme",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.136.0",
+    "express": "^5.3.0"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mittelstand Suite</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="logo">MS</span>
+      <div><strong>Mittelstand Suite</strong><small id="firmenname"></small></div>
+    </div>
+    <nav id="nav">
+      <a href="#/dashboard">Übersicht</a>
+      <a href="#/personal">Personal (HR)</a>
+      <a href="#/buchhaltung">Buchhaltung</a>
+      <a href="#/ausschreibungen">Ausschreibungen</a>
+      <a href="#/assistent">KI-Assistent</a>
+      <a href="#/einstellungen">Firmenprofil</a>
+    </nav>
+    <div class="ki-status" id="ki-status"></div>
+  </aside>
+  <main id="main"></main>
+  <dialog id="dialog"><div id="dialog-body"></div></dialog>
+  <div id="toast" role="status"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
