@@ -13,7 +13,15 @@ All-in-One-Unternehmenssoftware für kleine und mittlere Unternehmen – von Per
 | **KI-Assistent** | Chat mit Echtzeit-Streaming | Kennt den aktuellen Stand (Rechnungen, Personal, Fristen) und beantwortet Fragen zu Steuern, Arbeitsrecht, Vergaberecht, Liquidität |
 | **Firmenprofil** | Stammdaten, Leistungen, Referenzen, Zertifikate, Bankverbindung | Grundlage für alle KI-Texte und die Eignungsprüfung |
 
-## Schnellstart
+## iPad / ohne Installation
+
+`standalone/mittelstand-suite.html` ist eine eigenständige Version, die komplett im Browser läuft – ohne Server, ohne Installation, ohne API-Schlüssel. Sie ist als Claude-Artifact veröffentlicht und lässt sich in Safari oder der Claude-App auf iPad, iPhone und Computer öffnen:
+
+- **Daten** liegen in der Cloud-Datenbank des Artifacts (nur für den Eigentümer und eingeladene Bearbeiter sichtbar) und sind auf allen Geräten gleich. Außerhalb von Claude speichert die Seite lokal im Browser.
+- **KI** läuft über das Claude-Konto des Nutzers (beim ersten Aufruf wird um Erlaubnis gefragt). Belege können direkt mit der iPad-Kamera fotografiert werden; PDFs werden im Browser gelesen (pdf.js), gescannte PDFs als Bilder an Claude übergeben.
+- Rechnungen und CSV-Exporte werden als Datei gesichert (Teilen-Menü / Dateien-App).
+
+## Schnellstart (Server-Version)
 
 Voraussetzung: Node.js ≥ 20.
 
