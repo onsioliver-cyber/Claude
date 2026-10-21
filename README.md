@@ -20,6 +20,8 @@ All-in-One-Unternehmenssoftware für kleine und mittlere Unternehmen – von Per
 - **Daten** liegen in der Cloud-Datenbank des Artifacts (nur für den Eigentümer und eingeladene Bearbeiter sichtbar) und sind auf allen Geräten gleich. Außerhalb von Claude speichert die Seite lokal im Browser.
 - **KI** läuft über das Claude-Konto des Nutzers (beim ersten Aufruf wird um Erlaubnis gefragt). Belege können direkt mit der iPad-Kamera fotografiert werden; PDFs werden im Browser gelesen (pdf.js), gescannte PDFs als Bilder an Claude übergeben.
 - Rechnungen und CSV-Exporte werden als Datei gesichert (Teilen-Menü / Dateien-App).
+- Zusätzliche Module: **Fuhrpark** (Fahrzeuge, Fahrer, HU/AU, Inspektion, UVV, Leasing, Kosten je Fahrzeug, Fahrzeugschein-Scan, KI-Flottenanalyse), **Inventar** (Geräte mit Ausgabe an Mitarbeiter und DGUV-V3-Prüfterminen, Typenschild-Scan), **Verträge** (Laufzeiten, Kündigungsfristen, KI-Vertragsauslese, Kündigungsschreiben).
+- Übersicht mit Fristen-Radar über alle Module, Umsatz-/Kosten-Diagramm, Fixkosten pro Monat und KI-Tagesbriefing.
 
 ## Schnellstart (Server-Version)
 

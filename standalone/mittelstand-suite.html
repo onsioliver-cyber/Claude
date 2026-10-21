@@ -2,204 +2,322 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: Kontor-Werkbank – feste Navigationsleiste links (Tablet quer) bzw. oben (Hochformat/Phone), Arbeitsfläche rechts. */
+/* Layout: Kontor in Tinte & Messing – dunkle Navigationsleiste (Tablet quer) bzw. Icon-Leiste (Hochformat) bzw. Tab-Leiste unten (Phone); helle, ruhige Arbeitsfläche; Bearbeitung in seitlichen Sheets. */
 :root {
-  --bg: #eef2f1;
+  --bg: #f3f4f6;
   --surface: #ffffff;
-  --surface-2: #f6f8f7;
-  --ink: #15211f;
-  --muted: #5d6b68;
-  --line: #d8e0de;
-  --accent: #0d6b62;
-  --accent-ink: #ffffff;
-  --accent-soft: #dcefeb;
-  --nav: #10302c;
-  --nav-ink: #c6dad6;
-  --ki: #3d3fb8;
-  --ki-soft: #e7e7fb;
-  --ok: #157347;
-  --ok-soft: #dff3e8;
-  --warn: #9a5b00;
-  --warn-soft: #fbefd9;
-  --bad: #b42318;
-  --bad-soft: #fde6e3;
-  --f-display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
-  --f-body: "IBM Plex Sans", -apple-system, "Segoe UI", system-ui, sans-serif;
-  --f-num: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --radius: 10px;
+  --surface-2: #f7f8fa;
+  --ink: #121826;
+  --ink-2: #384152;
+  --muted: #6b7385;
+  --line: #e5e8ed;
+  --line-strong: #d2d7df;
+  --nav: #0d1422;
+  --nav-2: #151e30;
+  --nav-ink: #9aa4b8;
+  --brass: #94712f;
+  --brass-strong: #7a5c22;
+  --brass-soft: #f4eee2;
+  --primary: #121826;
+  --primary-on: #ffffff;
+  --chart-2: #b9c0cd;
+  --ok: #1d7748; --ok-soft: #e5f3eb;
+  --warn: #9a5d00; --warn-soft: #fbf0dc;
+  --bad: #b3261e; --bad-soft: #fcebe9;
+  --shadow: 0 1px 2px rgba(18, 24, 38, .04), 0 10px 30px -18px rgba(18, 24, 38, .18);
+  --shadow-lg: 0 24px 60px -20px rgba(13, 20, 34, .35);
+  --f-display: "Fraunces", "Iowan Old Style", "Palatino", Georgia, serif;
+  --f-body: "Manrope", -apple-system, "Helvetica Neue", system-ui, sans-serif;
+  --r: 14px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0d1413; --surface: #141d1c; --surface-2: #192423; --ink: #e3ecea; --muted: #93a5a1; --line: #263533;
-    --accent: #45b8a9; --accent-ink: #06201d; --accent-soft: #15332f; --nav: #081110; --nav-ink: #a9c2bd;
-    --ki: #9d9ff5; --ki-soft: #23244a; --ok: #5fcf95; --ok-soft: #12301f; --warn: #f0b45c; --warn-soft: #33260f;
-    --bad: #f3877c; --bad-soft: #3a1714; color-scheme: dark;
+    --bg: #0a0e16; --surface: #111723; --surface-2: #161d2b; --ink: #e9ecf2; --ink-2: #c3c9d5; --muted: #8b94a7; --line: #212a3a; --line-strong: #2d3748;
+    --nav: #06090f; --nav-2: #0f1520; --nav-ink: #8790a3; --brass: #d3b47c; --brass-strong: #e2c793; --brass-soft: #272013;
+    --primary: #e9ecf2; --primary-on: #0a0e16; --chart-2: #3a4558;
+    --ok: #63c993; --ok-soft: #10291c; --warn: #f0b75e; --warn-soft: #30240f; --bad: #f2877d; --bad-soft: #351513;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px -18px rgba(0,0,0,.6); --shadow-lg: 0 24px 60px -20px rgba(0,0,0,.7);
+    color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0d1413; --surface: #141d1c; --surface-2: #192423; --ink: #e3ecea; --muted: #93a5a1; --line: #263533;
-  --accent: #45b8a9; --accent-ink: #06201d; --accent-soft: #15332f; --nav: #081110; --nav-ink: #a9c2bd;
-  --ki: #9d9ff5; --ki-soft: #23244a; --ok: #5fcf95; --ok-soft: #12301f; --warn: #f0b45c; --warn-soft: #33260f;
-  --bad: #f3877c; --bad-soft: #3a1714; color-scheme: dark;
+  --bg: #0a0e16; --surface: #111723; --surface-2: #161d2b; --ink: #e9ecf2; --ink-2: #c3c9d5; --muted: #8b94a7; --line: #212a3a; --line-strong: #2d3748;
+  --nav: #06090f; --nav-2: #0f1520; --nav-ink: #8790a3; --brass: #d3b47c; --brass-strong: #e2c793; --brass-soft: #272013;
+  --primary: #e9ecf2; --primary-on: #0a0e16; --chart-2: #3a4558;
+  --ok: #63c993; --ok-soft: #10291c; --warn: #f0b75e; --warn-soft: #30240f; --bad: #f2877d; --bad-soft: #351513;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px -18px rgba(0,0,0,.6); --shadow-lg: 0 24px 60px -20px rgba(0,0,0,.7);
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html, body { height: 100%; }
-body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-body); -webkit-text-size-adjust: 100%; }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--nav); }
-.app { display: grid; grid-template-columns: 232px minmax(0, 1fr); min-height: 100%; }
-.nav { background: var(--nav); color: var(--nav-ink); padding-block: 20px; padding-left: max(14px, env(safe-area-inset-left, 0px)); padding-right: 14px; display: flex; flex-direction: column; gap: 4px; position: sticky; top: env(safe-area-inset-top, 0px); height: 100vh; height: 100dvh; }
-.brand { display: flex; align-items: center; gap: 10px; color: #fff; padding: 0 8px 18px; }
-.brand-mark { width: 34px; height: 34px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font: 700 15px var(--f-display); }
-.brand strong { font: 700 16px/1.2 var(--f-display); display: block; }
-.brand small { font-size: 12px; color: var(--nav-ink); display: block; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.nav button { all: unset; cursor: pointer; padding: 11px 12px; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 10px; min-height: 44px; box-sizing: border-box; }
-.nav button:hover { background: rgba(255,255,255,.06); }
-.nav button[aria-current="page"] { background: rgba(255,255,255,.12); color: #fff; }
-.nav button:focus-visible { outline: 2px solid var(--accent); }
-.nav .dot { width: 8px; height: 8px; border-radius: 2px; background: currentColor; opacity: .55; }
-.nav-foot { margin-top: auto; font-size: 12px; padding: 10px 12px; border-radius: 8px; background: rgba(255,255,255,.06); line-height: 1.45; }
-main { padding-block: 28px 48px; padding-left: 32px; padding-right: max(16px, env(safe-area-inset-right, 0px), 32px); min-width: 0; }
-h1 { font: 700 28px/1.15 var(--f-display); margin: 0 0 4px; letter-spacing: -.01em; text-wrap: balance; }
-h2 { font: 600 17px/1.3 var(--f-display); margin: 0 0 12px; }
-.lead { color: var(--muted); margin: 0 0 22px; max-width: 70ch; }
-.tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--line); margin-bottom: 18px; overflow-x: auto; scrollbar-width: none; }
-.tabs button { all: unset; cursor: pointer; padding: 12px 14px; color: var(--muted); border-bottom: 2px solid transparent; white-space: nowrap; font-weight: 500; }
-.tabs button[aria-selected="true"] { color: var(--accent); border-color: var(--accent); }
-.tabs button:focus-visible { outline: 2px solid var(--accent); }
-.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; min-width: 0; }
-.stack { display: grid; gap: 16px; }
-.kpis { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); margin-bottom: 16px; }
-.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
-.kpi .k { color: var(--muted); font-size: 13px; }
-.kpi .v { font: 500 22px/1.3 var(--f-num); margin-top: 4px; font-variant-numeric: tabular-nums; }
-.kpi .h { color: var(--muted); font-size: 12px; }
-.cols { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
-.toolbar .grow { flex: 1; }
-.toolbar input[type="search"] { width: 220px; max-width: 100%; }
-button.btn, .btn { font: inherit; font-weight: 500; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; padding: 9px 14px; min-height: 42px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-.btn:hover { border-color: var(--accent); }
-.btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-.btn.ki { background: var(--ki); border-color: var(--ki); color: #fff; }
-:root[data-theme="dark"] .btn.ki { color: #10112e; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.ki { color: #10112e; } }
-.btn.sm { padding: 5px 10px; min-height: 36px; font-size: 14px; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--f-body); -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+svg.i { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Rahmen ---------- */
+.app { display: grid; grid-template-columns: 248px minmax(0, 1fr); min-height: 100%; }
+.nav { background: var(--nav); color: var(--nav-ink); position: sticky; top: 0; height: 100vh; height: 100dvh; display: flex; flex-direction: column; gap: 2px; padding-block: calc(22px + env(safe-area-inset-top, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 16px; overflow-y: auto; scrollbar-width: none; }
+.brand { display: flex; align-items: center; gap: 12px; padding: 0 8px 26px; color: #fff; }
+.mark { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: linear-gradient(150deg, #c9a466, #8a6626); color: #1a1407; font: 600 17px/1 var(--f-display); letter-spacing: -.02em; box-shadow: inset 0 1px 0 rgba(255,255,255,.35); flex: none; }
+.brand b { display: block; font: 600 17px/1.15 var(--f-display); letter-spacing: -.01em; }
+.brand small { display: block; font-size: 12px; color: var(--nav-ink); max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nav-group { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #5f6880; padding: 16px 12px 6px; }
+.nav a { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; color: inherit; text-decoration: none; font-weight: 500; min-height: 44px; cursor: pointer; transition: background .15s, color .15s; }
+.nav a:hover { background: var(--nav-2); color: #dfe4ee; }
+.nav a[aria-current="page"] { background: var(--nav-2); color: #fff; box-shadow: inset 2px 0 0 #c9a466; }
+.nav a[aria-current="page"] svg { color: #d3b47c; }
+.nav a:focus-visible { outline: 2px solid #c9a466; outline-offset: -2px; }
+.nav-foot { margin-top: auto; padding: 12px; border-radius: 12px; background: var(--nav-2); font-size: 12px; line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; }
+.nav-foot .led { width: 8px; height: 8px; border-radius: 50%; background: #5fbf8d; margin-top: 5px; flex: none; box-shadow: 0 0 0 3px rgba(95,191,141,.15); }
+.nav-foot .led.local { background: #e0a94a; box-shadow: 0 0 0 3px rgba(224,169,74,.15); }
+.nav-foot b { color: #dfe4ee; font-weight: 600; }
+.tabbar { display: none; }
+
+main { min-width: 0; padding-block: calc(34px + env(safe-area-inset-top, 0px)) 64px; padding-left: 40px; padding-right: max(16px, env(safe-area-inset-right, 0px), 40px); }
+.page { max-width: 1240px; margin: 0 auto; }
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--brass); font-weight: 700; margin: 0 0 6px; display: flex; align-items: center; gap: 6px; }
+.eyebrow svg { width: 15px; height: 15px; }
+h1 { font: 500 34px/1.12 var(--f-display); letter-spacing: -.02em; margin: 0 0 6px; text-wrap: balance; }
+h2 { font: 600 18px/1.3 var(--f-display); letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+h3 { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin: 0 0 10px; }
+.lead { color: var(--muted); margin: 0 0 26px; max-width: 68ch; }
+.head-row { display: flex; gap: 16px; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; margin-bottom: 26px; }
+.head-row .lead { margin: 0; }
+
+.seg { display: inline-flex; gap: 2px; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 22px; max-width: 100%; overflow-x: auto; scrollbar-width: none; box-shadow: var(--shadow); }
+.seg button { all: unset; cursor: pointer; padding: 8px 14px; border-radius: 9px; color: var(--muted); font-weight: 600; font-size: 14px; white-space: nowrap; transition: .15s; }
+.seg button[aria-selected="true"] { background: var(--primary); color: var(--primary-on); }
+.seg button:focus-visible { outline: 2px solid var(--brass); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); min-width: 0; }
+.card-pad { padding: 20px 22px; }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 22px 0; flex-wrap: wrap; }
+.kpis { display: grid; gap: 16px; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-bottom: 18px; }
+.kpis.k3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.kpis.k2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.kpi { padding: 18px 20px; }
+.kpi .k { font-size: 13px; color: var(--muted); font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.kpi .k svg { width: 16px; height: 16px; color: var(--brass); }
+.kpi .v { font: 500 28px/1.2 var(--f-display); letter-spacing: -.02em; margin-top: 8px; }
+.kpi .h { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.two { display: grid; gap: 18px; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); margin-bottom: 18px; }
+.three { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+/* ---------- Buttons & Formulare ---------- */
+.btn { font: inherit; font-weight: 600; font-size: 14px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); border-radius: 10px; padding: 9px 16px; min-height: 42px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: border-color .15s, background .15s, transform .1s; text-decoration: none; }
+.btn:hover { border-color: var(--ink-2); }
+.btn:active { transform: scale(.98); }
+.btn svg { width: 17px; height: 17px; }
+.btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.btn.primary { background: var(--primary); border-color: var(--primary); color: var(--primary-on); }
+.btn.ki { background: var(--brass-soft); border-color: color-mix(in srgb, var(--brass) 45%, transparent); color: var(--brass-strong); }
+.btn.ki:hover { border-color: var(--brass); }
+.btn.sm { min-height: 34px; padding: 5px 11px; font-size: 13px; border-radius: 8px; }
+.btn.sm svg { width: 15px; height: 15px; }
 .btn.danger { color: var(--bad); }
 .btn.danger.armed { background: var(--bad); border-color: var(--bad); color: #fff; }
-.btn:disabled { opacity: .6; cursor: progress; }
+.btn:disabled { opacity: .55; cursor: progress; }
+label { display: block; font-size: 12.5px; color: var(--muted); font-weight: 600; margin-bottom: 6px; letter-spacing: .01em; }
+input, select, textarea { width: 100%; font: inherit; font-size: 16px; padding: 10px 13px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--surface); color: var(--ink); min-height: 46px; transition: border-color .15s; }
+input:hover, select:hover, textarea:hover { border-color: var(--muted); }
+textarea { min-height: 104px; resize: vertical; line-height: 1.5; }
+input[type="file"] { padding: 9px; background: var(--surface-2); }
+.form { display: grid; gap: 16px 18px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.form .full { grid-column: 1 / -1; }
+.toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+.toolbar .grow { flex: 1; }
+.search { position: relative; width: 240px; max-width: 100%; }
+.search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 17px; height: 17px; color: var(--muted); }
+.search input { padding-left: 38px; min-height: 42px; }
+
+/* ---------- Tabellen ---------- */
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
-th, td { padding: 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
-th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; white-space: nowrap; }
-td.num, th.num { text-align: right; font-family: var(--f-num); font-variant-numeric: tabular-nums; white-space: nowrap; font-size: 13.5px; }
-td.act { text-align: right; min-width: 190px; }
-td.act .btn { margin: 0 0 4px 4px; }
-tr:last-child td { border-bottom: none; }
-.pill { display: inline-block; padding: 2px 9px; border-radius: 99px; font-size: 12px; font-weight: 500; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
-.pill.ok { background: var(--ok-soft); color: var(--ok); }
-.pill.warn { background: var(--warn-soft); color: var(--warn); }
-.pill.bad { background: var(--bad-soft); color: var(--bad); }
-.pill.ki { background: var(--ki-soft); color: var(--ki); }
-.empty { color: var(--muted); padding: 16px 2px; }
-label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
-input, select, textarea { width: 100%; font: inherit; font-size: 16px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink); min-height: 44px; }
-textarea { min-height: 96px; resize: vertical; }
-.form { display: grid; gap: 12px 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-.form .full { grid-column: 1 / -1; }
-dialog { border: 1px solid var(--line); border-radius: 14px; padding: 0; width: min(760px, calc(100vw - 24px)); max-height: calc(100dvh - 40px); background: var(--surface); color: var(--ink); }
-dialog.wide { width: min(1040px, calc(100vw - 24px)); }
-dialog::backdrop { background: rgba(8, 18, 16, .5); }
-.dlg { padding: 22px; }
-.dlg-actions { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
-.output { white-space: pre-wrap; background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 14px; font-size: 14.5px; max-height: 55vh; overflow: auto; -webkit-user-select: text; user-select: text; }
-.thinking { color: var(--muted); display: inline-flex; gap: 8px; align-items: center; }
-.spin { width: 14px; height: 14px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .7s linear infinite; display: inline-block; }
+th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; text-align: left; padding: 14px 16px 10px; white-space: nowrap; border-bottom: 1px solid var(--line); }
+td { padding: 14px 16px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr[data-id] { cursor: pointer; transition: background .12s; }
+tbody tr[data-id]:hover { background: var(--surface-2); }
+td.num, th.num { text-align: right; white-space: nowrap; }
+td.strong { font-weight: 600; }
+td.act { text-align: right; white-space: nowrap; }
+td.act .btn { margin-left: 6px; }
+.sub { display: block; color: var(--muted); font-size: 12.5px; font-weight: 500; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); white-space: nowrap; }
+.pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .8; }
+.pill.plain::before { display: none; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
+.pill.warn { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.pill.bad { background: var(--bad-soft); color: var(--bad); border-color: transparent; }
+.empty { padding: 34px 22px; text-align: center; color: var(--muted); }
+.empty b { display: block; color: var(--ink); font: 600 17px var(--f-display); margin-bottom: 4px; }
+
+/* ---------- Listen, Diagramme ---------- */
+.list { list-style: none; margin: 0; padding: 0; }
+.list li { display: flex; align-items: center; gap: 14px; padding: 13px 22px; border-top: 1px solid var(--line); }
+.list li:first-child { border-top: none; }
+.list li[data-i], .list li[data-page] { cursor: pointer; }
+.list li[data-i]:hover, .list li[data-page]:hover { background: var(--surface-2); }
+.list .ico { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--surface-2); color: var(--ink-2); flex: none; border: 1px solid var(--line); }
+.list .ico svg { width: 18px; height: 18px; }
+.list .txt { flex: 1; min-width: 0; }
+.list .txt b { display: block; font-weight: 600; overflow-wrap: anywhere; }
+.chart { display: block; width: 100%; height: auto; }
+.chart text { fill: var(--muted); font: 600 11px var(--f-body); }
+.legend { display: flex; gap: 16px; font-size: 12.5px; color: var(--muted); font-weight: 600; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.bar { height: 6px; border-radius: 4px; background: var(--surface-2); margin-top: 8px; overflow: hidden; border: 1px solid var(--line); }
+.bar > div { height: 100%; background: var(--brass); border-radius: 4px; }
+.briefing { border: 1px solid color-mix(in srgb, var(--brass) 35%, var(--line)); background: linear-gradient(180deg, var(--brass-soft), var(--surface) 75%); margin-bottom: 18px; }
+.ki-tag { display: inline-flex; align-items: center; gap: 6px; color: var(--brass-strong); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.ki-tag svg { width: 15px; height: 15px; }
+
+/* ---------- Sheets ---------- */
+dialog { border: none; padding: 0; background: var(--surface); color: var(--ink); box-shadow: var(--shadow-lg); margin: 0 0 0 auto; width: min(580px, 100vw); height: 100dvh; max-height: 100dvh; max-width: 100vw; border-radius: 22px 0 0 22px; }
+dialog.wide { width: min(1000px, 100vw); }
+dialog[open] { animation: sheet-in .28s cubic-bezier(.2, .8, .2, 1); }
+@keyframes sheet-in { from { transform: translateX(40px); opacity: 0; } }
+dialog::backdrop { background: rgba(8, 12, 20, .42); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+.sheet { display: flex; flex-direction: column; height: 100%; }
+.sheet-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: calc(22px + env(safe-area-inset-top, 0px)) max(26px, env(safe-area-inset-right, 0px)) 16px 26px; border-bottom: 1px solid var(--line); }
+.sheet-head h2 { font-size: 23px; font-weight: 500; }
+.sheet-body { flex: 1; overflow-y: auto; padding: 22px max(26px, env(safe-area-inset-right, 0px)) 22px 26px; -webkit-overflow-scrolling: touch; }
+.sheet-foot { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; padding: 14px max(26px, env(safe-area-inset-right, 0px)) calc(14px + env(safe-area-inset-bottom, 0px)) 26px; border-top: 1px solid var(--line); background: var(--surface-2); }
+.sheet-foot .grow { flex: 1; }
+.x { all: unset; cursor: pointer; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: var(--muted); background: var(--surface-2); flex: none; }
+.x:focus-visible { outline: 2px solid var(--brass); }
+.output { white-space: pre-wrap; background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 18px; font-size: 15px; line-height: 1.65; -webkit-user-select: text; user-select: text; }
+.hint { border-left: 3px solid var(--brass); background: var(--brass-soft); padding: 12px 14px; border-radius: 0 10px 10px 0; font-size: 14px; margin-bottom: 18px; }
+.thinking { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); }
+.spin { width: 15px; height: 15px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .7s linear infinite; display: inline-block; flex: none; }
 @keyframes spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
-#toast { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 11px 16px; border-radius: 10px; max-width: min(420px, calc(100vw - 32px)); opacity: 0; transform: translateY(8px); transition: .2s; pointer-events: none; z-index: 20; }
+.md p { margin: 0 0 10px; } .md ul, .md ol { margin: 0 0 10px; padding-left: 22px; } .md li { margin-bottom: 3px; } .md h4 { font: 600 16px var(--f-display); margin: 14px 0 6px; } .md > :last-child { margin-bottom: 0; }
+.score { font: 500 40px/1 var(--f-display); letter-spacing: -.03em; }
+ul.plain { margin: 0; padding-left: 18px; } ul.plain li { margin-bottom: 4px; }
+.note { font-size: 13px; color: var(--muted); }
+.banner { display: flex; gap: 12px; align-items: flex-start; border: 1px solid color-mix(in srgb, var(--warn) 40%, transparent); background: var(--warn-soft); padding: 12px 16px; border-radius: 12px; margin-bottom: 22px; font-size: 14px; }
+
+/* ---------- Chat ---------- */
+.chat { display: flex; flex-direction: column; height: calc(100dvh - 230px); min-height: 420px; }
+.log { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding: 22px; }
+.msg { max-width: min(78%, 72ch); padding: 12px 16px; border-radius: 16px; }
+.msg.u { align-self: flex-end; background: var(--primary); color: var(--primary-on); white-space: pre-wrap; border-bottom-right-radius: 6px; }
+.msg.a { align-self: flex-start; background: var(--surface-2); border: 1px solid var(--line); border-bottom-left-radius: 6px; }
+.composer { display: flex; gap: 10px; padding: 14px; border-top: 1px solid var(--line); align-items: flex-end; }
+.composer textarea { min-height: 50px; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chips .btn { font-weight: 500; text-align: left; }
+#toast { position: fixed; right: max(20px, env(safe-area-inset-right, 0px)); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); background: var(--primary); color: var(--primary-on); padding: 12px 18px; border-radius: 12px; max-width: min(420px, calc(100vw - 40px)); opacity: 0; transform: translateY(8px); transition: .22s; pointer-events: none; z-index: 50; box-shadow: var(--shadow-lg); font-weight: 600; }
 #toast.show { opacity: 1; transform: none; }
 #toast.err { background: var(--bad); color: #fff; }
-.md p { margin: 0 0 9px; } .md ul, .md ol { margin: 0 0 9px; padding-left: 22px; } .md h4 { margin: 12px 0 6px; font-family: var(--f-display); }
-.chat { display: flex; flex-direction: column; height: calc(100dvh - 190px); min-height: 380px; }
-.log { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 4px 2px; }
-.msg { max-width: min(80%, 70ch); padding: 10px 14px; border-radius: 12px; }
-.msg.u { align-self: flex-end; background: var(--accent); color: var(--accent-ink); white-space: pre-wrap; }
-.msg.a { align-self: flex-start; background: var(--surface-2); border: 1px solid var(--line); }
-.composer { display: flex; gap: 8px; margin-top: 12px; align-items: flex-end; }
-.composer textarea { min-height: 52px; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chips .btn { text-align: left; }
-.score { font: 600 30px/1.1 var(--f-num); }
-ul.plain { margin: 0; padding-left: 20px; }
-.note { font-size: 13px; color: var(--muted); }
-.banner { border: 1px solid var(--warn); background: var(--warn-soft); color: var(--ink); padding: 10px 14px; border-radius: 10px; margin-bottom: 16px; font-size: 14px; }
-@media (max-width: 900px) {
-  .app { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; }
-  .nav { position: sticky; top: env(safe-area-inset-top, 0px); height: auto; flex-direction: row; align-items: center; overflow-x: auto; padding-block: 8px; padding-right: max(14px, env(safe-area-inset-right, 0px)); z-index: 5; scrollbar-width: none; }
-  .brand { padding: 0 8px 0 0; }
-  .brand small, .nav-foot, .nav .dot { display: none; }
-  .nav button { white-space: nowrap; padding: 9px 11px; }
-  main { padding-block: 20px 40px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-  h1 { font-size: 24px; }
-  .chat { height: calc(100dvh - 210px); }
+@media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } }
+
+/* ---------- Tablet hoch: Icon-Leiste ---------- */
+@media (max-width: 1100px) {
+  .app { grid-template-columns: 84px minmax(0, 1fr); }
+  .nav { padding-left: max(8px, env(safe-area-inset-left, 0px)); padding-right: 8px; }
+  .brand { justify-content: center; padding: 0 0 18px; }
+  .brand div, .nav-group, .nav-foot span { display: none; }
+  .nav a { flex-direction: column; gap: 4px; font-size: 10.5px; padding: 9px 2px; text-align: center; line-height: 1.2; }
+  .nav a[aria-current="page"] { box-shadow: none; }
+  .nav-foot { justify-content: center; padding: 10px; }
+  .nav-foot .led { margin: 0; }
+  main { padding-left: 28px; padding-right: max(16px, env(safe-area-inset-right, 0px), 28px); }
+  .two { grid-template-columns: minmax(0, 1fr); }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* ---------- Phone: Tab-Leiste unten ---------- */
+@media (max-width: 680px) {
+  .app { grid-template-columns: minmax(0, 1fr); }
+  .nav { display: none; }
+  .tabbar { display: grid; grid-template-columns: repeat(5, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; background: color-mix(in srgb, var(--surface) 90%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid var(--line); padding: 6px max(8px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px)); }
+  .tabbar a { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10.5px; font-weight: 700; color: var(--muted); padding: 6px 0; min-height: 48px; cursor: pointer; }
+  .tabbar a[aria-current="page"] { color: var(--brass-strong); }
+  main { padding-block: calc(22px + env(safe-area-inset-top, 0px)) calc(96px + env(safe-area-inset-bottom, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  h1 { font-size: 28px; }
+  .search { width: 100%; }
+  dialog, dialog.wide { width: 100vw; margin: auto 0 0; height: auto; max-height: 92dvh; border-radius: 22px 22px 0 0; }
+  .sheet { max-height: 92dvh; }
+  .chat { height: calc(100dvh - 250px); }
+  .msg { max-width: 88%; }
+  .kpis, .kpis.k3, .kpis.k2 { grid-template-columns: minmax(0, 1fr); }
+  #toast { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
 }
 </style>
 
 <div class="app">
-  <nav class="nav" aria-label="Module">
-    <div class="brand"><span class="brand-mark">MS</span><div><strong>Mittelstand Suite</strong><small id="firmenname"></small></div></div>
-    <button data-page="uebersicht"><span class="dot"></span>Übersicht</button>
-    <button data-page="personal"><span class="dot"></span>Personal</button>
-    <button data-page="buchhaltung"><span class="dot"></span>Buchhaltung</button>
-    <button data-page="ausschreibungen"><span class="dot"></span>Ausschreibungen</button>
-    <button data-page="assistent"><span class="dot"></span>KI-Assistent</button>
-    <button data-page="firma"><span class="dot"></span>Firmenprofil</button>
-    <div class="nav-foot" id="status">Verbinde …</div>
-  </nav>
-  <main id="main"><p class="thinking"><span class="spin"></span> Daten werden geladen …</p></main>
+  <nav class="nav" aria-label="Module" id="nav"></nav>
+  <main id="main"><div class="page"><p class="thinking"><span class="spin"></span> Daten werden geladen …</p></div></main>
 </div>
-<dialog id="dialog"><div class="dlg" id="dlg"></div></dialog>
+<nav class="tabbar" aria-label="Module" id="tabbar"></nav>
+<dialog id="dialog"></dialog>
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
 'use strict';
 
+// ======================= Symbole =======================
+
+const ICONS = {
+  home: '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/>',
+  people: '<circle cx="9" cy="8" r="3.2"/><path d="M3 19.5c.6-3.3 3-5.3 6-5.3s5.4 2 6 5.3"/><circle cx="17" cy="9" r="2.4"/><path d="M16.5 14.3c2.4.2 4 1.9 4.5 4.6"/>',
+  finance: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18"/><path d="M7 15h4"/>',
+  tender: '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6M10 17h4"/>',
+  car: '<path d="M4 16v-4l2-5h12l2 5v4"/><path d="M3 16h18v3H3z"/><circle cx="7.5" cy="13" r=".8"/><circle cx="16.5" cy="13" r=".8"/><path d="M6 19v1.5M18 19v1.5"/>',
+  box: '<path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/>',
+  contract: '<path d="M6 3h9l4 4v14H6z"/><path d="M9 9h6M9 12.5h6"/><path d="M9 17c1-1.2 1.8-1.2 2.4 0 .6 1 1.3 1 2.2-.3"/>',
+  spark: '<path d="M12 3.5c.6 3.9 2.6 5.9 6.5 6.5-3.9.6-5.9 2.6-6.5 6.5-.6-3.9-2.6-5.9-6.5-6.5 3.9-.6 5.9-2.6 6.5-6.5z"/><path d="M19 15.5c.25 1.6 1 2.35 2.5 2.5-1.5.25-2.25 1-2.5 2.5-.25-1.5-1-2.25-2.5-2.5 1.5-.15 2.25-.9 2.5-2.5z"/>',
+  building: '<path d="M4 21V5l8-2v18"/><path d="M12 9h8v12"/><path d="M7 8h2M7 12h2M7 16h2M15 13h2M15 17h2"/><path d="M2 21h20"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/>',
+  close: '<path d="M6 6l12 12M18 6 6 18"/>',
+  more: '<circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/>',
+  clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  camera: '<path d="M4 8h3l1.5-2.5h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+  download: '<path d="M12 4v11M7.5 10.5 12 15l4.5-4.5"/><path d="M5 19h14"/>',
+  wrench: '<path d="M14.5 6.5a4 4 0 0 0 4.9 4.9l-8.7 8.7a2 2 0 0 1-2.8-2.8l8.7-8.7a4 4 0 0 1-2.1-2.1z"/>',
+  receipt: '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>',
+};
+const icon = (n) => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n] || ''}</svg>`;
+
 // ======================= Datenmodell =======================
 
 const COLLECTIONS = {
-  mitarbeiter: { singular: 'Mitarbeiter', fields: [
-    { key: 'name', label: 'Name', type: 'text', required: true, list: true },
-    { key: 'position', label: 'Position', type: 'text', list: true },
-    { key: 'abteilung', label: 'Abteilung', type: 'text', list: true },
+  mitarbeiter: { singular: 'Mitarbeiter', label: (r) => r.name, fields: [
+    { key: 'name', label: 'Name', type: 'text', required: true, list: true, strong: true, subKey: 'email' },
+    { key: 'position', label: 'Position', type: 'text', list: true, subKey: 'abteilung' },
+    { key: 'abteilung', label: 'Abteilung', type: 'text' },
     { key: 'email', label: 'E-Mail', type: 'email' },
+    { key: 'telefon', label: 'Telefon', type: 'text' },
     { key: 'eintritt', label: 'Eintrittsdatum', type: 'date', list: true },
     { key: 'vertragsart', label: 'Vertragsart', type: 'select', options: ['Vollzeit', 'Teilzeit', 'Minijob', 'Auszubildende/r', 'Werkstudent/in'], list: true },
     { key: 'bruttogehalt', label: 'Bruttogehalt / Monat', type: 'money' },
     { key: 'urlaubsanspruch', label: 'Urlaubsanspruch (Tage/Jahr)', type: 'number', default: 30 },
+    { key: 'fuehrerschein', label: 'Führerscheinklassen', type: 'text' },
+    { key: 'fuehrerscheinkontrolle', label: 'Nächste Führerscheinkontrolle', type: 'date' },
     { key: 'status', label: 'Status', type: 'select', options: ['aktiv', 'ausgeschieden'], default: 'aktiv', list: true },
     { key: 'notizen', label: 'Notizen / Leistungsbeurteilung', type: 'textarea' },
   ] },
-  abwesenheiten: { singular: 'Abwesenheit', fields: [
-    { key: 'mitarbeiterId', label: 'Mitarbeiter', type: 'ref', ref: 'mitarbeiter', required: true, list: true },
+  abwesenheiten: { singular: 'Abwesenheit', label: (r) => `${r.art} ab ${datum(r.von)}`, fields: [
+    { key: 'mitarbeiterId', label: 'Mitarbeiter', type: 'ref', ref: 'mitarbeiter', required: true, list: true, strong: true },
     { key: 'art', label: 'Art', type: 'select', options: ['Urlaub', 'Krankheit', 'Fortbildung', 'Sonderurlaub', 'Sonstiges'], default: 'Urlaub', list: true },
     { key: 'von', label: 'Von', type: 'date', required: true, list: true },
     { key: 'bis', label: 'Bis', type: 'date', required: true, list: true },
     { key: 'status', label: 'Status', type: 'select', options: ['beantragt', 'genehmigt', 'abgelehnt'], default: 'beantragt', list: true },
     { key: 'notiz', label: 'Notiz', type: 'text' },
   ] },
-  kunden: { singular: 'Kunde', fields: [
-    { key: 'name', label: 'Firma / Name', type: 'text', required: true, list: true },
+  kunden: { singular: 'Kunde', label: (r) => r.name, fields: [
+    { key: 'name', label: 'Firma / Name', type: 'text', required: true, list: true, strong: true, subKey: 'ustId' },
     { key: 'ansprechpartner', label: 'Ansprechpartner', type: 'text', list: true },
     { key: 'email', label: 'E-Mail', type: 'email', list: true },
-    { key: 'telefon', label: 'Telefon', type: 'text' },
+    { key: 'telefon', label: 'Telefon', type: 'text', list: true },
     { key: 'adresse', label: 'Adresse', type: 'textarea' },
     { key: 'ustId', label: 'USt-IdNr.', type: 'text' },
   ] },
-  rechnungen: { singular: 'Rechnung', fields: [
-    { key: 'nummer', label: 'Rechnungsnr.', type: 'text', list: true, placeholder: 'wird automatisch vergeben' },
+  rechnungen: { singular: 'Rechnung', label: (r) => r.nummer || 'Rechnung', fields: [
+    { key: 'nummer', label: 'Rechnungsnr.', type: 'text', list: true, strong: true, placeholder: 'wird automatisch vergeben' },
     { key: 'kundeId', label: 'Kunde', type: 'ref', ref: 'kunden', required: true, list: true },
     { key: 'datum', label: 'Rechnungsdatum', type: 'date', required: true, list: true },
     { key: 'faellig', label: 'Fällig am', type: 'date', list: true },
@@ -208,18 +326,18 @@ const COLLECTIONS = {
     { key: 'ustSatz', label: 'USt-Satz %', type: 'select', options: ['19', '7', '0'], default: '19' },
     { key: 'status', label: 'Status', type: 'select', options: ['offen', 'bezahlt', 'storniert'], default: 'offen', list: true },
   ] },
-  ausgaben: { singular: 'Ausgabe', fields: [
+  ausgaben: { singular: 'Beleg', label: (r) => r.lieferant, fields: [
     { key: 'datum', label: 'Belegdatum', type: 'date', required: true, list: true },
-    { key: 'lieferant', label: 'Lieferant', type: 'text', required: true, list: true },
-    { key: 'beschreibung', label: 'Beschreibung', type: 'text', list: true },
+    { key: 'lieferant', label: 'Lieferant', type: 'text', required: true, list: true, strong: true, subKey: 'beschreibung' },
+    { key: 'beschreibung', label: 'Beschreibung', type: 'text' },
     { key: 'netto', label: 'Nettobetrag', type: 'money', required: true, list: true },
     { key: 'ustSatz', label: 'USt-Satz %', type: 'select', options: ['19', '7', '0'], default: '19' },
     { key: 'konto', label: 'Konto (SKR03)', type: 'text', list: true },
-    { key: 'kategorie', label: 'Kategorie', type: 'text' },
+    { key: 'kategorie', label: 'Kategorie', type: 'text', list: true },
   ] },
-  ausschreibungen: { singular: 'Ausschreibung', fields: [
-    { key: 'titel', label: 'Titel', type: 'text', required: true, list: true },
-    { key: 'auftraggeber', label: 'Auftraggeber', type: 'text', list: true },
+  ausschreibungen: { singular: 'Ausschreibung', label: (r) => r.titel, fields: [
+    { key: 'titel', label: 'Titel', type: 'text', required: true, list: true, strong: true, subKey: 'auftraggeber' },
+    { key: 'auftraggeber', label: 'Auftraggeber', type: 'text' },
     { key: 'vergabeplattform', label: 'Vergabeplattform / Link', type: 'text' },
     { key: 'frist', label: 'Angebotsfrist', type: 'date', list: true },
     { key: 'volumen', label: 'Geschätztes Volumen (netto)', type: 'money', list: true },
@@ -227,12 +345,69 @@ const COLLECTIONS = {
     { key: 'status', label: 'Status', type: 'select', options: ['neu', 'in Prüfung', 'Angebot in Arbeit', 'abgegeben', 'gewonnen', 'verloren', 'verworfen'], default: 'neu', list: true },
     { key: 'beschreibung', label: 'Leistungsbeschreibung / Auszug', type: 'textarea' },
   ] },
+  fahrzeuge: { singular: 'Fahrzeug', label: (r) => `${r.kennzeichen}${r.marke ? ` · ${r.marke} ${r.modell || ''}` : ''}`.trim(), fields: [
+    { key: 'kennzeichen', label: 'Kennzeichen', type: 'text', required: true, list: true, strong: true, subKey: 'modellLabel', placeholder: 'z. B. M-AB 1234' },
+    { key: 'marke', label: 'Marke', type: 'text' },
+    { key: 'modell', label: 'Modell', type: 'text' },
+    { key: 'typ', label: 'Fahrzeugart', type: 'select', options: ['PKW', 'Transporter', 'LKW', 'Kleinbus', 'Anhänger', 'Baumaschine', 'Sonstiges'], default: 'PKW', list: true },
+    { key: 'antrieb', label: 'Antrieb', type: 'select', options: ['Diesel', 'Benzin', 'Elektro', 'Plug-in-Hybrid', 'Hybrid', 'Gas', '–'], default: 'Diesel' },
+    { key: 'fahrerId', label: 'Fahrer/in', type: 'ref', ref: 'mitarbeiter', list: true },
+    { key: 'erstzulassung', label: 'Erstzulassung', type: 'date' },
+    { key: 'fin', label: 'FIN (Fahrgestellnummer)', type: 'text' },
+    { key: 'kmStand', label: 'Kilometerstand', type: 'number', list: true },
+    { key: 'finanzierung', label: 'Finanzierung', type: 'select', options: ['Kauf', 'Leasing', 'Finanzierung', 'Miete'], default: 'Kauf' },
+    { key: 'monatsrate', label: 'Leasing-/Monatsrate (netto)', type: 'money' },
+    { key: 'vertragsende', label: 'Leasing-/Vertragsende', type: 'date' },
+    { key: 'huFaellig', label: 'HU/AU fällig', type: 'date' },
+    { key: 'inspektionFaellig', label: 'Inspektion fällig', type: 'date' },
+    { key: 'uvvFaellig', label: 'UVV-Prüfung fällig', type: 'date' },
+    { key: 'versicherung', label: 'Versicherung / Police', type: 'text' },
+    { key: 'status', label: 'Status', type: 'select', options: ['aktiv', 'in Werkstatt', 'stillgelegt', 'verkauft'], default: 'aktiv', list: true },
+    { key: 'notizen', label: 'Notizen', type: 'textarea' },
+  ] },
+  fahrzeugkosten: { singular: 'Fahrzeugkosten', label: (r) => r.art, fields: [
+    { key: 'fahrzeugId', label: 'Fahrzeug', type: 'ref', ref: 'fahrzeuge', required: true, list: true, strong: true },
+    { key: 'datum', label: 'Datum', type: 'date', required: true, list: true },
+    { key: 'art', label: 'Art', type: 'select', options: ['Kraftstoff/Laden', 'Werkstatt/Wartung', 'Reifen', 'Versicherung', 'Kfz-Steuer', 'Leasing/Rate', 'Schaden', 'Maut/Parken', 'Sonstiges'], default: 'Kraftstoff/Laden', list: true },
+    { key: 'betrag', label: 'Betrag (netto)', type: 'money', required: true, list: true },
+    { key: 'km', label: 'Kilometerstand', type: 'number', list: true },
+    { key: 'notiz', label: 'Notiz', type: 'text' },
+  ] },
+  inventar: { singular: 'Gerät', label: (r) => r.bezeichnung, fields: [
+    { key: 'bezeichnung', label: 'Bezeichnung', type: 'text', required: true, list: true, strong: true, subKey: 'seriennummer' },
+    { key: 'kategorie', label: 'Kategorie', type: 'select', options: ['IT & Telefon', 'Werkzeug', 'Maschine', 'Elektrogerät', 'Büroausstattung', 'Messgerät', 'Sonstiges'], default: 'IT & Telefon', list: true },
+    { key: 'hersteller', label: 'Hersteller / Modell', type: 'text' },
+    { key: 'seriennummer', label: 'Serien- / Inventarnummer', type: 'text' },
+    { key: 'standort', label: 'Standort', type: 'text', list: true },
+    { key: 'mitarbeiterId', label: 'Ausgegeben an', type: 'ref', ref: 'mitarbeiter', list: true },
+    { key: 'anschaffung', label: 'Anschaffungsdatum', type: 'date' },
+    { key: 'wert', label: 'Anschaffungswert (netto)', type: 'money', list: true },
+    { key: 'pruefungFaellig', label: 'Nächste Prüfung (DGUV V3 / UVV)', type: 'date' },
+    { key: 'garantieBis', label: 'Garantie bis', type: 'date' },
+    { key: 'status', label: 'Status', type: 'select', options: ['in Betrieb', 'im Lager', 'in Reparatur', 'ausgemustert'], default: 'in Betrieb' },
+    { key: 'notizen', label: 'Notizen', type: 'textarea' },
+  ] },
+  vertraege: { singular: 'Vertrag', label: (r) => r.titel, fields: [
+    { key: 'titel', label: 'Vertrag', type: 'text', required: true, list: true, strong: true, subKey: 'partner' },
+    { key: 'partner', label: 'Vertragspartner', type: 'text' },
+    { key: 'kategorie', label: 'Kategorie', type: 'select', options: ['Miete & Immobilien', 'Versicherung', 'Leasing', 'Software & IT', 'Telekommunikation', 'Energie', 'Wartung & Service', 'Dienstleistung', 'Sonstiges'], default: 'Sonstiges', list: true },
+    { key: 'vertragsnummer', label: 'Vertragsnummer', type: 'text' },
+    { key: 'beginn', label: 'Beginn', type: 'date' },
+    { key: 'ende', label: 'Laufzeit bis', type: 'date', list: true },
+    { key: 'kuendigungsfrist', label: 'Kündigungsfrist', type: 'text', placeholder: 'z. B. 3 Monate zum Laufzeitende' },
+    { key: 'kuendigenBis', label: 'Spätestens kündigen bis', type: 'date', list: true },
+    { key: 'kosten', label: 'Kosten (netto)', type: 'money', list: true },
+    { key: 'intervall', label: 'Zahlungsintervall', type: 'select', options: ['monatlich', 'quartalsweise', 'halbjährlich', 'jährlich', 'einmalig'], default: 'monatlich' },
+    { key: 'status', label: 'Status', type: 'select', options: ['aktiv', 'gekündigt', 'ausgelaufen'], default: 'aktiv', list: true },
+    { key: 'notizen', label: 'Notizen', type: 'textarea' },
+  ] },
 };
 
 const FIRMA_FIELDS = [
   { key: 'name', label: 'Firmenname', type: 'text' },
   { key: 'rechtsform', label: 'Rechtsform', type: 'text' },
   { key: 'branche', label: 'Branche', type: 'text' },
+  { key: 'inhaber', label: 'Geschäftsführung', type: 'text' },
   { key: 'adresse', label: 'Adresse', type: 'textarea' },
   { key: 'leistungen', label: 'Kernleistungen & Referenzen', type: 'textarea' },
   { key: 'zertifikate', label: 'Zertifikate (ISO, Präqualifikation …)', type: 'textarea' },
@@ -268,6 +443,8 @@ const today = () => iso(new Date());
 const addDays = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return iso(d); };
 const isOverdue = (r) => r.status === 'offen' && Boolean(r.faellig) && r.faellig < today();
 const tageBis = (d) => (d ? Math.round((new Date(`${d}T00:00:00`) - new Date(`${today()}T00:00:00`)) / 86400000) : null);
+const MONATLICH = { monatlich: 1, quartalsweise: 1 / 3, halbjährlich: 1 / 6, jährlich: 1 / 12, einmalig: 0 };
+const AKTIVE_FAHRZEUGE = () => S.data.fahrzeuge.filter((f) => !['verkauft', 'stillgelegt'].includes(f.status));
 
 function arbeitstage(von, bis) {
   if (!von || !bis || bis < von) return 0;
@@ -302,6 +479,44 @@ function ustUebersicht(jahr) {
   return m.map((x) => ({ ...x, umsatzNetto: round2(x.umsatzNetto), umsatzsteuer: round2(x.umsatzsteuer), ausgabenNetto: round2(x.ausgabenNetto), vorsteuer: round2(x.vorsteuer), zahllast: round2(x.umsatzsteuer - x.vorsteuer) }));
 }
 
+// Umsatz und Kosten (Belege + Fahrzeugkosten) der letzten n Monate, netto.
+function verlauf(n = 6) {
+  const out = [], now = new Date();
+  for (let i = n - 1; i >= 0; i--) {
+    const m = new Date(now.getFullYear(), now.getMonth() - i, 1), key = iso(m).slice(0, 7);
+    const umsatz = S.data.rechnungen.filter((r) => r.status !== 'storniert' && String(r.datum).startsWith(key)).reduce((s, r) => s + (Number(r.netto) || 0), 0);
+    const kosten = S.data.ausgaben.filter((a) => String(a.datum).startsWith(key)).reduce((s, a) => s + (Number(a.netto) || 0), 0)
+      + S.data.fahrzeugkosten.filter((k) => String(k.datum).startsWith(key)).reduce((s, k) => s + (Number(k.betrag) || 0), 0);
+    out.push({ key, label: m.toLocaleDateString('de-DE', { month: 'short' }).replace('.', ''), umsatz: round2(umsatz), kosten: round2(kosten) });
+  }
+  return out;
+}
+
+function fixkostenMonat() {
+  const vertraege = S.data.vertraege.filter((v) => v.status === 'aktiv').reduce((s, v) => s + (Number(v.kosten) || 0) * (MONATLICH[v.intervall] ?? 1), 0);
+  const fahrzeuge = AKTIVE_FAHRZEUGE().reduce((s, f) => s + (Number(f.monatsrate) || 0), 0);
+  const personal = S.data.mitarbeiter.filter((m) => m.status === 'aktiv').reduce((s, m) => s + (Number(m.bruttogehalt) || 0), 0);
+  return { vertraege: round2(vertraege), fahrzeuge: round2(fahrzeuge), personal: round2(personal), summe: round2(vertraege + fahrzeuge + personal) };
+}
+
+// Alle anstehenden und überfälligen Termine aus allen Modulen.
+function fristen(tage = 60) {
+  const grenze = addDays(tage), out = [];
+  const add = (datum, titel, modul, ico, page) => { if (datum && datum <= grenze) out.push({ datum, titel, modul, ico, page }); };
+  for (const f of AKTIVE_FAHRZEUGE()) {
+    add(f.huFaellig, `HU/AU ${f.kennzeichen}`, 'Fuhrpark', 'car', 'fuhrpark');
+    add(f.inspektionFaellig, `Inspektion ${f.kennzeichen}`, 'Fuhrpark', 'wrench', 'fuhrpark');
+    add(f.uvvFaellig, `UVV-Prüfung ${f.kennzeichen}`, 'Fuhrpark', 'car', 'fuhrpark');
+    add(f.vertragsende, `${f.finanzierung === 'Leasing' ? 'Leasingende' : 'Vertragsende'} ${f.kennzeichen}`, 'Fuhrpark', 'car', 'fuhrpark');
+  }
+  for (const m of S.data.mitarbeiter.filter((x) => x.status === 'aktiv')) add(m.fuehrerscheinkontrolle, `Führerscheinkontrolle ${m.name}`, 'Personal', 'people', 'personal');
+  for (const g of S.data.inventar.filter((x) => x.status !== 'ausgemustert')) add(g.pruefungFaellig, `Prüfung ${g.bezeichnung}`, 'Inventar', 'box', 'inventar');
+  for (const v of S.data.vertraege.filter((x) => x.status === 'aktiv')) add(v.kuendigenBis, `Kündigungsfrist ${v.titel}`, 'Verträge', 'contract', 'vertraege');
+  for (const t of S.data.ausschreibungen.filter((x) => ['neu', 'in Prüfung', 'Angebot in Arbeit'].includes(x.status))) add(t.frist, `Angebotsfrist ${t.titel}`, 'Ausschreibung', 'tender', 'ausschreibungen');
+  for (const r of S.data.rechnungen.filter((x) => x.status === 'offen')) add(r.faellig, `Zahlung ${r.nummer}`, 'Forderung', 'receipt', 'finanzen');
+  return out.sort((a, b) => a.datum.localeCompare(b.datum));
+}
+
 function nextInvoiceNumber(datum) {
   const prefix = `RE-${(datum || today()).slice(0, 4)}-`;
   const max = S.data.rechnungen.map((r) => r.nummer).filter((n) => n && n.startsWith(prefix)).reduce((mx, n) => Math.max(mx, Number(n.slice(prefix.length)) || 0), 0);
@@ -310,65 +525,47 @@ function nextInvoiceNumber(datum) {
 
 // ======================= Speicher (Cloud-Datenbank oder Gerät) =======================
 
-const S = {
-  mode: 'local',
-  db: null,
-  data: Object.fromEntries(Object.keys(COLLECTIONS).map((c) => [c, []])),
-  firma: {},
-  writable: true,
-};
+const S = { mode: 'local', db: null, data: Object.fromEntries(Object.keys(COLLECTIONS).map((c) => [c, []])), firma: {} };
 const LOCAL_KEY = 'mittelstand-suite-v1';
 const clean = (o) => JSON.parse(JSON.stringify(o));
+const hasClaude = () => Boolean(window.claude && window.claude.use);
 
 function loadLocal() {
-  try {
-    const raw = localStorage.getItem(LOCAL_KEY);
-    if (raw) { const d = JSON.parse(raw); Object.assign(S.data, d.data || {}); S.firma = d.firma || {}; }
-  } catch { /* Speicher nicht verfügbar */ }
+  try { const raw = localStorage.getItem(LOCAL_KEY); if (raw) { const d = JSON.parse(raw); for (const c of Object.keys(S.data)) S.data[c] = (d.data && d.data[c]) || []; S.firma = d.firma || {}; } } catch { /* nicht verfügbar */ }
 }
 function saveLocal() {
   try { localStorage.setItem(LOCAL_KEY, JSON.stringify({ data: S.data, firma: S.firma })); } catch { toast('Speichern auf diesem Gerät nicht möglich (privater Modus?)', true); }
 }
 
 let renderTimer;
-function scheduleRender() { clearTimeout(renderTimer); renderTimer = setTimeout(() => render(true), 60); }
+function scheduleRender() { clearTimeout(renderTimer); renderTimer = setTimeout(() => render(true), 80); }
 
 async function initStore() {
-  const db = window.claude && window.claude.use ? await window.claude.use('db').catch(() => null) : null;
-  if (!db) {
-    loadLocal();
-    $('#status').innerHTML = 'Speicherort: <b>dieses Gerät</b><br>Für Cloud-Speicher in der Claude-App öffnen.';
-    return;
-  }
+  const db = hasClaude() ? await window.claude.use('db').catch(() => null) : null;
+  if (!db) { loadLocal(); return; }
   S.mode = 'db'; S.db = db;
   let pending = Object.keys(COLLECTIONS).length + 1;
   await new Promise((resolve) => {
     const done = () => { if (--pending === 0) resolve(); };
-    for (const col of Object.keys(COLLECTIONS)) {
+    const watch = (subscribe) => {
       let first = true;
-      db.collection(col).onSnapshot((snap) => {
-        S.data[col] = snap.docs.map((d) => ({ ...d.data(), id: d.id }));
-        if (first) { first = false; done(); } else scheduleRender();
-      }, (e) => { if (first) { first = false; done(); } if (e.code === 'revoked') toast('Zugriff auf die Daten wurde entzogen.', true); });
+      subscribe(() => { if (first) { first = false; done(); } else scheduleRender(); }, () => { if (first) { first = false; done(); } });
+    };
+    for (const col of Object.keys(COLLECTIONS)) {
+      watch((ok, fail) => db.collection(col).onSnapshot((snap) => { S.data[col] = snap.docs.map((d) => ({ ...d.data(), id: d.id })); ok(); }, (e) => { fail(); if (e.code === 'revoked') toast('Der Zugriff auf die Daten wurde entzogen.', true); }));
     }
-    let first = true;
-    db.doc('einstellungen/firma').onSnapshot((snap) => {
-      S.firma = snap.exists ? { ...snap.data() } : {};
-      $('#firmenname').textContent = S.firma.name || '';
-      if (first) { first = false; done(); } else scheduleRender();
-    }, () => { if (first) { first = false; done(); } });
+    watch((ok, fail) => db.doc('einstellungen/firma').onSnapshot((snap) => { S.firma = snap.exists ? { ...snap.data() } : {}; ok(); }, fail));
     setTimeout(resolve, 8000);
   });
-  $('#status').innerHTML = 'Speicherort: <b>Claude Cloud</b><br>Auf allen Geräten verfügbar.';
 }
 
 async function saveRecord(col, rec) {
   if (S.mode === 'db') {
     const body = clean(rec); delete body.id;
     try { await S.db.collection(col).doc(rec.id).set(body); }
-    catch (e) { throw new Error(e.code === 'invalid_argument' ? 'Keine Schreibrechte für diese Daten.' : e.code === 'quota_exceeded' ? 'Speicher voll – bitte alte Einträge löschen.' : 'Speichern fehlgeschlagen. Bitte erneut versuchen.'); }
+    catch (e) { throw new Error(e.code === 'invalid_argument' ? 'Keine Schreibrechte für diese Daten.' : e.code === 'quota_exceeded' ? 'Der Speicher ist voll. Bitte alte Einträge löschen.' : 'Speichern fehlgeschlagen. Bitte erneut versuchen.'); }
   }
-  const list = S.data[col]; const i = list.findIndex((r) => r.id === rec.id);
+  const list = S.data[col], i = list.findIndex((r) => r.id === rec.id);
   if (i === -1) list.push(rec); else list[i] = rec;
   if (S.mode === 'local') saveLocal();
 }
@@ -386,44 +583,40 @@ const newId = () => (crypto.randomUUID ? crypto.randomUUID() : `${Date.now().toS
 
 // ======================= KI (Claude über das Konto des Nutzers) =======================
 
-const samplePromise = window.claude && window.claude.use ? window.claude.use('sample').catch(() => null) : Promise.resolve(null);
-const downloadsPromise = window.claude && window.claude.use ? window.claude.use('downloads').catch(() => null) : Promise.resolve(null);
+const samplePromise = hasClaude() ? window.claude.use('sample').catch(() => null) : Promise.resolve(null);
+const downloadsPromise = hasClaude() ? window.claude.use('downloads').catch(() => null) : Promise.resolve(null);
 
 const KI_FEHLER = {
-  not_granted: 'Die KI wurde für diese App nicht freigegeben. Erlauben Sie den Zugriff, wenn Sie gefragt werden.',
+  not_granted: 'Die KI wurde für diese App nicht freigegeben. Erlauben Sie den Zugriff, wenn Claude danach fragt.',
   sampling_disabled: 'Claude ist für dieses Konto nicht verfügbar.',
   rate_limited: 'Zu viele KI-Anfragen. Bitte in einigen Minuten erneut versuchen.',
   session_expired: 'Bitte melden Sie sich bei Claude erneut an.',
-  refused: 'Die KI hat diese Anfrage abgelehnt. Bitte anders formulieren.',
+  refused: 'Claude hat diese Anfrage abgelehnt. Bitte anders formulieren.',
   image_rejected: 'Das Bild konnte nicht verarbeitet werden. Bitte ein anderes Foto (JPG/PNG) verwenden.',
-  images_unavailable: 'Bilder können in dieser Ansicht nicht an die KI gesendet werden. Bitte Text eingeben.',
-  prompt_too_large: 'Das Dokument ist zu lang. Bitte einen Auszug einfügen.',
-  invalid_json: 'Die KI-Antwort war unvollständig. Bitte erneut versuchen.',
-  unavailable: 'Die KI ist nur verfügbar, wenn die App in Claude geöffnet ist.',
+  images_unavailable: 'Fotos können in dieser Ansicht nicht an Claude gesendet werden. Bitte den Inhalt als Text eingeben.',
+  prompt_too_large: 'Das Dokument ist zu lang. Bitte einen Auszug verwenden.',
+  invalid_json: 'Die Antwort von Claude war unvollständig. Bitte erneut versuchen.',
+  unavailable: 'Die KI ist verfügbar, wenn die App in Claude geöffnet ist.',
 };
-const kiFehler = (e) => KI_FEHLER[e && e.code] || (e && e.code === 'cancelled' ? 'Abgebrochen.' : 'Die KI ist gerade nicht erreichbar. Bitte erneut versuchen.');
-
-async function ki() {
-  const s = await samplePromise;
-  if (!s) throw { code: 'unavailable' };
-  return s;
-}
+const kiFehler = (e) => KI_FEHLER[e && e.code] || (e && e.code === 'cancelled' ? 'Abgebrochen.' : 'Claude ist gerade nicht erreichbar. Bitte erneut versuchen.');
+async function ki() { const s = await samplePromise; if (!s) throw { code: 'unavailable' }; return s; }
 
 const GRUNDREGELN = `Du bist der KI-Assistent der "Mittelstand Suite", einer Unternehmenssoftware für kleine und mittlere Unternehmen in Deutschland.
 Antworte immer auf Deutsch, sachlich, präzise und praxisnah. Nutze die mitgegebenen Unternehmensdaten.
-Bei steuerlichen, arbeitsrechtlichen oder vergaberechtlichen Fragen gibst du fundierte Orientierung nach deutschem Recht (HGB, UStG, AO, BGB, ArbZG, BUrlG, GewO, GWB, VgV, UVgO, VOB/A) und weist darauf hin, wenn eine verbindliche Prüfung durch Steuerberater, Fachanwalt oder Vergabestelle nötig ist.
+Bei steuerlichen, arbeitsrechtlichen, vergaberechtlichen oder fuhrparkrechtlichen Fragen gibst du fundierte Orientierung nach deutschem Recht (HGB, UStG, EStG, AO, BGB, ArbZG, BUrlG, GewO, GWB, VgV, UVgO, VOB/A, StVZO, DGUV) und weist darauf hin, wenn eine verbindliche Prüfung durch Steuerberater, Fachanwalt oder Behörde nötig ist.
 Erfinde keine Fakten. Fehlende Angaben kennzeichnest du als Platzhalter in [eckigen Klammern].`;
+const OHNE_MD = 'Reiner Text ohne Markdown-Zeichen (keine Sternchen, keine Rauten).';
 
 const euroTxt = (n) => `${Number(n || 0).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
 function firmaText() {
   const z = FIRMA_FIELDS.filter((f) => S.firma[f.key]).map((f) => `${f.label}: ${S.firma[f.key]}`);
   return z.length ? z.join('\n') : '(kein Firmenprofil hinterlegt)';
 }
-const ref = (col, id) => (S.data[col].find((r) => r.id === id) || {}).name || '–';
+function ref(col, id) { const r = S.data[col].find((x) => x.id === id); return r ? COLLECTIONS[col].label(r) : '–'; }
 
 function lagebericht() {
-  const d = S.data;
-  const offen = d.rechnungen.filter((r) => r.status === 'offen');
+  const d = S.data, offen = d.rechnungen.filter((r) => r.status === 'offen'), fk = fixkostenMonat();
+  const kostenJe = (f) => d.fahrzeugkosten.filter((k) => k.fahrzeugId === f.id).reduce((s, k) => s + (Number(k.betrag) || 0), 0);
   return `Stichtag: ${today()}
 
 FIRMENPROFIL
@@ -438,18 +631,30 @@ ${d.abwesenheiten.map((a) => `- ${ref('mitarbeiter', a.mitarbeiterId)}: ${a.art}
 OFFENE RECHNUNGEN (Summe brutto ${euroTxt(offen.reduce((s, r) => s + brutto(r), 0))})
 ${offen.map((r) => `- ${r.nummer} an ${ref('kunden', r.kundeId)}: ${euroTxt(brutto(r))} brutto, fällig ${r.faellig || '-'}${isOverdue(r) ? ' – ÜBERFÄLLIG' : ''}`).join('\n') || '-'}
 
-AUSGABEN (letzte 30)
-${d.ausgaben.slice().sort((a, b) => String(b.datum).localeCompare(a.datum)).slice(0, 30).map((a) => `- ${a.datum} ${a.lieferant}: ${euroTxt(a.netto)} netto, Konto ${a.konto || '-'}`).join('\n') || '-'}
+UMSATZ/KOSTEN LETZTE 6 MONATE (netto)
+${verlauf().map((m) => `- ${m.key}: Umsatz ${euroTxt(m.umsatz)}, Kosten ${euroTxt(m.kosten)}`).join('\n')}
+
+FIXKOSTEN PRO MONAT: Personal ${euroTxt(fk.personal)}, Verträge ${euroTxt(fk.vertraege)}, Fahrzeugraten ${euroTxt(fk.fahrzeuge)}
+
+FUHRPARK
+${d.fahrzeuge.map((f) => `- ${f.kennzeichen} ${f.marke || ''} ${f.modell || ''}, ${f.typ}, ${f.antrieb}, Fahrer ${ref('mitarbeiter', f.fahrerId)}, ${f.kmStand || '?'} km, ${f.finanzierung}${f.monatsrate ? ` ${euroTxt(f.monatsrate)}/Monat` : ''}, HU ${f.huFaellig || '-'}, Inspektion ${f.inspektionFaellig || '-'}, erfasste Kosten ${euroTxt(kostenJe(f))}, Status ${f.status}`).join('\n') || '-'}
+
+INVENTAR (${d.inventar.length} Geräte)
+${d.inventar.slice(0, 40).map((g) => `- ${g.bezeichnung} (${g.kategorie}), ${g.standort || '-'}, Prüfung ${g.pruefungFaellig || '-'}, ${g.status}`).join('\n') || '-'}
+
+VERTRÄGE
+${d.vertraege.map((v) => `- ${v.titel} (${v.partner || '-'}, ${v.kategorie}), ${euroTxt(v.kosten)} ${v.intervall}, Laufzeit bis ${v.ende || '-'}, kündigen bis ${v.kuendigenBis || '-'}, ${v.status}`).join('\n') || '-'}
 
 AUSSCHREIBUNGEN
-${d.ausschreibungen.map((t) => `- ${t.titel} (${t.auftraggeber || '-'}), Frist ${t.frist || '-'}, Volumen ${euroTxt(t.volumen)}, Status ${t.status}${t.analyse ? `, KI-Empfehlung ${t.analyse.empfehlung} (${t.analyse.passung_score}/100)` : ''}`).join('\n') || '-'}`;
+${d.ausschreibungen.map((t) => `- ${t.titel} (${t.auftraggeber || '-'}), Frist ${t.frist || '-'}, Volumen ${euroTxt(t.volumen)}, Status ${t.status}${t.analyse ? `, KI-Empfehlung ${t.analyse.empfehlung} (${t.analyse.passung_score}/100)` : ''}`).join('\n') || '-'}
+
+ANSTEHENDE UND ÜBERFÄLLIGE FRISTEN (60 Tage)
+${fristen().map((f) => `- ${f.datum}: ${f.titel}`).join('\n') || '-'}`;
 }
 
-// PDF lesen: Text extrahieren; bei gescannten PDFs Seiten als Bilder rendern.
+// PDF lesen: Text extrahieren; gescannte PDFs werden als Seitenbilder übergeben.
 let pdfjsPromise;
-function loadScript(src) {
-  return new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = () => rej(new Error('PDF-Leser konnte nicht geladen werden.')); document.head.append(s); });
-}
+function loadScript(src) { return new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = () => rej(new Error('Der PDF-Leser konnte nicht geladen werden.')); document.head.append(s); }); }
 function pdfjs() {
   pdfjsPromise ??= (async () => {
     await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js');
@@ -463,17 +668,14 @@ async function readPdf(file, maxImages) {
   const pdf = await lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false }).promise;
   let text = '';
   for (let i = 1; i <= Math.min(pdf.numPages, 60); i++) {
-    const page = await pdf.getPage(i);
-    const c = await page.getTextContent();
+    const c = await (await pdf.getPage(i)).getTextContent();
     text += `\n--- Seite ${i} ---\n` + c.items.map((it) => it.str).join(' ');
     if (text.length > 180000) break;
   }
   if (text.replace(/--- Seite \d+ ---|\s/g, '').length > 200 || !maxImages) return { text: text.slice(0, 180000), images: [] };
   const images = [];
   for (let i = 1; i <= Math.min(pdf.numPages, maxImages); i++) {
-    const page = await pdf.getPage(i);
-    const vp = page.getViewport({ scale: 1.6 });
-    const canvas = document.createElement('canvas');
+    const page = await pdf.getPage(i), vp = page.getViewport({ scale: 1.6 }), canvas = document.createElement('canvas');
     canvas.width = vp.width; canvas.height = vp.height;
     await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
     images.push(await new Promise((r) => canvas.toBlob(r, 'image/jpeg', 0.85)));
@@ -482,14 +684,9 @@ async function readPdf(file, maxImages) {
 }
 async function dokumentVorbereiten(file) {
   if (!file) return { text: '', images: [] };
-  const s = await ki();
-  const limits = await s.limits().catch(() => null);
-  const maxImg = limits && limits.images ? limits.images.maxCount : 0;
+  const s = await ki(), limits = await s.limits().catch(() => null), maxImg = limits && limits.images ? limits.images.maxCount : 0;
   if (file.type === 'application/pdf' || /\.pdf$/i.test(file.name)) return readPdf(file, Math.min(maxImg, 5));
-  if (file.type.startsWith('image/')) {
-    if (!maxImg) throw { code: 'images_unavailable' };
-    return { text: '', images: [file] };
-  }
+  if (file.type.startsWith('image/')) { if (!maxImg) throw { code: 'images_unavailable' }; return { text: '', images: [file] }; }
   throw new Error('Bitte ein PDF oder ein Foto (JPG, PNG) wählen.');
 }
 
@@ -498,17 +695,29 @@ async function dokumentVorbereiten(file) {
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const euro = (n) => Number(n || 0).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
-const datum = (d) => (d ? new Date(`${d}T00:00:00`).toLocaleDateString('de-DE') : '–');
+const euroK = (n) => (Math.abs(n) >= 10000 ? `${(n / 1000).toLocaleString('de-DE', { maximumFractionDigits: 0 })} T€` : euro(n));
+const datum = (d) => (d ? new Date(`${d}T00:00:00`).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '–');
+// Liest Zahlen wie "18.400", "1.234,50" oder "70.76" korrekt.
+function parseZahl(v) {
+  if (typeof v === 'number') return v;
+  let t = String(v).replace(/[^\d,.-]/g, '');
+  if (/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(t)) t = t.replace(/\./g, '');
+  return Number(t.replace(',', '.'));
+}
+const zahl = (n) => (n === '' || n == null ? '–' : Number(n).toLocaleString('de-DE'));
 const dialog = $('#dialog');
 
 let toastT;
-function toast(msg, err = false) {
-  const t = $('#toast'); t.textContent = msg; t.className = `show${err ? ' err' : ''}`;
-  clearTimeout(toastT); toastT = setTimeout(() => { t.className = ''; }, err ? 6000 : 2500);
-}
+function toast(msg, err = false) { const t = $('#toast'); t.textContent = msg; t.className = `show${err ? ' err' : ''}`; clearTimeout(toastT); toastT = setTimeout(() => { t.className = ''; }, err ? 6000 : 2400); }
 
-const PILL = { bezahlt: 'ok', genehmigt: 'ok', aktiv: 'ok', gewonnen: 'ok', Go: 'ok', ja: 'ok', offen: 'warn', beantragt: 'warn', 'in Prüfung': 'warn', 'Angebot in Arbeit': 'warn', 'Prüfen': 'warn', unklar: 'warn', 'überfällig': 'bad', abgelehnt: 'bad', verloren: 'bad', storniert: 'bad', 'No-Go': 'bad', nein: 'bad', ausgeschieden: 'bad', verworfen: 'bad' };
-const pill = (t, cls) => `<span class="pill ${cls || PILL[t] || ''}">${esc(t)}</span>`;
+const PILL = { bezahlt: 'ok', genehmigt: 'ok', aktiv: 'ok', gewonnen: 'ok', Go: 'ok', ja: 'ok', 'in Betrieb': 'ok', offen: 'warn', beantragt: 'warn', 'in Prüfung': 'warn', 'Angebot in Arbeit': 'warn', 'Prüfen': 'warn', unklar: 'warn', 'in Werkstatt': 'warn', 'in Reparatur': 'warn', 'gekündigt': 'warn', 'überfällig': 'bad', abgelehnt: 'bad', verloren: 'bad', storniert: 'bad', 'No-Go': 'bad', nein: 'bad', ausgeschieden: 'bad', verworfen: 'bad', ausgemustert: 'bad' };
+const pill = (t, cls) => `<span class="pill ${cls ?? PILL[t] ?? ''}">${esc(t)}</span>`;
+function fristPill(d) {
+  const n = tageBis(d); if (n == null) return '';
+  if (n < 0) return pill(`${-n} T. überfällig`, 'bad');
+  if (n === 0) return pill('heute', 'bad');
+  return pill(`in ${n} T.`, n <= 14 ? 'bad' : n <= 30 ? 'warn' : '');
+}
 
 function markdown(text) {
   const inline = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
@@ -525,64 +734,64 @@ function markdown(text) {
   return `<div class="md">${out.join('')}</div>`;
 }
 
-function openDialog(html, onMount, wide = false) {
-  dialog.className = wide ? 'wide' : '';
-  $('#dlg').innerHTML = html;
-  if (!dialog.open) dialog.showModal();
-  if (onMount) onMount($('#dlg'));
-}
-dialog.addEventListener('click', (e) => { if (e.target === dialog || e.target.closest('[data-close]')) { kiAbort?.abort(); dialog.close(); } });
-
 let kiAbort = null;
+// Öffnet ein Sheet: Kopf mit Titel, scrollbarer Inhalt, Fußleiste mit Aktionen.
+function sheet({ title, eyebrow = '', body, foot = '', wide = false, onMount }) {
+  if (kiAbort) kiAbort.abort();
+  dialog.className = wide ? 'wide' : '';
+  dialog.innerHTML = `<div class="sheet">
+    <div class="sheet-head"><div>${eyebrow ? `<p class="eyebrow">${eyebrow}</p>` : ''}<h2>${esc(title)}</h2></div><button class="x" data-close aria-label="Schließen">${icon('close')}</button></div>
+    <div class="sheet-body">${body}</div>
+    ${foot ? `<div class="sheet-foot">${foot}</div>` : ''}</div>`;
+  if (!dialog.open) dialog.showModal();
+  if (onMount) onMount(dialog);
+}
+dialog.addEventListener('click', (e) => { if (e.target === dialog || e.target.closest('[data-close]')) { if (kiAbort) kiAbort.abort(); dialog.close(); } });
+dialog.addEventListener('cancel', () => { if (kiAbort) kiAbort.abort(); });
+
 // Führt eine KI-Aktion mit Fortschrittsanzeige im Button aus.
 async function mitKi(button, fn) {
   const label = button.innerHTML;
-  button.disabled = true; button.innerHTML = '<span class="spin"></span> KI denkt nach …';
-  kiAbort = new AbortController();
-  try { return await fn(kiAbort.signal); }
+  button.disabled = true; button.innerHTML = '<span class="spin"></span> Claude arbeitet …';
+  const ctl = new AbortController(); kiAbort = ctl;
+  try { return await fn(ctl.signal); }
   catch (e) { if (!e || e.code !== 'cancelled') toast(e instanceof Error ? e.message : kiFehler(e), true); return undefined; }
-  finally { button.disabled = false; button.innerHTML = label; kiAbort = null; }
+  finally { if (button.isConnected) { button.disabled = false; button.innerHTML = label; } if (kiAbort === ctl) kiAbort = null; }
 }
 
 async function kopieren(text, area) {
   try { await navigator.clipboard.writeText(text); toast('In die Zwischenablage kopiert'); }
   catch { const r = document.createRange(); r.selectNodeContents(area); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast('Text markiert – jetzt „Kopieren“ wählen'); }
 }
+const dateiname = (t) => t.replace(/[^\wäöüÄÖÜß-]+/g, '_').replace(/_+/g, '_');
 
-function zeigeText(title, text) {
-  openDialog(`<h2>${esc(title)}</h2><div class="output" id="out">${esc(text)}</div>
-    <div class="dlg-actions"><button class="btn" id="copy">Kopieren</button><button class="btn" id="save">Als Datei sichern</button><button class="btn primary" data-close>Schließen</button></div>`, (r) => {
-    $('#copy', r).onclick = () => kopieren(text, $('#out', r));
-    $('#save', r).onclick = () => speichereDatei(`${title.replace(/[^\wäöüÄÖÜß-]+/g, '_')}.txt`, text);
-  });
-}
-
-// Streamt eine KI-Antwort in einen Dialog.
-async function kiTextDialog(title, prompt, opts = {}) {
-  openDialog(`<h2>${esc(title)}</h2><div class="output" id="out"><span class="thinking"><span class="spin"></span> Claude denkt nach …</span></div>
-    <div class="dlg-actions"><button class="btn" id="stop">Stopp</button><button class="btn" id="copy" hidden>Kopieren</button><button class="btn" id="save" hidden>Als Datei sichern</button><button class="btn primary" data-close>Schließen</button></div>`);
-  const r = $('#dlg'), out = $('#out', r);
-  const ctl = new AbortController(); kiAbort = ctl;
-  $('#stop', r).onclick = () => ctl.abort();
+// Streamt eine Antwort von Claude in ein Sheet.
+async function kiTextSheet(title, prompt, opts = {}) {
+  sheet({ title, eyebrow: `${icon('spark')} Entwurf von Claude`, wide: opts.wide,
+    body: `<div class="output" id="out"><span class="thinking"><span class="spin"></span> Claude denkt nach …</span></div><p class="note" style="margin-top:12px">KI-Entwürfe vor der Verwendung bitte prüfen.</p>`,
+    foot: `<button class="btn" id="stop">Stopp</button><span class="grow"></span><button class="btn" id="copy" hidden>Kopieren</button><button class="btn" id="save" hidden>${icon('download')} Als Datei</button><button class="btn primary" data-close>Fertig</button>` });
+  const out = $('#out', dialog), ctl = new AbortController(); kiAbort = ctl;
+  $('#stop', dialog).onclick = () => ctl.abort();
   try {
     const s = await ki();
-    const { text, truncated } = await s(prompt, { signal: ctl.signal, modelTier: opts.tier || 'default', cache: false, onText: ({ text }) => { out.textContent = text; } });
+    const { text, truncated } = await s(prompt, { signal: ctl.signal, modelTier: opts.tier || 'default', cache: false, onText: ({ text: t }) => { out.textContent = t; } });
     out.textContent = text + (truncated ? '\n\n[… gekürzt]' : '');
-    $('#stop', r).hidden = true; $('#copy', r).hidden = false; $('#save', r).hidden = false;
-    $('#copy', r).onclick = () => kopieren(text, out);
-    $('#save', r).onclick = () => speichereDatei(`${title.replace(/[^\wäöüÄÖÜß-]+/g, '_')}.txt`, text);
+    $('#stop', dialog).hidden = true; $('#copy', dialog).hidden = false; $('#save', dialog).hidden = false;
+    $('#copy', dialog).onclick = () => kopieren(text, out);
+    $('#save', dialog).onclick = () => speichereDatei(`${dateiname(title)}.txt`, text);
   } catch (e) {
-    $('#stop', r).hidden = true;
+    if (!out.isConnected) return;
+    const stop = $('#stop', dialog); if (stop) stop.hidden = true;
     if (e && e.text && e.code !== 'refused') out.textContent = e.text + '\n\n[unterbrochen]';
-    else out.innerHTML = `${pill('Fehler', 'bad')} ${esc(kiFehler(e))}`;
-  } finally { kiAbort = null; }
+    else out.innerHTML = `${pill('Hinweis', 'bad')} ${esc(kiFehler(e))}`;
+  } finally { if (kiAbort === ctl) kiAbort = null; }
 }
 
 async function speichereDatei(filename, data) {
   const dl = await downloadsPromise;
   if (!dl) { toast('Datei-Speichern ist hier nicht verfügbar – bitte „Kopieren“ nutzen.', true); return; }
-  try { const res = await dl.save({ filename, data }); if (res.status === 'saved') toast('Datei gespeichert'); }
-  catch (e) { if (e.code !== 'cancelled' && e.code !== 'declined') toast('Die Datei konnte nicht gespeichert werden.', true); }
+  try { const res = await dl.save({ filename, data }); if (res.status === 'saved') toast('Datei gesichert'); }
+  catch (e) { if (!['cancelled', 'declined'].includes(e && e.code)) toast('Die Datei konnte nicht gesichert werden.', true); }
 }
 
 function csv(col) {
@@ -601,32 +810,41 @@ function fieldInput(f, value) {
   let input;
   if (f.type === 'textarea') input = `<textarea ${a}>${esc(v)}</textarea>`;
   else if (f.type === 'select') input = `<select ${a}>${f.options.map((o) => `<option${o === String(v) ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select>`;
-  else if (f.type === 'ref') input = `<select ${a}><option value="">– bitte wählen –</option>${S.data[f.ref].slice().sort((x, y) => String(x.name).localeCompare(y.name)).map((r) => `<option value="${esc(r.id)}"${r.id === v ? ' selected' : ''}>${esc(r.name)}</option>`).join('')}</select>`;
-  else {
+  else if (f.type === 'ref') {
+    const opts = S.data[f.ref].map((r) => ({ id: r.id, l: COLLECTIONS[f.ref].label(r) })).sort((x, y) => String(x.l).localeCompare(y.l));
+    input = `<select ${a}><option value="">${f.required ? '– bitte wählen –' : '– keine Zuordnung –'}</option>${opts.map((o) => `<option value="${esc(o.id)}"${o.id === v ? ' selected' : ''}>${esc(o.l)}</option>`).join('')}</select>`;
+  } else {
     const t = { money: 'number', number: 'number', date: 'date', email: 'email' }[f.type] || 'text';
-    input = `<input type="${t}"${t === 'number' ? ' step="0.01" inputmode="decimal"' : ''} ${a} value="${esc(v)}">`;
+    input = `<input type="${t}"${t === 'number' ? ' step="any" inputmode="decimal"' : ''} ${a} value="${esc(v)}">`;
   }
   return `<div class="${f.type === 'textarea' ? 'full' : ''}"><label for="f-${f.key}">${esc(f.label)}${f.required ? ' *' : ''}</label>${input}</div>`;
 }
 
 function openForm(col, record, preset = {}, hinweis = '') {
-  const def = COLLECTIONS[col];
-  const values = { ...preset, ...(record || {}) };
-  openDialog(`<h2>${record ? `${esc(def.singular)} bearbeiten` : `${esc(def.singular)} anlegen`}</h2>
-    ${hinweis ? `<p class="output" style="margin:0 0 14px">${esc(hinweis)}</p>` : ''}
-    <form class="form" id="crud">${def.fields.map((f) => fieldInput(f, values[f.key])).join('')}</form>
-    <div class="dlg-actions"><button class="btn" data-close>Abbrechen</button><button class="btn primary" id="save">Speichern</button></div>`, (r) => {
-    $('#save', r).onclick = async () => {
-      const form = $('#crud', r);
-      if (!form.reportValidity()) return;
-      const { value, error } = sanitize(col, Object.fromEntries(new FormData(form).entries()));
-      if (error) return toast(error, true);
-      if (col === 'rechnungen' && !value.nummer) value.nummer = (record && record.nummer) || nextInvoiceNumber(value.datum);
-      try {
-        await saveRecord(col, { ...(record || {}), ...value, id: record ? record.id : newId(), ...(record ? { geaendert: new Date().toISOString() } : { erstellt: new Date().toISOString() }) });
-        dialog.close(); toast('Gespeichert'); render(true);
-      } catch (e) { toast(e.message, true); }
-    };
+  const def = COLLECTIONS[col], values = { ...preset, ...(record || {}) };
+  sheet({
+    title: record ? def.label(record) || def.singular : `${def.singular} anlegen`,
+    eyebrow: record ? `${def.singular} bearbeiten` : 'Neuer Eintrag',
+    body: `${hinweis ? `<div class="hint"><span class="ki-tag">${icon('spark')} Vorschlag von Claude</span><br>${esc(hinweis)}</div>` : ''}<form class="form" id="crud">${def.fields.map((f) => fieldInput(f, values[f.key])).join('')}</form>`,
+    foot: `${record ? '<button class="btn danger" id="del">Löschen</button>' : ''}<span class="grow"></span><button class="btn" data-close>Abbrechen</button><button class="btn primary" id="save">Speichern</button>`,
+    onMount: (d) => {
+      $('#save', d).onclick = async () => {
+        const form = $('#crud', d);
+        if (!form.reportValidity()) return;
+        const { value, error } = sanitize(col, Object.fromEntries(new FormData(form).entries()));
+        if (error) return toast(error, true);
+        if (col === 'rechnungen' && !value.nummer) value.nummer = (record && record.nummer) || nextInvoiceNumber(value.datum);
+        try {
+          await saveRecord(col, { ...(record || {}), ...value, id: record ? record.id : newId(), ...(record ? { geaendert: new Date().toISOString() } : { erstellt: new Date().toISOString() }) });
+          dialog.close(); toast('Gespeichert'); render(true);
+        } catch (e) { toast(e.message, true); }
+      };
+      const del = $('#del', d);
+      if (del) del.onclick = async () => {
+        if (!del.classList.contains('armed')) { del.classList.add('armed'); del.textContent = 'Endgültig löschen?'; setTimeout(() => { if (del.isConnected) { del.classList.remove('armed'); del.textContent = 'Löschen'; } }, 4000); return; }
+        try { await deleteRecord(col, record.id); dialog.close(); toast('Gelöscht'); render(true); } catch { toast('Löschen fehlgeschlagen.', true); }
+      };
+    },
   });
 }
 
@@ -638,113 +856,209 @@ async function patch(col, rec, changes) {
 function cell(f, r) {
   const v = r[f.key];
   if (f.type === 'money') return euro(v);
-  if (f.type === 'date') return datum(v);
-  if (f.type === 'ref') return esc(ref(f.ref, v));
-  if (f.key === 'status' || f.key === 'art') return v ? pill(v) : '';
-  return esc(v);
+  if (f.type === 'number') return zahl(v);
+  let main;
+  if (f.type === 'date') main = datum(v);
+  else if (f.type === 'ref') main = v ? esc(ref(f.ref, v)) : '<span class="sub">–</span>';
+  else if (f.key === 'status') main = v ? pill(v) : '';
+  else if (f.type === 'select') main = v ? pill(v, 'plain') : '';
+  else main = esc(v);
+  const sub = f.subKey === 'modellLabel' ? [r.marke, r.modell].filter(Boolean).join(' ') : f.subKey ? r[f.subKey] : '';
+  return `${main}${sub ? `<span class="sub">${esc(sub)}</span>` : ''}`;
 }
 
-// Tabelle mit Suche, Anlegen, Bearbeiten, Löschen (zweistufig bestätigt) und Zusatzaktionen.
+// Tabelle mit Suche, Anlegen und Zusatzaktionen; Tippen auf eine Zeile öffnet das Bearbeiten-Sheet.
 function table(el, col, o = {}) {
-  const def = COLLECTIONS[col];
-  const fields = def.fields.filter((f) => f.list);
-  const extra = o.extra || [];
+  const def = COLLECTIONS[col], fields = def.fields.filter((f) => f.list), extra = o.extra || [], actions = o.actions || [];
   const q = (UI.search[col] || '').toLowerCase();
-  const rows = S.data[col].filter((r) => !q || JSON.stringify(r).toLowerCase().includes(q)).sort(o.sort || (() => 0));
+  const all = S.data[col], rows = all.filter((r) => !q || JSON.stringify(r).toLowerCase().includes(q)).sort(o.sort || (() => 0));
+  const numCls = (f) => (['money', 'number'].includes(f.type) ? 'num' : '');
   el.innerHTML = `<div class="toolbar">
-      <button class="btn primary" data-new>+ ${esc(def.singular)}</button>${o.toolbar || ''}
+      <button class="btn primary" data-new>${icon('plus')} ${esc(def.singular)}</button>${o.toolbar || ''}
       <span class="grow"></span>
-      <input type="search" id="search-${col}" placeholder="Suchen …" value="${esc(UI.search[col] || '')}" aria-label="Suchen">
-      <button class="btn" data-csv>CSV-Export</button>
+      <div class="search">${icon('search')}<input type="search" id="search-${col}" placeholder="Suchen" value="${esc(UI.search[col] || '')}" aria-label="Suchen"></div>
+      <button class="btn" data-csv>${icon('download')} CSV</button>
     </div>
-    <div class="panel table-wrap" style="padding:6px 8px">${rows.length || q ? `<table>
-      <thead><tr>${fields.map((f) => `<th class="${f.type === 'money' ? 'num' : ''}">${esc(f.label)}</th>`).join('')}${extra.map((c) => `<th class="${c.num ? 'num' : ''}">${esc(c.label)}</th>`).join('')}<th></th></tr></thead>
+    <div class="card table-wrap">${all.length ? `<table>
+      <thead><tr>${fields.map((f) => `<th class="${numCls(f)}">${esc(f.label)}</th>`).join('')}${extra.map((c) => `<th class="${c.num ? 'num' : ''}">${esc(c.label)}</th>`).join('')}${actions.length ? '<th></th>' : ''}</tr></thead>
       <tbody>${rows.map((r) => `<tr data-id="${esc(r.id)}">
-        ${fields.map((f) => `<td class="${f.type === 'money' ? 'num' : ''}">${cell(f, r)}</td>`).join('')}
+        ${fields.map((f) => `<td class="${numCls(f)}${f.strong ? ' strong' : ''}">${cell(f, r)}</td>`).join('')}
         ${extra.map((c) => `<td class="${c.num ? 'num' : ''}">${c.render(r)}</td>`).join('')}
-        <td class="act">${(o.actions || []).filter((a) => !a.show || a.show(r)).map((a) => `<button class="btn sm${a.ki ? ' ki' : ''}" data-act="${(o.actions || []).indexOf(a)}">${a.label}</button>`).join('')}
-          <button class="btn sm" data-edit>Bearbeiten</button><button class="btn sm danger" data-del>Löschen</button></td>
-      </tr>`).join('') || `<tr><td colspan="99" class="empty">Keine Treffer.</td></tr>`}</tbody></table>`
-      : `<p class="empty">${esc(o.empty || `Noch keine Einträge. Tippen Sie auf „+ ${def.singular}“, um den ersten anzulegen.`)}</p>`}</div>`;
+        ${actions.length ? `<td class="act">${actions.map((a, i) => (!a.show || a.show(r) ? `<button class="btn sm${a.ki ? ' ki' : ''}" data-act="${i}">${a.ki ? icon('spark') : ''}${a.label}</button>` : '')).join('')}</td>` : ''}
+      </tr>`).join('') || '<tr><td colspan="99" class="empty">Keine Treffer.</td></tr>'}</tbody></table>`
+      : `<div class="empty"><b>${esc(o.emptyTitle || 'Noch keine Einträge')}</b>${esc(o.empty || `Tippen Sie auf „${def.singular}“, um den ersten Eintrag anzulegen.`)}</div>`}</div>`;
   const search = $(`#search-${col}`, el);
   search.oninput = () => { UI.search[col] = search.value; const pos = search.selectionStart; table(el, col, o); const s2 = $(`#search-${col}`, el); s2.focus(); s2.setSelectionRange(pos, pos); };
   $('[data-new]', el).onclick = () => openForm(col, null, o.preset ? o.preset() : {});
   $('[data-csv]', el).onclick = () => speichereDatei(`${col}-${today()}.csv`, csv(col));
-  el.onclick = async (e) => {
+  if (o.onToolbar) o.onToolbar(el);
+  el.onclick = (e) => {
     const tr = e.target.closest('tr[data-id]'); if (!tr) return;
     const rec = S.data[col].find((r) => r.id === tr.dataset.id); if (!rec) return;
-    const btn = e.target.closest('button'); if (!btn) return;
-    if (btn.hasAttribute('data-edit')) openForm(col, rec);
-    else if (btn.hasAttribute('data-del')) {
-      if (!btn.classList.contains('armed')) { btn.classList.add('armed'); btn.textContent = 'Wirklich löschen?'; setTimeout(() => { btn.classList.remove('armed'); btn.textContent = 'Löschen'; }, 4000); return; }
-      try { await deleteRecord(col, rec.id); toast('Gelöscht'); render(true); } catch { toast('Löschen fehlgeschlagen.', true); }
-    } else if (btn.dataset.act) o.actions[Number(btn.dataset.act)].run(rec, btn);
+    const btn = e.target.closest('button[data-act]');
+    if (btn) actions[Number(btn.dataset.act)].run(rec, btn);
+    else if (!e.target.closest('button')) openForm(col, rec);
   };
 }
+
+// Säulendiagramm Umsatz vs. Kosten (ein Maßstab für Balken und Achse).
+function chartUmsatz(data) {
+  const W = 640, H = 230, L = 58, R = 8, T = 12, B = 28;
+  const max = Math.max(1, ...data.flatMap((d) => [d.umsatz, d.kosten]));
+  const step = Math.pow(10, Math.floor(Math.log10(max))), nice = Math.ceil(max / step) * step;
+  const y = (v) => T + (H - T - B) * (1 - v / nice);
+  const gw = (W - L - R) / data.length, bw = Math.min(22, gw / 3.2);
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Umsatz und Kosten der letzten sechs Monate">
+    ${[0, nice / 2, nice].map((t) => `<line x1="${L}" x2="${W - R}" y1="${y(t)}" y2="${y(t)}" stroke="var(--line)" ${t ? 'stroke-dasharray="3 4"' : ''}/><text x="${L - 8}" y="${y(t) + 4}" text-anchor="end">${euroK(t)}</text>`).join('')}
+    ${data.map((d, i) => { const cx = L + gw * i + gw / 2; return `
+      <rect x="${cx - bw - 2}" y="${y(d.umsatz)}" width="${bw}" height="${Math.max(0, y(0) - y(d.umsatz))}" rx="4" fill="var(--brass)"><title>Umsatz ${euro(d.umsatz)}</title></rect>
+      <rect x="${cx + 2}" y="${y(d.kosten)}" width="${bw}" height="${Math.max(0, y(0) - y(d.kosten))}" rx="4" fill="var(--chart-2)"><title>Kosten ${euro(d.kosten)}</title></rect>
+      <text x="${cx}" y="${H - 8}" text-anchor="middle">${esc(d.label)}</text>`; }).join('')}
+  </svg>`;
+}
+
+// Horizontale Balken (z. B. Kosten je Fahrzeug).
+function barList(items) {
+  const max = Math.max(1, ...items.map((i) => i.wert));
+  return `<ul class="list">${items.map((i) => `<li><div class="txt"><b>${esc(i.label)}</b><div class="bar"><div style="width:${(i.wert / max) * 100}%"></div></div></div><span style="min-width:100px;text-align:right;font-weight:600">${euro(i.wert)}</span></li>`).join('')}</ul>`;
+}
+
+// ======================= Navigation =======================
+
+const NAV = [
+  { group: 'Unternehmen' },
+  { id: 'uebersicht', label: 'Übersicht', icon: 'home' },
+  { id: 'personal', label: 'Personal', icon: 'people' },
+  { id: 'finanzen', label: 'Finanzen', icon: 'finance' },
+  { id: 'ausschreibungen', label: 'Ausschreibungen', icon: 'tender' },
+  { group: 'Ressourcen' },
+  { id: 'fuhrpark', label: 'Fuhrpark', icon: 'car' },
+  { id: 'inventar', label: 'Inventar', icon: 'box' },
+  { id: 'vertraege', label: 'Verträge', icon: 'contract' },
+  { group: 'Werkzeuge' },
+  { id: 'assistent', label: 'KI-Assistent', icon: 'spark' },
+  { id: 'firma', label: 'Firmenprofil', icon: 'building' },
+];
+const TABBAR = ['uebersicht', 'personal', 'finanzen', 'fuhrpark'];
+
+function renderNav() {
+  const items = NAV.filter((n) => n.id);
+  $('#nav').innerHTML = `<div class="brand"><span class="mark">M</span><div><b>Mittelstand Suite</b><small>${esc(S.firma.name || 'Ihr Unternehmen')}</small></div></div>
+    ${NAV.map((n) => (n.group ? `<div class="nav-group">${n.group}</div>` : `<a data-page="${n.id}" ${UI.page === n.id ? 'aria-current="page"' : ''} tabindex="0">${icon(n.icon)}<span>${n.label}</span></a>`)).join('')}
+    <div class="nav-foot"><i class="led ${S.mode === 'db' ? '' : 'local'}"></i><span>${S.mode === 'db' ? '<b>Cloud-Sync aktiv</b><br>Auf allen Geräten aktuell' : '<b>Nur dieses Gerät</b><br>In Claude öffnen für Cloud-Sync'}</span></div>`;
+  $('#tabbar').innerHTML = TABBAR.map((id) => { const n = items.find((x) => x.id === id); return `<a data-page="${id}" ${UI.page === id ? 'aria-current="page"' : ''}>${icon(n.icon)}${n.label}</a>`; }).join('')
+    + `<a data-more ${TABBAR.includes(UI.page) ? '' : 'aria-current="page"'}>${icon('more')}Mehr</a>`;
+}
+
+function onNav(e) {
+  const a = e.target.closest('[data-page],[data-more]'); if (!a) return;
+  if (a.hasAttribute('data-more')) {
+    sheet({ title: 'Alle Bereiche', body: `<ul class="list" style="margin:0 -26px">${NAV.filter((n) => n.id).map((n) => `<li data-page="${n.id}"><span class="ico">${icon(n.icon)}</span><div class="txt"><b>${n.label}</b></div></li>`).join('')}</ul>`,
+      onMount: (d) => { $('.list', d).onclick = (ev) => { const li = ev.target.closest('[data-page]'); if (li) { dialog.close(); go(li.dataset.page); } }; } });
+    return;
+  }
+  go(a.dataset.page);
+}
+$('#nav').addEventListener('click', onNav);
+$('#nav').addEventListener('keydown', (e) => { if (e.key === 'Enter') onNav(e); });
+$('#tabbar').addEventListener('click', onNav);
 
 // ======================= Seiten =======================
 
-const UI = { page: 'uebersicht', tab: {}, search: {}, chat: [], jahr: String(new Date().getFullYear()) };
+const UI = { page: 'uebersicht', tab: {}, search: {}, chat: [], jahr: String(new Date().getFullYear()), briefing: null };
 const PAGES = {};
 
-function tabs(el, page, defs) {
+function seg(el, page, defs) {
   const cur = Math.min(UI.tab[page] || 0, defs.length - 1);
-  el.innerHTML = `<div class="tabs" role="tablist">${defs.map((d, i) => `<button role="tab" aria-selected="${i === cur}" data-tab="${i}">${esc(d.label)}</button>`).join('')}</div><div id="tabbody"></div>`;
+  el.innerHTML = `<div class="seg" role="tablist">${defs.map((d, i) => `<button role="tab" aria-selected="${i === cur}" data-tab="${i}">${esc(d.label)}</button>`).join('')}</div><div id="tabbody"></div>`;
   el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { UI.tab[page] = Number(b.dataset.tab); render(); }; });
   defs[cur].render($('#tabbody', el));
 }
-const head = (t, lead) => `<h1>${esc(t)}</h1><p class="lead">${esc(lead)}</p>${S.mode === 'local' ? '<div class="banner">Die Daten werden nur auf diesem Gerät gespeichert. Öffnen Sie die App über Claude (angemeldet), damit sie in der Cloud gesichert und auf iPad, iPhone und Computer gleich sind.</div>' : ''}<div id="page"></div>`;
+
+function head(eyebrow, title, lead, actions = '') {
+  return `<div class="page"><div class="head-row"><div><p class="eyebrow">${esc(eyebrow)}</p><h1>${esc(title)}</h1><p class="lead">${esc(lead)}</p></div>${actions ? `<div class="toolbar" style="margin:0">${actions}</div>` : ''}</div>
+    ${S.mode === 'local' ? `<div class="banner">${icon('clock')}<div>Die Daten werden nur auf diesem Gerät gespeichert. Öffnen Sie die App über Claude (angemeldet), damit alles in der Cloud gesichert und auf iPad, iPhone und Computer gleich ist.</div></div>` : ''}
+    <div id="body"></div></div>`;
+}
+
+const begruessung = () => { const h = new Date().getHours(); return h < 11 ? 'Guten Morgen' : h < 18 ? 'Guten Tag' : 'Guten Abend'; };
 
 PAGES.uebersicht = () => {
-  const main = $('#main');
-  main.innerHTML = head('Übersicht', `Stand ${datum(today())} – Forderungen, Personal und Fristen auf einen Blick.`);
-  const d = S.data, monat = today().slice(0, 7);
-  const offen = d.rechnungen.filter((r) => r.status === 'offen');
-  const ueber = offen.filter(isOverdue);
-  const umsatz = d.rechnungen.filter((r) => r.status !== 'storniert' && String(r.datum).startsWith(monat)).reduce((s, r) => s + Number(r.netto || 0), 0);
-  const ausg = d.ausgaben.filter((a) => String(a.datum).startsWith(monat)).reduce((s, a) => s + Number(a.netto || 0), 0);
+  const d = S.data, offen = d.rechnungen.filter((r) => r.status === 'offen'), ueber = offen.filter(isOverdue);
+  const vl = verlauf(), akt = vl[vl.length - 1], fk = fixkostenMonat();
   const zl = ustUebersicht(today().slice(0, 4))[new Date().getMonth()].zahllast;
+  const radar = fristen(60).slice(0, 8);
   const aktiv = d.mitarbeiter.filter((m) => m.status === 'aktiv');
   const heute = d.abwesenheiten.filter((a) => a.status === 'genehmigt' && a.von <= today() && a.bis >= today());
-  const fristen = d.ausschreibungen.filter((t) => t.frist && t.frist >= today() && !['abgegeben', 'gewonnen', 'verloren', 'verworfen'].includes(t.status)).sort((a, b) => a.frist.localeCompare(b.frist));
-  const leer = !Object.values(d).some((l) => l.length);
-  $('#page').innerHTML = `
-    ${leer ? `<div class="panel" style="margin-bottom:16px"><h2>Willkommen</h2><p>Noch sind keine Daten erfasst. Beginnen Sie mit dem <button class="btn sm" data-go="firma">Firmenprofil</button>, legen Sie dann <button class="btn sm" data-go="personal">Mitarbeiter</button> und <button class="btn sm" data-go="buchhaltung">Kunden & Rechnungen</button> an.</p></div>` : ''}
+  const antraege = d.abwesenheiten.filter((a) => a.status === 'beantragt').length;
+  const leer = !Object.values(d).some((l) => l.length) && !S.firma.name;
+  const vorname = S.firma.inhaber ? `, ${S.firma.inhaber.trim().split(/\s+/)[0]}` : '';
+  $('#main').innerHTML = head(new Date().toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }), `${begruessung()}${vorname}.`,
+    `Das Wichtigste für ${S.firma.name || 'Ihr Unternehmen'} auf einen Blick.`,
+    `<button class="btn ki" id="brief">${icon('spark')} Tagesbriefing</button>`);
+  $('#body').innerHTML = `
+    ${leer ? `<div class="card card-pad" style="margin-bottom:18px"><h2 style="margin-bottom:6px">Willkommen in Ihrer Suite</h2><p class="note" style="margin:0 0 14px">In drei Schritten startklar.</p><div class="chips"><button class="btn primary" data-go="firma">1 · Firmenprofil anlegen</button><button class="btn" data-go="personal">2 · Team erfassen</button><button class="btn" data-go="fuhrpark">3 · Fahrzeuge anlegen</button></div></div>` : ''}
+    <div id="briefing">${UI.briefing || ''}</div>
     <div class="kpis">
-      <div class="kpi"><div class="k">Offene Forderungen</div><div class="v">${euro(offen.reduce((s, r) => s + brutto(r), 0))}</div><div class="h">${offen.length} Rechnungen · ${ueber.length} überfällig</div></div>
-      <div class="kpi"><div class="k">Umsatz netto (Monat)</div><div class="v">${euro(umsatz)}</div><div class="h">Ausgaben netto: ${euro(ausg)}</div></div>
-      <div class="kpi"><div class="k">USt-Zahllast (Monat)</div><div class="v">${euro(zl)}</div><div class="h">${zl < 0 ? 'Vorsteuerüberhang (Erstattung)' : 'vorläufig, Soll-Versteuerung'}</div></div>
-      <div class="kpi"><div class="k">Mitarbeiter aktiv</div><div class="v">${aktiv.length}</div><div class="h">Bruttolöhne/Monat: ${euro(aktiv.reduce((s, m) => s + Number(m.bruttogehalt || 0), 0))}</div></div>
+      <div class="card kpi"><div class="k">${icon('receipt')} Offene Forderungen</div><div class="v">${euro(offen.reduce((s, r) => s + brutto(r), 0))}</div><div class="h">${offen.length} Rechnungen${ueber.length ? ` · <span style="color:var(--bad);font-weight:600">${ueber.length} überfällig</span>` : ''}</div></div>
+      <div class="card kpi"><div class="k">${icon('finance')} Umsatz ${new Date().toLocaleDateString('de-DE', { month: 'long' })}</div><div class="v">${euro(akt.umsatz)}</div><div class="h">Kosten ${euro(akt.kosten)} · USt-Zahllast ${euro(zl)}</div></div>
+      <div class="card kpi"><div class="k">${icon('clock')} Fixkosten / Monat</div><div class="v">${euro(fk.summe)}</div><div class="h">Personal ${euroK(fk.personal)} · Verträge ${euroK(fk.vertraege)} · Fahrzeuge ${euroK(fk.fahrzeuge)}</div></div>
+      <div class="card kpi"><div class="k">${icon('people')} Team & Ressourcen</div><div class="v">${aktiv.length} <span style="font:600 14px var(--f-body);color:var(--muted)">Mitarbeiter</span></div><div class="h">${AKTIVE_FAHRZEUGE().length} Fahrzeuge · ${d.inventar.filter((g) => g.status !== 'ausgemustert').length} Geräte · ${d.vertraege.filter((v) => v.status === 'aktiv').length} Verträge</div></div>
     </div>
-    <div class="cols">
-      <section class="panel"><h2>Überfällige Rechnungen</h2>${ueber.length ? `<div class="table-wrap"><table>${ueber.map((r) => `<tr><td>${esc(r.nummer)}<br><span class="note">${esc(ref('kunden', r.kundeId))}</span></td><td>${pill(`${-tageBis(r.faellig)} Tage`, 'bad')}</td><td class="num">${euro(brutto(r))}</td></tr>`).join('')}</table></div><p><button class="btn sm ki" data-go="buchhaltung">Mahnungen mit KI schreiben</button></p>` : '<p class="empty">Keine überfälligen Rechnungen.</p>'}</section>
-      <section class="panel"><h2>Nächste Angebotsfristen</h2>${fristen.length ? `<div class="table-wrap"><table>${fristen.map((t) => { const n = tageBis(t.frist); return `<tr><td>${esc(t.titel)}<br>${pill(t.status)}</td><td class="num">${datum(t.frist)}<br>${n <= 7 ? pill(`in ${n} Tagen`, 'bad') : `<span class="note">in ${n} Tagen</span>`}</td></tr>`; }).join('')}</table></div>` : '<p class="empty">Keine offenen Fristen.</p>'}</section>
-      <section class="panel"><h2>Personal heute</h2>${heute.length ? `<ul class="plain">${heute.map((a) => `<li>${esc(ref('mitarbeiter', a.mitarbeiterId))} – ${esc(a.art)} bis ${datum(a.bis)}</li>`).join('')}</ul>` : '<p class="empty">Alle anwesend.</p>'}
-        ${d.abwesenheiten.some((a) => a.status === 'beantragt') ? `<p>${pill(`${d.abwesenheiten.filter((a) => a.status === 'beantragt').length} offene Anträge`, 'warn')} <button class="btn sm" data-go="personal" data-tabidx="1">prüfen</button></p>` : ''}</section>
-      <section class="panel"><h2>KI-Schnellzugriff</h2><div class="chips">
-        <button class="btn" data-ask="Was sollte ich diese Woche als Geschäftsführung priorisieren? Berücksichtige Liquidität, überfällige Rechnungen, Fristen und Personal.">Wochenprioritäten</button>
-        <button class="btn" data-go="buchhaltung" data-tabidx="1">Beleg per Foto erfassen</button>
-        <button class="btn" data-go="ausschreibungen" data-tabidx="1">Ausschreibung prüfen</button>
-        <button class="btn" data-go="personal" data-tabidx="3">Stellenanzeige schreiben</button>
+    <div class="two">
+      <section class="card"><div class="card-head"><h2>Umsatz & Kosten</h2><div class="legend"><span><i style="background:var(--brass)"></i>Umsatz</span><span><i style="background:var(--chart-2)"></i>Kosten</span></div></div>
+        <div style="padding:14px 18px 16px">${chartUmsatz(vl)}</div></section>
+      <section class="card"><div class="card-head"><h2>Fristen-Radar</h2><span class="note">überfällig & nächste 60 Tage</span></div>
+        <div style="padding-top:8px">${radar.length ? `<ul class="list" id="radar">${radar.map((f, i) => `<li data-i="${i}"><span class="ico">${icon(f.ico)}</span><div class="txt"><b>${esc(f.titel)}</b><span class="sub">${esc(f.modul)} · ${datum(f.datum)}</span></div>${fristPill(f.datum)}</li>`).join('')}</ul>` : '<div class="empty"><b>Alles im grünen Bereich</b>Keine Termine in den nächsten 60 Tagen.</div>'}</div></section>
+    </div>
+    <div class="three">
+      <section class="card"><div class="card-head"><h2>Überfällige Rechnungen</h2></div><div style="padding-top:8px">${ueber.length ? `<ul class="list">${ueber.slice(0, 5).map((r) => `<li><span class="ico">${icon('receipt')}</span><div class="txt"><b>${esc(r.nummer)} · ${euro(brutto(r))}</b><span class="sub">${esc(ref('kunden', r.kundeId))}</span></div>${fristPill(r.faellig)}</li>`).join('')}</ul><div class="card-pad" style="padding-top:6px"><button class="btn ki sm" data-go="finanzen">${icon('spark')} Mahnungen schreiben</button></div>` : '<div class="empty"><b>Keine Mahnfälle</b>Alle Rechnungen im Zahlungsziel.</div>'}</div></section>
+      <section class="card"><div class="card-head"><h2>Heute abwesend</h2></div><div style="padding-top:8px">${heute.length ? `<ul class="list">${heute.map((a) => `<li><span class="ico">${icon('people')}</span><div class="txt"><b>${esc(ref('mitarbeiter', a.mitarbeiterId))}</b><span class="sub">${esc(a.art)} bis ${datum(a.bis)}</span></div></li>`).join('')}</ul>` : '<div class="empty"><b>Vollständig besetzt</b>Heute ist niemand abwesend.</div>'}
+        ${antraege ? `<div class="card-pad" style="padding-top:6px"><button class="btn sm" data-go="personal" data-tabidx="1">${antraege} offene ${antraege === 1 ? 'Antrag' : 'Anträge'} prüfen</button></div>` : ''}</div></section>
+      <section class="card card-pad"><h2 style="margin-bottom:14px">Mit Claude erledigen</h2><div class="chips">
+        <button class="btn ki sm" data-go="finanzen" data-tabidx="1" data-scan="ausgaben">${icon('camera')} Beleg fotografieren</button>
+        <button class="btn ki sm" data-go="ausschreibungen" data-tabidx="1">${icon('tender')} Ausschreibung prüfen</button>
+        <button class="btn ki sm" data-go="vertraege" data-scan="vertraege">${icon('contract')} Vertrag auslesen</button>
+        <button class="btn ki sm" data-go="fuhrpark" data-tabidx="2">${icon('car')} Flotte analysieren</button>
+        <button class="btn ki sm" data-go="personal" data-tabidx="3">${icon('people')} Stellenanzeige</button>
       </div></section>
     </div>`;
-  $('#page').onclick = (e) => {
-    const b = e.target.closest('button'); if (!b) return;
-    if (b.dataset.go) { if (b.dataset.tabidx) UI.tab[b.dataset.go] = Number(b.dataset.tabidx); go(b.dataset.go); }
-    if (b.dataset.ask) { go('assistent'); sendChat(b.dataset.ask); }
+  $('#brief').onclick = (e) => tagesbriefing(e.currentTarget);
+  const r = $('#radar'); if (r) r.onclick = (e) => { const li = e.target.closest('[data-i]'); if (li) go(radar[Number(li.dataset.i)].page); };
+  $('#body').onclick = (e) => {
+    const b = e.target.closest('[data-go]'); if (!b) return;
+    if (b.dataset.tabidx) UI.tab[b.dataset.go] = Number(b.dataset.tabidx);
+    go(b.dataset.go);
+    if (b.dataset.scan) kiErfassen(b.dataset.scan);
   };
 };
 
+async function tagesbriefing(btn) {
+  const box = $('#briefing');
+  box.innerHTML = `<section class="card card-pad briefing"><span class="ki-tag">${icon('spark')} Tagesbriefing</span><div id="btext" style="margin-top:10px"><span class="thinking"><span class="spin"></span> Claude liest Ihre Zahlen …</span></div></section>`;
+  const ok = await mitKi(btn, async (signal) => {
+    const s = await ki();
+    const { text } = await s(`${GRUNDREGELN}\n\nErstelle ein kompaktes Tagesbriefing für die Geschäftsführung (höchstens 8 Stichpunkte): Was ist heute dringend, welche Fristen und Risiken stehen an (Liquidität, Forderungen, Fuhrpark, Verträge, Ausschreibungen, Personal), und was sollte konkret als Nächstes getan werden? Nutze Markdown-Aufzählungen und **fett** für das Wichtigste.\n\nLAGEBERICHT:\n${lagebericht()}`,
+      { signal, cache: false, modelTier: 'default', onText: ({ text: t }) => { const el = $('#btext'); if (el) el.innerHTML = markdown(t); } });
+    UI.briefing = `<section class="card card-pad briefing"><span class="ki-tag">${icon('spark')} Tagesbriefing · ${new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })} Uhr</span><div style="margin-top:10px">${markdown(text)}</div></section>`;
+    if ($('#briefing')) $('#briefing').innerHTML = UI.briefing;
+    return true;
+  });
+  if (!ok && $('#briefing')) $('#briefing').innerHTML = UI.briefing || '';
+}
+
 PAGES.personal = () => {
-  $('#main').innerHTML = head('Personal', 'Mitarbeiter, Abwesenheiten, Urlaubskonten und Recruiting mit KI.');
-  tabs($('#page'), 'personal', [
+  $('#main').innerHTML = head('Personal', 'Team & Abwesenheiten', 'Mitarbeiter, Urlaub, Urlaubskonten und Recruiting. Zeugnisse und Stellenanzeigen schreibt Claude.');
+  seg($('#body'), 'personal', [
     { label: 'Mitarbeiter', render: (el) => table(el, 'mitarbeiter', {
       sort: (a, b) => String(a.name).localeCompare(b.name),
-      actions: [{ label: 'Zeugnis (KI)', ki: true, run: zeugnisDialog }],
+      emptyTitle: 'Ihr Team ist noch leer', empty: 'Legen Sie Mitarbeiter an – sie stehen dann für Urlaub, Fahrzeuge und Inventar zur Auswahl.',
+      actions: [{ label: 'Zeugnis', ki: true, run: zeugnisSheet }],
     }) },
     { label: 'Abwesenheiten', render: (el) => table(el, 'abwesenheiten', {
       sort: (a, b) => String(b.von).localeCompare(a.von),
       preset: () => ({ von: today(), bis: today() }),
+      emptyTitle: 'Keine Abwesenheiten', empty: 'Erfassen Sie Urlaub, Krankheit und Fortbildungen.',
       extra: [{ label: 'Arbeitstage', num: true, render: (a) => arbeitstage(a.von, a.bis) }],
       actions: [
         { label: 'Genehmigen', show: (a) => a.status === 'beantragt', run: (a) => patch('abwesenheiten', a, { status: 'genehmigt' }) },
@@ -752,261 +1066,234 @@ PAGES.personal = () => {
       ],
     }) },
     { label: 'Urlaubskonten', render: (el) => {
-      const jahr = new Date().getFullYear();
-      const rows = S.data.mitarbeiter.filter((m) => m.status === 'aktiv').map((m) => ({ m, k: urlaubskonto(m, jahr) }));
-      el.innerHTML = `<div class="panel"><h2>Urlaubskonten ${jahr}</h2>${rows.length ? `<div class="table-wrap"><table>
-        <thead><tr><th>Mitarbeiter</th><th class="num">Anspruch</th><th class="num">Genommen</th><th class="num">Beantragt</th><th class="num">Rest</th></tr></thead>
-        <tbody>${rows.map(({ m, k }) => `<tr><td>${esc(m.name)}</td><td class="num">${k.anspruch}</td><td class="num">${k.genommen}</td><td class="num">${k.beantragt}</td><td class="num">${k.rest < 0 ? pill(String(k.rest), 'bad') : k.rest}</td></tr>`).join('')}</tbody></table></div>` : '<p class="empty">Noch keine aktiven Mitarbeiter.</p>'}
-        <p class="note">Gezählt werden Arbeitstage Mo–Fr; gesetzliche Feiertage sind nicht abgezogen.</p></div>`;
+      const jahr = new Date().getFullYear(), rows = S.data.mitarbeiter.filter((m) => m.status === 'aktiv').map((m) => ({ m, k: urlaubskonto(m, jahr) }));
+      el.innerHTML = `<div class="card table-wrap">${rows.length ? `<table>
+        <thead><tr><th>Mitarbeiter ${jahr}</th><th class="num">Anspruch</th><th class="num">Genommen</th><th class="num">Beantragt</th><th class="num">Rest</th><th style="width:28%">Verbrauch</th></tr></thead>
+        <tbody>${rows.map(({ m, k }) => `<tr><td class="strong">${esc(m.name)}</td><td class="num">${k.anspruch}</td><td class="num">${k.genommen}</td><td class="num">${k.beantragt}</td><td class="num">${k.rest < 0 ? pill(String(k.rest), 'bad') : `<b>${k.rest}</b>`}</td>
+          <td><div class="bar" style="margin:0"><div style="width:${Math.min(100, (k.genommen / Math.max(1, k.anspruch)) * 100)}%"></div></div></td></tr>`).join('')}</tbody></table>` : '<div class="empty"><b>Keine aktiven Mitarbeiter</b>Legen Sie zuerst Mitarbeiter an.</div>'}</div>
+        <p class="note">Gezählt werden Arbeitstage Mo–Fr; gesetzliche Feiertage sind nicht abgezogen.</p>`;
     } },
-    { label: 'Recruiting (KI)', render: (el) => {
-      el.innerHTML = `<div class="panel"><h2>Stellenanzeige mit KI erstellen</h2>
+    { label: 'Recruiting', render: (el) => {
+      el.innerHTML = `<div class="card card-pad"><span class="ki-tag">${icon('spark')} Mit Claude</span><h2 style="margin:6px 0 16px">Stellenanzeige erstellen</h2>
         <div class="form">
           <div><label for="pos">Position *</label><input id="pos" placeholder="z. B. Elektroniker/in Energie- und Gebäudetechnik"></div>
           <div><label for="ort">Standort / Arbeitszeit</label><input id="ort" placeholder="z. B. Musterstadt, Vollzeit, unbefristet"></div>
           <div class="full"><label for="details">Anforderungen, Benefits, Gehaltsspanne</label><textarea id="details"></textarea></div>
         </div>
-        <div class="dlg-actions"><button class="btn ki" id="go">Stellenanzeige schreiben</button></div></div>`;
+        <div class="toolbar" style="justify-content:flex-end;margin:18px 0 0"><button class="btn primary" id="go">${icon('spark')} Stellenanzeige schreiben</button></div></div>`;
       $('#go', el).onclick = () => {
         const pos = $('#pos', el).value.trim();
         if (!pos) return toast('Bitte eine Position angeben.', true);
-        kiTextDialog(`Stellenanzeige ${pos}`, `${GRUNDREGELN}\nDu bist HR-Expertin für Recruiting im Mittelstand.\n\nErstelle eine ansprechende, AGG-konforme Stellenanzeige (m/w/d) für die Position "${pos}".
-Gliederung: Einleitung zum Unternehmen, Ihre Aufgaben, Ihr Profil, Wir bieten, Kontakt. Prägnant und ehrlich, ohne Floskeln. Reiner Text ohne Markdown-Zeichen.
-Standort/Arbeitszeit: ${$('#ort', el).value || '-'}
-Weitere Angaben: ${$('#details', el).value || '-'}
-
-UNTERNEHMEN:
-${firmaText()}`);
+        kiTextSheet(`Stellenanzeige ${pos}`, `${GRUNDREGELN}\nDu bist HR-Expertin für Recruiting im Mittelstand.\n\nErstelle eine ansprechende, AGG-konforme Stellenanzeige (m/w/d) für die Position "${pos}". Gliederung: Einleitung zum Unternehmen, Ihre Aufgaben, Ihr Profil, Wir bieten, Kontakt. Prägnant und ehrlich, ohne Floskeln. ${OHNE_MD}\nStandort/Arbeitszeit: ${$('#ort', el).value || '-'}\nWeitere Angaben: ${$('#details', el).value || '-'}\n\nUNTERNEHMEN:\n${firmaText()}`);
       };
     } },
   ]);
 };
 
-function zeugnisDialog(m) {
-  openDialog(`<h2>Arbeitszeugnis für ${esc(m.name)}</h2>
-    <div class="form">
+function zeugnisSheet(m) {
+  sheet({ title: m.name, eyebrow: `${icon('spark')} Arbeitszeugnis`,
+    body: `<div class="form">
       <div><label for="anlass">Anlass</label><select id="anlass"><option>Endzeugnis</option><option>Zwischenzeugnis</option></select></div>
       <div><label for="art">Art</label><select id="art"><option>qualifiziertes</option><option>einfaches</option></select></div>
       <div><label for="note">Gesamtnote</label><select id="note"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
-    </div>
-    <p class="note">Die KI nutzt die Notizen aus dem Mitarbeiterprofil. Bitte das Ergebnis immer prüfen.</p>
-    <div class="dlg-actions"><button class="btn" data-close>Abbrechen</button><button class="btn ki" id="go">Zeugnis schreiben</button></div>`, (r) => {
-    $('#go', r).onclick = () => {
-      const anlass = $('#anlass', r).value, art = $('#art', r).value, note = $('#note', r).value;
-      kiTextDialog(`${anlass} ${m.name}`, `${GRUNDREGELN}\nDu bist Personalreferent, kennst die Zeugnissprache (Notenskala in Formulierungen) und den Grundsatz "wohlwollend und wahr" (§ 109 GewO).
-
-Erstelle ein ${art} ${anlass === 'Zwischenzeugnis' ? 'Zwischenzeugnis' : 'Arbeitszeugnis'} mit Gesamtnote ${note} (Schulnotenskala). Reiner Text ohne Markdown-Zeichen.
-Mitarbeiter: ${m.name}, Position: ${m.position || '-'}, Abteilung: ${m.abteilung || '-'}, Eintritt: ${m.eintritt || '-'}, Vertragsart: ${m.vertragsart || '-'}.
-Notizen der Führungskraft: ${m.notizen || '-'}
-Arbeitgeber: ${S.firma.name || '[Firma]'}, ${S.firma.adresse || ''}
-Ort/Datum am Ende: [Ort], ${datum(today())}. Erfinde keine konkreten Projekte – nutze Platzhalter, wo Details fehlen.`);
-    };
-  });
+    </div><p class="note" style="margin-top:14px">Claude nutzt die Notizen aus dem Mitarbeiterprofil und die übliche Zeugnissprache.</p>`,
+    foot: `<button class="btn" data-close>Abbrechen</button><button class="btn primary" id="go">${icon('spark')} Zeugnis schreiben</button>`,
+    onMount: (d) => { $('#go', d).onclick = () => {
+      const anlass = $('#anlass', d).value, art = $('#art', d).value, note = $('#note', d).value;
+      kiTextSheet(`${anlass} ${m.name}`, `${GRUNDREGELN}\nDu bist Personalreferent, kennst die Zeugnissprache (Notenskala in Formulierungen) und den Grundsatz "wohlwollend und wahr" (§ 109 GewO).\n\nErstelle ein ${art} ${anlass === 'Zwischenzeugnis' ? 'Zwischenzeugnis' : 'Arbeitszeugnis'} mit Gesamtnote ${note}. ${OHNE_MD}\nMitarbeiter: ${m.name}, Position: ${m.position || '-'}, Abteilung: ${m.abteilung || '-'}, Eintritt: ${m.eintritt || '-'}, Vertragsart: ${m.vertragsart || '-'}.\nNotizen der Führungskraft: ${m.notizen || '-'}\nArbeitgeber: ${S.firma.name || '[Firma]'}, ${S.firma.adresse || ''}\nOrt/Datum am Ende: [Ort], ${datum(today())}. Erfinde keine konkreten Projekte – nutze Platzhalter.`);
+    }; } });
 }
 
-PAGES.buchhaltung = () => {
-  $('#main').innerHTML = head('Buchhaltung', 'Rechnungen, Belege, Kunden und Umsatzsteuer – mit KI-Belegerfassung und Mahnwesen.');
-  tabs($('#page'), 'buchhaltung', [
-    { label: 'Ausgangsrechnungen', render: (el) => table(el, 'rechnungen', {
+PAGES.finanzen = () => {
+  $('#main').innerHTML = head('Finanzen', 'Rechnungen & Belege', 'Ausgangsrechnungen, Belege, Kunden und Umsatzsteuer. Belege liest Claude direkt vom Foto.');
+  seg($('#body'), 'finanzen', [
+    { label: 'Rechnungen', render: (el) => table(el, 'rechnungen', {
       sort: (a, b) => String(b.datum).localeCompare(a.datum),
       preset: () => ({ datum: today(), faellig: addDays(14) }),
-      empty: S.data.kunden.length ? undefined : 'Legen Sie zuerst unter „Kunden“ einen Kunden an, dann hier die erste Rechnung.',
-      extra: [{ label: 'Brutto', num: true, render: (r) => euro(brutto(r)) }, { label: '', render: (r) => (isOverdue(r) ? pill('überfällig') : '') }],
+      emptyTitle: 'Noch keine Rechnungen', empty: S.data.kunden.length ? 'Schreiben Sie Ihre erste Rechnung – die Nummer wird automatisch vergeben.' : 'Legen Sie zuerst unter „Kunden“ einen Kunden an.',
+      extra: [{ label: 'Brutto', num: true, render: (r) => `<b>${euro(brutto(r))}</b>` }, { label: '', render: (r) => (isOverdue(r) ? fristPill(r.faellig) : '') }],
       actions: [
         { label: 'Bezahlt', show: (r) => r.status === 'offen', run: (r) => patch('rechnungen', r, { status: 'bezahlt' }) },
-        { label: 'Rechnung sichern', run: (r) => speichereDatei(`Rechnung_${r.nummer}.html`, rechnungHtml(r)) },
-        { label: 'Mahnung (KI)', ki: true, show: (r) => r.status === 'offen', run: mahnDialog },
+        { label: 'Rechnung', run: (r) => speichereDatei(`Rechnung_${r.nummer}.html`, rechnungHtml(r)) },
+        { label: 'Mahnung', ki: true, show: (r) => r.status === 'offen', run: mahnSheet },
       ],
     }) },
-    { label: 'Ausgaben & Belege', render: (el) => {
-      table(el, 'ausgaben', {
-        sort: (a, b) => String(b.datum).localeCompare(a.datum),
-        preset: () => ({ datum: today() }),
-        toolbar: '<button class="btn ki" data-beleg>Beleg mit KI erfassen</button>',
-        extra: [{ label: 'Vorsteuer', num: true, render: (a) => euro(ust(a)) }],
-      });
-      $('[data-beleg]', el).onclick = belegDialog;
-    } },
-    { label: 'Kunden', render: (el) => table(el, 'kunden', { sort: (a, b) => String(a.name).localeCompare(b.name) }) },
+    { label: 'Belege', render: (el) => table(el, 'ausgaben', {
+      sort: (a, b) => String(b.datum).localeCompare(a.datum),
+      preset: () => ({ datum: today() }),
+      toolbar: `<button class="btn ki" data-scan>${icon('camera')} Beleg mit Claude erfassen</button>`,
+      onToolbar: (t) => { $('[data-scan]', t).onclick = () => kiErfassen('ausgaben'); },
+      emptyTitle: 'Noch keine Belege', empty: 'Fotografieren Sie eine Rechnung – Claude liest Betrag, Steuersatz und Konto aus.',
+      extra: [{ label: 'Vorsteuer', num: true, render: (a) => euro(ust(a)) }],
+    }) },
+    { label: 'Kunden', render: (el) => table(el, 'kunden', { sort: (a, b) => String(a.name).localeCompare(b.name), emptyTitle: 'Noch keine Kunden', empty: 'Legen Sie Kunden an, um Rechnungen zu schreiben.' }) },
     { label: 'Umsatzsteuer', render: (el) => {
-      const y = new Date().getFullYear();
-      const m = ustUebersicht(UI.jahr);
-      const sum = (k) => round2(m.reduce((s, x) => s + x[k], 0));
+      const y = new Date().getFullYear(), m = ustUebersicht(UI.jahr), sum = (k) => round2(m.reduce((s, x) => s + x[k], 0));
       const mn = (i) => new Date(2000, i - 1, 1).toLocaleDateString('de-DE', { month: 'long' });
       el.innerHTML = `<div class="toolbar"><label for="jahr" style="margin:0">Jahr</label><select id="jahr" style="width:auto">${[y, y - 1, y - 2].map((j) => `<option${String(j) === UI.jahr ? ' selected' : ''}>${j}</option>`).join('')}</select></div>
-        <div class="panel table-wrap"><table>
+        <div class="card table-wrap"><table>
         <thead><tr><th>Monat</th><th class="num">Umsatz netto</th><th class="num">Umsatzsteuer</th><th class="num">Ausgaben netto</th><th class="num">Vorsteuer</th><th class="num">Zahllast</th></tr></thead>
-        <tbody>${m.map((x) => `<tr><td>${mn(x.monat)}</td><td class="num">${euro(x.umsatzNetto)}</td><td class="num">${euro(x.umsatzsteuer)}</td><td class="num">${euro(x.ausgabenNetto)}</td><td class="num">${euro(x.vorsteuer)}</td><td class="num"><b>${euro(x.zahllast)}</b></td></tr>`).join('')}
-        <tr><th>Summe</th><th class="num">${euro(sum('umsatzNetto'))}</th><th class="num">${euro(sum('umsatzsteuer'))}</th><th class="num">${euro(sum('ausgabenNetto'))}</th><th class="num">${euro(sum('vorsteuer'))}</th><th class="num">${euro(sum('zahllast'))}</th></tr></tbody></table>
-        <p class="note">Vorläufige Auswertung (Soll-Versteuerung) als Grundlage für die USt-Voranmeldung in ELSTER. Stornierte Rechnungen sind ausgenommen. Bitte mit dem Steuerberater abstimmen.</p></div>`;
+        <tbody>${m.map((x) => `<tr><td class="strong">${mn(x.monat)}</td><td class="num">${euro(x.umsatzNetto)}</td><td class="num">${euro(x.umsatzsteuer)}</td><td class="num">${euro(x.ausgabenNetto)}</td><td class="num">${euro(x.vorsteuer)}</td><td class="num"><b>${euro(x.zahllast)}</b></td></tr>`).join('')}
+        <tr><td class="strong">Summe</td><td class="num"><b>${euro(sum('umsatzNetto'))}</b></td><td class="num"><b>${euro(sum('umsatzsteuer'))}</b></td><td class="num"><b>${euro(sum('ausgabenNetto'))}</b></td><td class="num"><b>${euro(sum('vorsteuer'))}</b></td><td class="num"><b>${euro(sum('zahllast'))}</b></td></tr></tbody></table></div>
+        <p class="note">Vorläufige Auswertung (Soll-Versteuerung) als Grundlage für die USt-Voranmeldung in ELSTER. Stornierte Rechnungen sind ausgenommen. Bitte mit dem Steuerberater abstimmen.</p>`;
       $('#jahr', el).onchange = (e) => { UI.jahr = e.target.value; render(); };
     } },
   ]);
 };
 
 function rechnungHtml(r) {
-  const f = S.firma, k = S.data.kunden.find((x) => x.id === r.kundeId) || {};
-  const br = (s) => esc(s).replace(/\n/g, '<br>');
-  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Rechnung ${esc(r.nummer)}</title>
-<style>body{font:14px/1.5 -apple-system,system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;color:#111}table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid #ddd;text-align:left}.r{text-align:right}.head{display:flex;justify-content:space-between;gap:20px}small{color:#555}</style></head><body>
-<div class="head"><div><strong>${esc(f.name)}</strong><br>${br(f.adresse)}</div><div class="r"><h2>Rechnung</h2>Nr. ${esc(r.nummer)}<br>Datum: ${datum(r.datum)}<br>Fällig: ${datum(r.faellig)}</div></div>
-<p style="margin:40px 0"><strong>${esc(k.name)}</strong><br>${esc(k.ansprechpartner)}<br>${br(k.adresse)}${k.ustId ? `<br>USt-IdNr.: ${esc(k.ustId)}` : ''}</p>
+  const f = S.firma, k = S.data.kunden.find((x) => x.id === r.kundeId) || {}, br = (s) => esc(s).replace(/\n/g, '<br>');
+  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Rechnung ${esc(r.nummer)}</title>
+<style>body{font:14px/1.55 -apple-system,"Helvetica Neue",sans-serif;max-width:760px;margin:48px auto;padding:0 24px;color:#121826}h1{font:500 30px Georgia,serif;margin:0 0 4px}table{width:100%;border-collapse:collapse;margin-top:24px}td,th{padding:10px 0;border-bottom:1px solid #e5e8ed;text-align:left}.r{text-align:right}.head{display:flex;justify-content:space-between;gap:24px;border-bottom:2px solid #94712f;padding-bottom:18px}small{color:#6b7385}</style></head><body>
+<div class="head"><div><strong>${esc(f.name)}</strong><br>${br(f.adresse)}</div><div class="r"><h1>Rechnung</h1>Nr. ${esc(r.nummer)}<br>Datum ${datum(r.datum)}<br>Fällig ${datum(r.faellig)}</div></div>
+<p style="margin:36px 0"><strong>${esc(k.name)}</strong><br>${esc(k.ansprechpartner)}<br>${br(k.adresse)}${k.ustId ? `<br>USt-IdNr. ${esc(k.ustId)}` : ''}</p>
 <table><tr><th>Leistung</th><th class="r">Betrag</th></tr><tr><td>${br(r.beschreibung)}</td><td class="r">${euro(r.netto)}</td></tr>
 <tr><td class="r">zzgl. ${esc(r.ustSatz)} % USt</td><td class="r">${euro(ust(r))}</td></tr><tr><th class="r">Gesamtbetrag</th><th class="r">${euro(brutto(r))}</th></tr></table>
 <p style="margin-top:30px">Bitte überweisen Sie den Betrag bis ${datum(r.faellig)} unter Angabe der Rechnungsnummer.</p>
 <p><small>${esc(f.name)} · ${esc(f.bank)} · IBAN ${esc(f.iban)} · USt-IdNr. ${esc(f.ustId)} · St.-Nr. ${esc(f.steuernummer)}</small></p></body></html>`;
 }
 
-function mahnDialog(r) {
-  openDialog(`<h2>Mahnung für ${esc(r.nummer)}</h2>
-    <p>${esc(ref('kunden', r.kundeId))} · ${euro(brutto(r))} · fällig ${datum(r.faellig)}${isOverdue(r) ? ` · ${pill(`${-tageBis(r.faellig)} Tage überfällig`, 'bad')}` : ''}</p>
-    <label for="stufe">Mahnstufe</label><select id="stufe"><option value="1">Zahlungserinnerung</option><option value="2">1. Mahnung</option><option value="3">Letzte Mahnung</option></select>
-    <div class="dlg-actions"><button class="btn" data-close>Abbrechen</button><button class="btn ki" id="go">Schreiben erstellen</button></div>`, (d) => {
-    $('#go', d).onclick = () => {
+function mahnSheet(r) {
+  sheet({ title: r.nummer, eyebrow: `${icon('spark')} Mahnschreiben`,
+    body: `<div class="kpis k2" style="margin-bottom:16px"><div class="card kpi"><div class="k">Kunde</div><div style="font-weight:600;margin-top:6px">${esc(ref('kunden', r.kundeId))}</div></div><div class="card kpi"><div class="k">Betrag brutto</div><div class="v" style="font-size:22px">${euro(brutto(r))}</div><div class="h">fällig ${datum(r.faellig)} ${isOverdue(r) ? fristPill(r.faellig) : ''}</div></div></div>
+      <label for="stufe">Mahnstufe</label><select id="stufe"><option value="1">Freundliche Zahlungserinnerung</option><option value="2">1. Mahnung</option><option value="3">Letzte Mahnung</option></select>`,
+    foot: `<button class="btn" data-close>Abbrechen</button><button class="btn primary" id="go">${icon('spark')} Schreiben erstellen</button>`,
+    onMount: (d) => { $('#go', d).onclick = () => {
       const s = Number($('#stufe', d).value), k = S.data.kunden.find((x) => x.id === r.kundeId) || {};
-      kiTextDialog(`Mahnschreiben ${r.nummer}`, `${GRUNDREGELN}\nDu schreibst im Forderungsmanagement – bestimmt, aber kundenfreundlich.
-
-Schreibe ${s === 1 ? 'eine freundliche Zahlungserinnerung' : s === 2 ? 'eine 1. Mahnung' : 'eine letzte Mahnung mit Hinweis auf gerichtliches Mahnverfahren und Verzugszinsen (§ 288 BGB)'} als Brief. Reiner Text ohne Markdown-Zeichen.
-Rechnung ${r.nummer} vom ${datum(r.datum)}, fällig ${datum(r.faellig)}, Betrag ${euroTxt(brutto(r))} brutto, Leistung: ${r.beschreibung || '-'}.
-Kunde: ${k.name || '-'}, Ansprechpartner: ${k.ansprechpartner || '-'}, Adresse: ${k.adresse || '-'}
-Absender: ${S.firma.name || '[Firma]'}, ${S.firma.adresse || ''}, Bank: ${S.firma.bank || '-'}, IBAN: ${S.firma.iban || '-'}
-Heute ist der ${datum(today())}. Neue Zahlungsfrist: ${s === 3 ? 7 : 10} Tage.`, { tier: 'quick' });
-    };
-  });
+      kiTextSheet(`Mahnung ${r.nummer}`, `${GRUNDREGELN}\nDu schreibst im Forderungsmanagement – bestimmt, aber kundenfreundlich.\n\nSchreibe ${s === 1 ? 'eine freundliche Zahlungserinnerung' : s === 2 ? 'eine 1. Mahnung' : 'eine letzte Mahnung mit Hinweis auf gerichtliches Mahnverfahren und Verzugszinsen (§ 288 BGB)'} als Brief. ${OHNE_MD}\nRechnung ${r.nummer} vom ${datum(r.datum)}, fällig ${datum(r.faellig)}, Betrag ${euroTxt(brutto(r))} brutto, Leistung: ${r.beschreibung || '-'}.\nKunde: ${k.name || '-'}, Ansprechpartner: ${k.ansprechpartner || '-'}, Adresse: ${k.adresse || '-'}\nAbsender: ${S.firma.name || '[Firma]'}, ${S.firma.adresse || ''}, Bank: ${S.firma.bank || '-'}, IBAN: ${S.firma.iban || '-'}\nHeute ist der ${datum(today())}. Neue Zahlungsfrist: ${s === 3 ? 7 : 10} Tage.`, { tier: 'quick' });
+    }; } });
 }
 
-function belegDialog() {
-  openDialog(`<h2>Beleg mit KI erfassen</h2>
-    <p class="lead" style="margin-bottom:14px">Fotografieren Sie eine Rechnung oder wählen Sie ein PDF. Claude liest die Daten aus und schlägt ein SKR03-Konto vor – Sie prüfen und speichern.</p>
-    <div class="form">
-      <div class="full"><label for="file">Foto oder PDF</label><input type="file" id="file" accept="image/*,application/pdf"></div>
-      <div class="full"><label for="text">oder Beleg beschreiben / Zusatzinfos</label><textarea id="text" placeholder="z. B. Tankquittung Aral vom 12.10., 84,20 € brutto"></textarea></div>
-    </div>
-    <div class="dlg-actions"><button class="btn" data-close>Abbrechen</button><button class="btn ki" id="go">Auslesen & kontieren</button></div>`, (r) => {
-    $('#go', r).onclick = (e) => mitKi(e.currentTarget, async (signal) => {
-      const file = $('#file', r).files[0], hinweis = $('#text', r).value.trim();
-      if (!file && !hinweis) throw new Error('Bitte ein Foto/PDF wählen oder den Beleg beschreiben.');
-      const doc = await dokumentVorbereiten(file);
-      const s = await ki();
-      const d = await s.json(`${GRUNDREGELN}
-Du bist Bilanzbuchhalter und kontierst Eingangsbelege nach DATEV SKR03 (z. B. 3400 Wareneingang 19 %, 4530 Kfz-Betriebskosten, 4930 Bürobedarf, 4920 Telefon, 4210 Miete, 4650 Bewirtungskosten, 4660 Reisekosten Arbeitnehmer, 4964 EDV-Software, 0480 GWG, 4900 Sonstige betriebliche Aufwendungen).
+// Erfassung per Foto/PDF: Claude liest das Dokument und füllt das Formular vor.
+const ERFASSEN = {
+  ausgaben: {
+    titel: 'Beleg erfassen', text: 'Fotografieren Sie eine Rechnung oder Quittung oder wählen Sie ein PDF. Claude liest die Daten aus und schlägt ein SKR03-Konto vor.',
+    placeholder: 'z. B. Tankquittung Aral vom 12.10., 84,20 € brutto',
+    prompt: 'Du bist Bilanzbuchhalter und kontierst Eingangsbelege nach DATEV SKR03 (z. B. 3400 Wareneingang 19 %, 4530 Kfz-Betriebskosten, 4930 Bürobedarf, 4920 Telefon, 4210 Miete, 4650 Bewirtungskosten, 4660 Reisekosten Arbeitnehmer, 4964 EDV-Software, 0480 GWG, 4900 Sonstige betriebliche Aufwendungen). Lies den Beleg aus und schlage die Buchung vor.',
+    format: '{"datum":"JJJJ-MM-TT oder leer","lieferant":"","beschreibung":"","netto":0.00,"ustSatz":"19|7|0","konto":"vierstellig","kategorie":"","hinweis":"kurze Begründung der Kontierung und fehlende Pflichtangaben nach § 14 UStG"}',
+  },
+  fahrzeuge: {
+    titel: 'Fahrzeugschein erfassen', text: 'Fotografieren Sie die Zulassungsbescheinigung Teil I (Fahrzeugschein). Claude liest Kennzeichen, Marke, Modell, FIN, Erstzulassung und die nächste HU aus.',
+    placeholder: 'optional: Leasingrate, Kilometerstand …',
+    prompt: 'Du liest deutsche Zulassungsbescheinigungen Teil I aus (Feld A Kennzeichen, B Erstzulassung, D.1 Marke, D.3 Handelsbezeichnung, E Fahrzeug-Identifizierungsnummer, P.3 Kraftstoff, nächste HU aus Stempel oder Feld). Übernimm Zusatzangaben des Nutzers.',
+    format: '{"kennzeichen":"","marke":"","modell":"","typ":"PKW|Transporter|LKW|Kleinbus|Anhänger|Baumaschine|Sonstiges","antrieb":"Diesel|Benzin|Elektro|Plug-in-Hybrid|Hybrid|Gas|–","erstzulassung":"JJJJ-MM-TT oder leer","fin":"","huFaellig":"JJJJ-MM-TT oder leer","kmStand":"","monatsrate":"","hinweis":"was unsicher war oder fehlt"}',
+  },
+  inventar: {
+    titel: 'Gerät erfassen', text: 'Fotografieren Sie das Typenschild oder die Rechnung des Geräts. Claude erfasst Bezeichnung, Hersteller, Seriennummer und schlägt den Prüftermin vor.',
+    placeholder: 'optional: Standort, Kaufdatum …',
+    prompt: 'Du erfasst Betriebsmittel für die Inventarliste. Lies Typenschild oder Rechnung aus. Schlage für elektrische Betriebsmittel einen Prüftermin nach DGUV Vorschrift 3 vor (Richtwerte: Büro 24 Monate, Werkstatt 12 Monate, Baustelle 3 Monate ab heute bzw. Anschaffung) und begründe kurz.',
+    format: '{"bezeichnung":"","kategorie":"IT & Telefon|Werkzeug|Maschine|Elektrogerät|Büroausstattung|Messgerät|Sonstiges","hersteller":"","seriennummer":"","anschaffung":"JJJJ-MM-TT oder leer","wert":"","pruefungFaellig":"JJJJ-MM-TT oder leer","garantieBis":"JJJJ-MM-TT oder leer","hinweis":"Begründung der Prüffrist, Unsicherheiten"}',
+  },
+  vertraege: {
+    titel: 'Vertrag auslesen', text: 'Wählen Sie den Vertrag als PDF oder fotografieren Sie die relevanten Seiten. Claude ermittelt Laufzeit, Kündigungsfrist, den spätesten Kündigungstermin und die Kosten.',
+    placeholder: 'optional: Hinweise zum Vertrag',
+    prompt: 'Du bist Vertragsmanager. Ermittle aus dem Vertrag Partner, Laufzeit, automatische Verlängerung und Kündigungsfrist und berechne den spätesten Kündigungstermin (Datum, bis zu dem die Kündigung zugegangen sein muss). Bei Verlängerungsklauseln den nächsten relevanten Termin ab heute nennen.',
+    format: '{"titel":"","partner":"","kategorie":"Miete & Immobilien|Versicherung|Leasing|Software & IT|Telekommunikation|Energie|Wartung & Service|Dienstleistung|Sonstiges","vertragsnummer":"","beginn":"JJJJ-MM-TT oder leer","ende":"JJJJ-MM-TT oder leer","kuendigungsfrist":"","kuendigenBis":"JJJJ-MM-TT oder leer","kosten":0,"intervall":"monatlich|quartalsweise|halbjährlich|jährlich|einmalig","hinweis":"Verlängerungsklausel, Besonderheiten, Risiken"}',
+  },
+};
 
-Lies den Beleg${doc.images.length ? ' (siehe Bild/er)' : ''} aus und schlage die Buchung vor. Heute ist ${today()}.
-${hinweis ? `Angaben des Nutzers: ${hinweis}\n` : ''}${doc.text ? `BELEGTEXT:\n${doc.text.slice(0, 40000)}\n` : ''}
-Antworte NUR mit einem JSON-Objekt dieser Form:
-{"datum":"JJJJ-MM-TT oder leer","lieferant":"...","beschreibung":"...","netto":0.00,"ustSatz":"19|7|0","konto":"vierstellig","kategorie":"...","begruendung":"kurze Begründung, Hinweise auf fehlende Pflichtangaben nach § 14 UStG"}`,
+function kiErfassen(col) {
+  const c = ERFASSEN[col];
+  sheet({ title: c.titel, eyebrow: `${icon('spark')} Mit Claude erfassen`,
+    body: `<p class="lead" style="margin-bottom:18px">${esc(c.text)}</p><div class="form">
+      <div class="full"><label for="file">Foto oder PDF</label><input type="file" id="file" accept="image/*,application/pdf"></div>
+      <div class="full"><label for="text">Zusatzangaben${col === 'ausgaben' ? ' oder Beleg beschreiben' : ''}</label><textarea id="text" placeholder="${esc(c.placeholder)}"></textarea></div></div>`,
+    foot: `<button class="btn" data-close>Abbrechen</button><button class="btn primary" id="go">${icon('spark')} Auslesen</button>`,
+    onMount: (d) => { $('#go', d).onclick = (e) => mitKi(e.currentTarget, async (signal) => {
+      const file = $('#file', d).files[0], hinweis = $('#text', d).value.trim();
+      if (!file && !hinweis) throw new Error('Bitte ein Foto/PDF wählen oder Angaben eintragen.');
+      const doc = await dokumentVorbereiten(file), s = await ki();
+      const r = await s.json(`${GRUNDREGELN}\n${c.prompt}\nHeute ist ${today()}.\n${hinweis ? `Angaben des Nutzers: ${hinweis}\n` : ''}${doc.text ? `DOKUMENTTEXT:\n${doc.text.slice(0, 120000)}\n` : ''}${doc.images.length ? 'Das Dokument ist als Bild angehängt.\n' : ''}\nAntworte NUR mit einem JSON-Objekt dieser Form (bei Werten mit | genau eine der Optionen wählen):\n${c.format}`,
         { images: doc.images.length ? doc.images : undefined, signal, modelTier: 'default', cache: false });
-      const ustSatz = ['19', '7', '0'].includes(String(d.ustSatz)) ? String(d.ustSatz) : '19';
-      const preset = { datum: /^\d{4}-\d{2}-\d{2}$/.test(d.datum || '') ? d.datum : today(), lieferant: d.lieferant || '', beschreibung: d.beschreibung || '', netto: Number(d.netto) || '', ustSatz, konto: String(d.konto || ''), kategorie: d.kategorie || '' };
-      openForm('ausgaben', null, preset, `Vorschlag von Claude: ${d.begruendung || ''}`);
-    });
-  });
+      const preset = {};
+      for (const f of COLLECTIONS[col].fields) {
+        let v = r && r[f.key];
+        if (v === undefined || v === null || v === '') continue;
+        if (f.type === 'date' && !/^\d{4}-\d{2}-\d{2}$/.test(String(v))) continue;
+        if (f.type === 'select' && !f.options.includes(String(v))) continue;
+        if (f.type === 'money' || f.type === 'number') { v = parseZahl(v); if (!Number.isFinite(v)) continue; }
+        preset[f.key] = v;
+      }
+      if (col === 'ausgaben' && !preset.datum) preset.datum = today();
+      openForm(col, null, preset, (r && r.hinweis) || 'Bitte die übernommenen Angaben prüfen.');
+    }); } });
 }
 
 function analyseHtml(a) {
-  const list = (xs) => (Array.isArray(xs) && xs.length ? `<ul class="plain">${xs.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : '<p class="empty">–</p>');
+  const list = (xs) => (Array.isArray(xs) && xs.length ? `<ul class="plain">${xs.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : '<p class="note">–</p>');
   return `<div class="kpis">
-      <div class="kpi"><div class="k">Empfehlung</div><div class="v">${pill(a.empfehlung || 'Prüfen')}</div></div>
-      <div class="kpi"><div class="k">Passung</div><div class="score">${Number(a.passung_score) || 0}/100</div></div>
-      <div class="kpi"><div class="k">Angebotsfrist</div><div class="v">${datum(/^\d{4}-\d{2}-\d{2}$/.test(a.frist || '') ? a.frist : '')}</div></div>
-      <div class="kpi"><div class="k">Volumen (geschätzt)</div><div class="v">${a.volumen ? euro(a.volumen) : '–'}</div></div>
+      <div class="card kpi"><div class="k">Empfehlung</div><div style="margin-top:10px">${pill(a.empfehlung || 'Prüfen')}</div></div>
+      <div class="card kpi"><div class="k">Passung</div><div class="score" style="margin-top:6px">${Number(a.passung_score) || 0}<span style="font-size:18px;color:var(--muted)">/100</span></div></div>
+      <div class="card kpi"><div class="k">Angebotsfrist</div><div class="v" style="font-size:22px">${datum(/^\d{4}-\d{2}-\d{2}$/.test(a.frist || '') ? a.frist : '')}</div></div>
+      <div class="card kpi"><div class="k">Volumen (geschätzt)</div><div class="v" style="font-size:22px">${a.volumen ? euro(a.volumen) : '–'}</div></div>
     </div>
-    <p><strong>${esc(a.titel)}</strong> – ${esc(a.auftraggeber)}${a.cpv ? ` · CPV ${esc(a.cpv)}` : ''}</p>
-    <p>${esc(a.zusammenfassung)}</p><p><strong>Begründung:</strong> ${esc(a.begruendung)}</p>
-    <div class="cols">
-      <div><h2>Eignungskriterien</h2>${Array.isArray(a.eignungskriterien) && a.eignungskriterien.length ? `<div class="table-wrap"><table>${a.eignungskriterien.map((k) => `<tr><td>${pill(k.erfuellt || 'unklar')}</td><td>${esc(k.kriterium)}<br><span class="note">${esc(k.kommentar)}</span></td></tr>`).join('')}</table></div>` : '<p class="empty">–</p>'}</div>
-      <div><h2>Leistungsumfang</h2>${list(a.leistungsumfang)}<h2 style="margin-top:16px">Zuschlagskriterien</h2>${list(a.zuschlagskriterien)}</div>
-      <div><h2>Geforderte Unterlagen</h2>${list(a.geforderte_unterlagen)}</div>
-      <div><h2>Risiken</h2>${list(a.risiken)}<h2 style="margin-top:16px">Nächste Schritte</h2>${list(a.naechste_schritte)}</div>
+    <h2 style="margin:4px 0 4px">${esc(a.titel)}</h2><p class="note" style="margin:0 0 12px">${esc(a.auftraggeber)}${a.cpv ? ` · CPV ${esc(a.cpv)}` : ''}</p>
+    <p>${esc(a.zusammenfassung)}</p><div class="hint"><b>Begründung:</b> ${esc(a.begruendung)}</div>
+    <div class="three">
+      <div><h3>Eignungskriterien</h3>${Array.isArray(a.eignungskriterien) && a.eignungskriterien.length ? `<ul class="plain" style="list-style:none;padding:0">${a.eignungskriterien.map((k) => `<li style="margin-bottom:12px">${pill(k.erfuellt || 'unklar')} <b>${esc(k.kriterium)}</b><span class="sub">${esc(k.kommentar)}</span></li>`).join('')}</ul>` : '<p class="note">–</p>'}</div>
+      <div><h3>Leistungsumfang</h3>${list(a.leistungsumfang)}<h3 style="margin-top:18px">Zuschlagskriterien</h3>${list(a.zuschlagskriterien)}</div>
+      <div><h3>Geforderte Unterlagen</h3>${list(a.geforderte_unterlagen)}<h3 style="margin-top:18px">Risiken</h3>${list(a.risiken)}<h3 style="margin-top:18px">Nächste Schritte</h3>${list(a.naechste_schritte)}</div>
     </div>`;
 }
 
 async function analysiereAusschreibung({ text = '', file = null, signal }) {
-  const doc = await dokumentVorbereiten(file);
-  const s = await ki();
-  return s.json(`${GRUNDREGELN}
-Du bist erfahrener Bid-Manager für öffentliche Ausschreibungen (GWB, VgV, UVgO, VOB/A) und bewertest Ausschreibungen für mittelständische Bieter.
-
-Analysiere die folgende Ausschreibung und bewerte, ob sich eine Teilnahme für unser Unternehmen lohnt. Prüfe die Eignungskriterien gegen unser Firmenprofil. Heute ist ${today()}.
-
-UNSER FIRMENPROFIL:
-${firmaText()}
-Aktive Mitarbeiter: ${S.data.mitarbeiter.filter((m) => m.status === 'aktiv').length}
-
-AUSSCHREIBUNG:
-${[text, doc.text].filter(Boolean).join('\n\n').slice(0, 200000) || '(siehe Bilder)'}
-
-Antworte NUR mit einem JSON-Objekt dieser Form:
-{"titel":"","auftraggeber":"","frist":"JJJJ-MM-TT oder leer","volumen":0,"cpv":"","zusammenfassung":"","leistungsumfang":[""],"eignungskriterien":[{"kriterium":"","erfuellt":"ja|nein|unklar","kommentar":""}],"zuschlagskriterien":[""],"geforderte_unterlagen":[""],"risiken":[""],"passung_score":0,"empfehlung":"Go|No-Go|Prüfen","begruendung":"","naechste_schritte":[""]}`,
-  { images: doc.images.length ? doc.images : undefined, signal, modelTier: 'complex', cache: false });
+  const doc = await dokumentVorbereiten(file), s = await ki();
+  return s.json(`${GRUNDREGELN}\nDu bist erfahrener Bid-Manager für öffentliche Ausschreibungen (GWB, VgV, UVgO, VOB/A) und bewertest Ausschreibungen für mittelständische Bieter.\n\nAnalysiere die folgende Ausschreibung und bewerte, ob sich eine Teilnahme für unser Unternehmen lohnt. Prüfe die Eignungskriterien gegen unser Firmenprofil. Heute ist ${today()}.\n\nUNSER FIRMENPROFIL:\n${firmaText()}\nAktive Mitarbeiter: ${S.data.mitarbeiter.filter((m) => m.status === 'aktiv').length}, Fahrzeuge: ${AKTIVE_FAHRZEUGE().length}\n\nAUSSCHREIBUNG:\n${[text, doc.text].filter(Boolean).join('\n\n').slice(0, 200000) || '(siehe Bilder)'}\n\nAntworte NUR mit einem JSON-Objekt dieser Form:\n{"titel":"","auftraggeber":"","frist":"JJJJ-MM-TT oder leer","volumen":0,"cpv":"","zusammenfassung":"","leistungsumfang":[""],"eignungskriterien":[{"kriterium":"","erfuellt":"ja|nein|unklar","kommentar":""}],"zuschlagskriterien":[""],"geforderte_unterlagen":[""],"risiken":[""],"passung_score":0,"empfehlung":"Go|No-Go|Prüfen","begruendung":"","naechste_schritte":[""]}`,
+    { images: doc.images.length ? doc.images : undefined, signal, modelTier: 'complex', cache: false });
 }
 
 function zeigeAnalyse(t) {
-  openDialog(`<h2>KI-Analyse: ${esc(t.titel)}</h2>${analyseHtml(t.analyse)}<p class="note">Erstellt am ${esc(new Date(t.analyse.erstellt || Date.now()).toLocaleString('de-DE'))}. Bitte Vergabeunterlagen selbst prüfen.</p>
-    <div class="dlg-actions"><button class="btn primary" data-close>Schließen</button></div>`, null, true);
+  sheet({ title: t.titel, eyebrow: `${icon('spark')} Analyse vom ${new Date(t.analyse.erstellt || Date.now()).toLocaleDateString('de-DE')}`, wide: true,
+    body: `${analyseHtml(t.analyse)}<p class="note" style="margin-top:16px">Bitte die Vergabeunterlagen selbst prüfen – die Analyse ersetzt keine rechtliche Prüfung.</p>`,
+    foot: `<button class="btn" id="ang">${icon('spark')} Angebot entwerfen</button><button class="btn primary" data-close>Schließen</button>`,
+    onMount: (d) => { $('#ang', d).onclick = () => angebotSheet(t); } });
 }
 
-function angebotDialog(t) {
-  openDialog(`<h2>Angebotsentwurf: ${esc(t.titel)}</h2>
-    <p class="lead" style="margin-bottom:14px">Claude schreibt Anschreiben, Unternehmensdarstellung, Ausführungskonzept und eine Checkliste der Unterlagen${t.analyse ? ' – auf Basis der vorhandenen KI-Analyse' : ''}.</p>
-    <label for="hinweise">Hinweise (optional)</label><textarea id="hinweise" placeholder="z. B. Projektleitung durch Herrn Weber, Ausführung mit eigenem Personal"></textarea>
-    <div class="dlg-actions"><button class="btn" data-close>Abbrechen</button><button class="btn ki" id="go">Entwurf schreiben</button></div>`, (r) => {
-    $('#go', r).onclick = () => {
-      const h = $('#hinweise', r).value;
+function angebotSheet(t) {
+  sheet({ title: t.titel, eyebrow: `${icon('spark')} Angebotsentwurf`,
+    body: `<p class="lead" style="margin-bottom:16px">Claude schreibt Anschreiben, Unternehmensdarstellung, Ausführungskonzept und eine Checkliste der Unterlagen${t.analyse ? ' – auf Basis der vorhandenen Analyse' : ''}.</p>
+      <label for="hinweise">Hinweise (optional)</label><textarea id="hinweise" placeholder="z. B. Projektleitung durch Herrn Weber, Ausführung mit eigenem Personal"></textarea>`,
+    foot: `<button class="btn" data-close>Abbrechen</button><button class="btn primary" id="go">${icon('spark')} Entwurf schreiben</button>`,
+    onMount: (d) => { $('#go', d).onclick = () => {
       const daten = { ...t }; delete daten.analyse; delete daten.id;
-      kiTextDialog(`Angebot ${t.titel}`, `${GRUNDREGELN}\nDu bist Bid-Manager und schreibst überzeugende, formal saubere Angebotsunterlagen für öffentliche Auftraggeber.
-
-Erstelle einen Entwurf für unser Angebot mit dieser Gliederung:
-1. Anschreiben an die Vergabestelle
-2. Unternehmensdarstellung & Referenzen (aus dem Firmenprofil)
-3. Ausführungskonzept (Vorgehen, Projektorganisation, Zeitplan, Qualitätssicherung), zugeschnitten auf die Zuschlagskriterien
-4. Checkliste der beizufügenden Unterlagen und Eigenerklärungen
-Preise nicht erfinden – Platzhalter verwenden. Reiner Text, Überschriften in GROSSBUCHSTABEN, keine Markdown-Zeichen.
-
-AUSSCHREIBUNG: ${JSON.stringify(daten)}
-${t.analyse ? `KI-ANALYSE: ${JSON.stringify(t.analyse)}` : ''}
-UNSER FIRMENPROFIL:
-${firmaText()}
-Hinweise: ${h || '-'}`, { tier: 'complex' });
-    };
-  });
+      kiTextSheet(`Angebot ${t.titel}`, `${GRUNDREGELN}\nDu bist Bid-Manager und schreibst überzeugende, formal saubere Angebotsunterlagen für öffentliche Auftraggeber.\n\nErstelle einen Entwurf für unser Angebot: 1. Anschreiben an die Vergabestelle, 2. Unternehmensdarstellung & Referenzen, 3. Ausführungskonzept (Vorgehen, Projektorganisation, Zeitplan, Qualitätssicherung) zugeschnitten auf die Zuschlagskriterien, 4. Checkliste der beizufügenden Unterlagen und Eigenerklärungen. Preise nicht erfinden – Platzhalter verwenden. Überschriften in GROSSBUCHSTABEN. ${OHNE_MD}\n\nAUSSCHREIBUNG: ${JSON.stringify(daten)}\n${t.analyse ? `KI-ANALYSE: ${JSON.stringify(t.analyse)}` : ''}\nUNSER FIRMENPROFIL:\n${firmaText()}\nTeam: ${S.data.mitarbeiter.filter((m) => m.status === 'aktiv').map((m) => `${m.name} (${m.position || '-'})`).join(', ') || '-'}\nHinweise: ${$('#hinweise', d).value || '-'}`, { tier: 'complex', wide: true });
+    }; } });
 }
 
 PAGES.ausschreibungen = () => {
-  $('#main').innerHTML = head('Ausschreibungen', 'Vergabe-Pipeline mit Fristen, KI-Prüfung von Vergabeunterlagen (Go/No-Go) und Angebotsentwürfe.');
-  tabs($('#page'), 'ausschreibungen', [
+  $('#main').innerHTML = head('Vertrieb', 'Ausschreibungen', 'Vergabe-Pipeline mit Fristen. Claude prüft Unterlagen auf Eignung, gibt eine Go/No-Go-Empfehlung und entwirft das Angebot.');
+  seg($('#body'), 'ausschreibungen', [
     { label: 'Pipeline', render: (el) => table(el, 'ausschreibungen', {
       sort: (a, b) => String(a.frist || '9999').localeCompare(String(b.frist || '9999')),
-      empty: 'Noch keine Ausschreibungen. Legen Sie eine an oder lassen Sie Unterlagen unter „Unterlagen prüfen“ von der KI auswerten.',
+      emptyTitle: 'Noch keine Ausschreibungen', empty: 'Legen Sie eine an oder lassen Sie Unterlagen unter „Unterlagen prüfen“ von Claude auswerten.',
       extra: [
-        { label: 'Restzeit', render: (t) => { const n = tageBis(t.frist); return n == null ? '' : n < 0 ? '<span class="note">abgelaufen</span>' : n <= 7 ? pill(`${n} Tage`, 'bad') : `${n} Tage`; } },
-        { label: 'KI', render: (t) => (t.analyse ? `${pill(t.analyse.empfehlung || 'Prüfen')} <span class="note">${Number(t.analyse.passung_score) || 0}/100</span>` : '') },
+        { label: 'Restzeit', render: (t) => (['neu', 'in Prüfung', 'Angebot in Arbeit'].includes(t.status) ? fristPill(t.frist) : '') },
+        { label: 'Bewertung', render: (t) => (t.analyse ? `${pill(t.analyse.empfehlung || 'Prüfen')}<span class="sub">${Number(t.analyse.passung_score) || 0}/100</span>` : '') },
       ],
       actions: [
-        { label: 'Analyse ansehen', show: (t) => Boolean(t.analyse), run: zeigeAnalyse },
-        { label: 'KI-Prüfung', ki: true, run: (t, btn) => mitKi(btn, async (signal) => {
+        { label: 'Analyse', show: (t) => Boolean(t.analyse), run: zeigeAnalyse },
+        { label: 'Prüfen', ki: true, show: (t) => !t.analyse, run: (t, btn) => mitKi(btn, async (signal) => {
           const daten = { ...t }; delete daten.analyse; delete daten.id;
           const analyse = await analysiereAusschreibung({ text: JSON.stringify(daten), signal });
           const neu = { ...t, analyse: { ...analyse, erstellt: new Date().toISOString() } };
-          await saveRecord('ausschreibungen', neu);
-          render(true); zeigeAnalyse(neu);
+          await saveRecord('ausschreibungen', neu); render(true); zeigeAnalyse(neu);
         }) },
-        { label: 'Angebot (KI)', ki: true, run: angebotDialog },
+        { label: 'Angebot', ki: true, run: angebotSheet },
       ],
     }) },
-    { label: 'Unterlagen prüfen (KI)', render: (el) => {
-      el.innerHTML = `<div class="panel"><h2>Vergabeunterlagen mit KI prüfen</h2>
-        <p class="lead" style="margin-bottom:14px">Wählen Sie die Bekanntmachung oder Leistungsbeschreibung als PDF (oder Foto) bzw. fügen Sie den Text ein. Claude extrahiert die Eckdaten, prüft die Eignung gegen Ihr Firmenprofil und gibt eine Go/No-Go-Empfehlung.</p>
+    { label: 'Unterlagen prüfen', render: (el) => {
+      el.innerHTML = `<div class="card card-pad"><span class="ki-tag">${icon('spark')} Mit Claude</span><h2 style="margin:6px 0 6px">Vergabeunterlagen prüfen</h2>
+        <p class="lead" style="margin-bottom:18px">Bekanntmachung oder Leistungsbeschreibung als PDF oder Foto wählen bzw. Text einfügen. Claude extrahiert die Eckdaten, prüft die Eignung gegen Ihr Firmenprofil und empfiehlt Go oder No-Go.</p>
         <div class="form">
           <div class="full"><label for="afile">PDF oder Foto</label><input type="file" id="afile" accept="application/pdf,image/*"></div>
           <div class="full"><label for="atext">oder Text der Bekanntmachung</label><textarea id="atext" style="min-height:150px"></textarea></div>
         </div>
-        <div class="dlg-actions"><button class="btn ki" id="go">Analysieren</button></div></div><div id="result" style="margin-top:16px"></div>`;
+        <div class="toolbar" style="justify-content:flex-end;margin:18px 0 0"><button class="btn primary" id="go">${icon('spark')} Analysieren</button></div></div><div id="result" style="margin-top:18px"></div>`;
       $('#go', el).onclick = (e) => mitKi(e.currentTarget, async (signal) => {
         const file = $('#afile', el).files[0], text = $('#atext', el).value.trim();
         if (!file && !text) throw new Error('Bitte ein PDF/Foto wählen oder Text einfügen.');
         const a = await analysiereAusschreibung({ text, file, signal });
-        $('#result', el).innerHTML = `<div class="panel">${analyseHtml(a)}<div class="dlg-actions"><button class="btn primary" id="take">In Pipeline übernehmen</button></div></div>`;
+        $('#result', el).innerHTML = `<div class="card card-pad">${analyseHtml(a)}<div class="toolbar" style="justify-content:flex-end;margin:18px 0 0"><button class="btn primary" id="take">In Pipeline übernehmen</button></div></div>`;
         $('#take', el).onclick = async () => {
           try {
             await saveRecord('ausschreibungen', { id: newId(), titel: a.titel || 'Ausschreibung', auftraggeber: a.auftraggeber || '', vergabeplattform: '', frist: /^\d{4}-\d{2}-\d{2}$/.test(a.frist || '') ? a.frist : '', volumen: Number(a.volumen) || '', cpv: a.cpv || '', status: 'in Prüfung', beschreibung: a.zusammenfassung || '', analyse: { ...a, erstellt: new Date().toISOString() }, erstellt: new Date().toISOString() });
@@ -1018,10 +1305,89 @@ PAGES.ausschreibungen = () => {
   ]);
 };
 
+PAGES.fuhrpark = () => {
+  const d = S.data, aktiv = AKTIVE_FAHRZEUGE(), jahr = String(new Date().getFullYear());
+  const kostenJahr = d.fahrzeugkosten.filter((k) => String(k.datum).startsWith(jahr)).reduce((s, k) => s + (Number(k.betrag) || 0), 0);
+  const raten = aktiv.reduce((s, f) => s + (Number(f.monatsrate) || 0), 0);
+  const termine = fristen(30).filter((f) => f.modul === 'Fuhrpark').length;
+  $('#main').innerHTML = head('Ressourcen', 'Fuhrpark', 'Fahrzeuge, Fahrer, Prüftermine und Kosten. Claude liest Fahrzeugscheine aus und analysiert Ihre Flotte.');
+  $('#body').innerHTML = `<div class="kpis">
+      <div class="card kpi"><div class="k">${icon('car')} Fahrzeuge im Einsatz</div><div class="v">${aktiv.length}</div><div class="h">${aktiv.filter((f) => ['Elektro', 'Plug-in-Hybrid'].includes(f.antrieb)).length} elektrifiziert · ${aktiv.filter((f) => f.status === 'in Werkstatt').length} in Werkstatt</div></div>
+      <div class="card kpi"><div class="k">${icon('finance')} Kosten ${jahr}</div><div class="v">${euro(kostenJahr)}</div><div class="h">erfasste Fahrzeugkosten, netto</div></div>
+      <div class="card kpi"><div class="k">${icon('clock')} Raten / Monat</div><div class="v">${euro(raten)}</div><div class="h">Leasing & Finanzierung</div></div>
+      <div class="card kpi"><div class="k">${icon('wrench')} Termine ≤ 30 Tage</div><div class="v">${termine}</div><div class="h">HU, Inspektion, UVV, Vertragsende</div></div>
+    </div><div id="segwrap"></div>`;
+  seg($('#segwrap'), 'fuhrpark', [
+    { label: 'Fahrzeuge', render: (el) => table(el, 'fahrzeuge', {
+      sort: (a, b) => String(a.kennzeichen).localeCompare(b.kennzeichen),
+      toolbar: `<button class="btn ki" data-scan>${icon('camera')} Fahrzeugschein scannen</button>`,
+      onToolbar: (t) => { $('[data-scan]', t).onclick = () => kiErfassen('fahrzeuge'); },
+      emptyTitle: 'Noch keine Fahrzeuge', empty: 'Legen Sie Ihr erstes Fahrzeug an oder fotografieren Sie den Fahrzeugschein.',
+      extra: [{ label: 'Nächster Termin', render: (f) => { const n = [['HU', f.huFaellig], ['Inspektion', f.inspektionFaellig], ['UVV', f.uvvFaellig]].filter((x) => x[1]).sort((a, b) => a[1].localeCompare(b[1]))[0]; return n ? `${fristPill(n[1])}<span class="sub">${n[0]} · ${datum(n[1])}</span>` : ''; } }],
+      actions: [{ label: 'Kosten', run: (f) => openForm('fahrzeugkosten', null, { fahrzeugId: f.id, datum: today(), km: f.kmStand }) }],
+    }) },
+    { label: 'Kosten & Fahrten', render: (el) => table(el, 'fahrzeugkosten', {
+      sort: (a, b) => String(b.datum).localeCompare(a.datum),
+      preset: () => ({ datum: today() }),
+      emptyTitle: 'Noch keine Kosten erfasst', empty: d.fahrzeuge.length ? 'Erfassen Sie Tankfüllungen, Werkstatt und Reifen – so sehen Sie die Kosten je Fahrzeug.' : 'Legen Sie zuerst ein Fahrzeug an.',
+    }) },
+    { label: 'Auswertung', render: (el) => {
+      const items = d.fahrzeuge.map((f) => ({ label: COLLECTIONS.fahrzeuge.label(f), wert: round2(d.fahrzeugkosten.filter((k) => k.fahrzeugId === f.id).reduce((s, k) => s + (Number(k.betrag) || 0), 0) + (Number(f.monatsrate) || 0) * 12) })).sort((a, b) => b.wert - a.wert);
+      const arten = {}; for (const k of d.fahrzeugkosten) arten[k.art] = (arten[k.art] || 0) + (Number(k.betrag) || 0);
+      el.innerHTML = `<section class="card card-pad briefing"><span class="ki-tag">${icon('spark')} Flottenanalyse</span><h2 style="margin:6px 0 8px">Wo lässt sich sparen?</h2><p class="note" style="margin:0 0 14px;max-width:70ch">Claude bewertet Kosten je Fahrzeug, Leasingenden, Prüfpflichten und das Potenzial für Elektrofahrzeuge – inklusive Dienstwagenbesteuerung – und nennt konkrete Maßnahmen.</p>
+        <button class="btn primary" id="ana">${icon('spark')} Flotte analysieren</button></section>
+        <div class="two" style="margin-bottom:0">
+        <section class="card"><div class="card-head"><h2>Kosten je Fahrzeug</h2><span class="note">erfasste Kosten + 12 Raten</span></div><div style="padding-top:8px">${items.length ? barList(items) : '<div class="empty"><b>Noch keine Daten</b>Legen Sie Fahrzeuge und Kosten an.</div>'}</div></section>
+        <section class="card"><div class="card-head"><h2>Nach Kostenart</h2></div><div style="padding-top:8px">${Object.keys(arten).length ? barList(Object.entries(arten).map(([label, wert]) => ({ label, wert: round2(wert) })).sort((a, b) => b.wert - a.wert)) : '<div class="empty"><b>Noch keine Kosten</b>Erfassen Sie Kosten unter „Kosten & Fahrten“.</div>'}</div></section>
+      </div>`;
+      $('#ana', el).onclick = () => kiTextSheet('Flottenanalyse', `${GRUNDREGELN}\nDu bist Fuhrparkmanager und Berater für Flottenoptimierung im Mittelstand.\n\nAnalysiere unseren Fuhrpark: Kosten je Fahrzeug und je km (soweit ableitbar), Auffälligkeiten, anstehende Leasingenden und Prüftermine, Potenzial für Elektrifizierung (Ladeinfrastruktur, 0,25-%/0,5-%-Regel bei der Dienstwagenbesteuerung), Halterpflichten (UVV-Prüfung, Führerscheinkontrolle) und konkrete Sparmaßnahmen mit grober Wirkung in Euro. Nutze Markdown-Überschriften und Aufzählungen.\n\n${lagebericht()}\n\nEINZELNE FAHRZEUGKOSTEN:\n${d.fahrzeugkosten.slice(-200).map((k) => `- ${k.datum} ${ref('fahrzeuge', k.fahrzeugId)}: ${k.art} ${euroTxt(k.betrag)}${k.km ? `, ${k.km} km` : ''}`).join('\n') || '-'}`, { tier: 'complex', wide: true });
+    } },
+  ]);
+};
+
+PAGES.inventar = () => {
+  const d = S.data, inBetrieb = d.inventar.filter((g) => g.status !== 'ausgemustert');
+  $('#main').innerHTML = head('Ressourcen', 'Inventar & Geräte', 'Werkzeuge, Maschinen, IT und Elektrogeräte – mit Ausgabe an Mitarbeiter und Prüfterminen nach DGUV V3.');
+  $('#body').innerHTML = `<div class="kpis k3">
+      <div class="card kpi"><div class="k">${icon('box')} Geräte</div><div class="v">${inBetrieb.length}</div><div class="h">${inBetrieb.filter((g) => g.mitarbeiterId).length} an Mitarbeiter ausgegeben</div></div>
+      <div class="card kpi"><div class="k">${icon('finance')} Anschaffungswert</div><div class="v">${euro(inBetrieb.reduce((s, g) => s + (Number(g.wert) || 0), 0))}</div><div class="h">Geräte in Betrieb und im Lager</div></div>
+      <div class="card kpi"><div class="k">${icon('wrench')} Prüfungen ≤ 30 Tage</div><div class="v">${fristen(30).filter((f) => f.modul === 'Inventar').length}</div><div class="h">DGUV V3 / UVV</div></div>
+    </div><div id="tbl"></div>`;
+  table($('#tbl'), 'inventar', {
+    sort: (a, b) => String(a.pruefungFaellig || '9999').localeCompare(String(b.pruefungFaellig || '9999')),
+    toolbar: `<button class="btn ki" data-scan>${icon('camera')} Typenschild scannen</button>`,
+    onToolbar: (t) => { $('[data-scan]', t).onclick = () => kiErfassen('inventar'); },
+    emptyTitle: 'Noch kein Inventar', empty: 'Erfassen Sie Geräte manuell oder fotografieren Sie das Typenschild.',
+    extra: [{ label: 'Prüfung', render: (g) => (g.pruefungFaellig && g.status !== 'ausgemustert' ? `${fristPill(g.pruefungFaellig)}<span class="sub">${datum(g.pruefungFaellig)}</span>` : '') }],
+  });
+};
+
+PAGES.vertraege = () => {
+  const d = S.data, fk = fixkostenMonat(), bald = fristen(90).filter((f) => f.modul === 'Verträge');
+  $('#main').innerHTML = head('Ressourcen', 'Verträge', 'Miete, Versicherungen, Leasing, Software und Dienstleister – Kündigungsfristen immer im Blick. Claude liest Verträge aus und schreibt Kündigungen.');
+  $('#body').innerHTML = `<div class="kpis k3">
+      <div class="card kpi"><div class="k">${icon('contract')} Aktive Verträge</div><div class="v">${d.vertraege.filter((v) => v.status === 'aktiv').length}</div><div class="h">${d.vertraege.filter((v) => v.status === 'gekündigt').length} gekündigt</div></div>
+      <div class="card kpi"><div class="k">${icon('finance')} Kosten / Monat</div><div class="v">${euro(fk.vertraege)}</div><div class="h">${euro(fk.vertraege * 12)} pro Jahr</div></div>
+      <div class="card kpi"><div class="k">${icon('clock')} Kündigungsfristen ≤ 90 Tage</div><div class="v">${bald.length}</div><div class="h">${bald[0] ? `nächste: ${esc(bald[0].titel.replace('Kündigungsfrist ', ''))}` : 'keine anstehend'}</div></div>
+    </div><div id="tbl"></div>`;
+  table($('#tbl'), 'vertraege', {
+    sort: (a, b) => String(a.kuendigenBis || '9999').localeCompare(String(b.kuendigenBis || '9999')),
+    toolbar: `<button class="btn ki" data-scan>${icon('spark')} Vertrag mit Claude auslesen</button>`,
+    onToolbar: (t) => { $('[data-scan]', t).onclick = () => kiErfassen('vertraege'); },
+    emptyTitle: 'Noch keine Verträge', empty: 'Erfassen Sie Verträge – die Suite erinnert Sie rechtzeitig an Kündigungsfristen.',
+    extra: [{ label: 'Frist', render: (v) => (v.status === 'aktiv' && v.kuendigenBis ? fristPill(v.kuendigenBis) : '') }],
+    actions: [{ label: 'Kündigung', ki: true, show: (v) => v.status === 'aktiv', run: kuendigungSheet }],
+  });
+};
+
+function kuendigungSheet(v) {
+  kiTextSheet(`Kündigung ${v.titel}`, `${GRUNDREGELN}\nDu schreibst rechtssichere Kündigungsschreiben für Unternehmen.\n\nSchreibe eine ordentliche Kündigung dieses Vertrags zum nächstmöglichen Termin, mit der Bitte um schriftliche Bestätigung des Beendigungsdatums. Danach getrennt unter "HINWEISE": Zustellung mit Nachweis und die Frist. ${OHNE_MD}\nVertrag: ${v.titel}, Partner: ${v.partner || '[Vertragspartner]'}, Vertragsnummer: ${v.vertragsnummer || '[Vertragsnummer]'}, Beginn: ${v.beginn || '-'}, Laufzeit bis: ${v.ende || '-'}, Kündigungsfrist: ${v.kuendigungsfrist || '-'}, spätestens kündigen bis: ${v.kuendigenBis || '-'}.\nAbsender: ${S.firma.name || '[Firma]'}, ${S.firma.adresse || ''}, vertreten durch ${S.firma.inhaber || '[Geschäftsführung]'}.\nHeute ist der ${datum(today())}.`, { tier: 'quick' });
+}
+
 PAGES.assistent = () => {
-  $('#main').innerHTML = head('KI-Assistent', 'Fragen Sie alles zu Ihrem Unternehmen. Claude kennt Ihre aktuellen Zahlen, Mitarbeiter und Fristen.');
-  $('#page').innerHTML = `<div class="panel chat"><div class="log" id="log"></div>
-    <form class="composer" id="cf"><textarea id="q" placeholder="Frage stellen …" aria-label="Frage"></textarea><button class="btn primary" id="send">Senden</button></form></div>`;
+  $('#main').innerHTML = head('Werkzeuge', 'KI-Assistent', 'Fragen Sie alles zu Ihrem Unternehmen. Claude kennt Zahlen, Team, Fuhrpark, Verträge und Fristen.');
+  $('#body').innerHTML = `<div class="card chat"><div class="log" id="log"></div>
+    <form class="composer" id="cf"><textarea id="q" placeholder="Frage an Claude …" aria-label="Frage"></textarea><button class="btn primary" id="send">Senden</button></form></div>`;
   renderChat();
   $('#cf').onsubmit = (e) => { e.preventDefault(); sendChat($('#q').value); };
   $('#q').onkeydown = (e) => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); sendChat($('#q').value); } };
@@ -1030,11 +1396,12 @@ PAGES.assistent = () => {
 function renderChat() {
   const log = $('#log'); if (!log) return;
   if (!UI.chat.length) {
-    log.innerHTML = `<div class="chips">${['Welche Rechnungen sollte ich heute anmahnen?', 'Wie hoch ist unsere USt-Zahllast diesen Monat, und bis wann ist die Voranmeldung fällig?', 'Wer hat noch viel Resturlaub?', 'Welche Ausschreibung sollten wir priorisieren?', 'Was muss ich bei der Einstellung eines Minijobbers beachten?'].map((q) => `<button class="btn" data-q="${esc(q)}">${esc(q)}</button>`).join('')}</div>`;
+    log.innerHTML = `<div style="margin-top:auto"><span class="ki-tag">${icon('spark')} Vorschläge</span><div class="chips" style="margin-top:12px">${['Welche Rechnungen sollte ich heute anmahnen?', 'Welche Verträge sollte ich kündigen oder neu verhandeln?', 'Lohnt sich bei uns die Umstellung auf E-Fahrzeuge?', 'Wie hoch ist die USt-Zahllast diesen Monat und bis wann ist die Voranmeldung fällig?', 'Welche Ausschreibung sollten wir priorisieren?', 'Was muss ich bei der Einstellung eines Minijobbers beachten?'].map((q) => `<button class="btn" data-q="${esc(q)}">${esc(q)}</button>`).join('')}</div></div>`;
     log.onclick = (e) => { const b = e.target.closest('[data-q]'); if (b) sendChat(b.dataset.q); };
     return;
   }
-  log.innerHTML = UI.chat.map((m) => (m.role === 'user' ? `<div class="msg u">${esc(m.content)}</div>` : `<div class="msg a">${m.pending ? '<span class="thinking"><span class="spin"></span> Claude denkt nach …</span>' : m.error ? `${pill('Fehler', 'bad')} ${esc(m.error)}` : markdown(m.content)}</div>`)).join('');
+  log.onclick = null;
+  log.innerHTML = UI.chat.map((m) => (m.role === 'user' ? `<div class="msg u">${esc(m.content)}</div>` : `<div class="msg a">${m.pending ? '<span class="thinking"><span class="spin"></span> Claude denkt nach …</span>' : m.error ? `${pill('Hinweis', 'bad')} ${esc(m.error)}` : markdown(m.content)}</div>`)).join('');
   log.scrollTop = log.scrollHeight;
 }
 
@@ -1049,7 +1416,7 @@ async function sendChat(text) {
   const answer = { role: 'assistant', content: '', pending: true };
   UI.chat.push(answer);
   renderChat();
-  const rules = `${GRUNDREGELN}\nDu hilfst Geschäftsführung und Mitarbeitenden bei Personal, Buchhaltung, Steuern, Liquidität, Vertrieb, Ausschreibungen und Organisation. Du kannst keine Daten ändern – sage, in welchem Modul (Personal, Buchhaltung, Ausschreibungen, Firmenprofil) der Nutzer etwas erledigt. Antworte mit kurzen Absätzen und Aufzählungen.\n\nAKTUELLER LAGEBERICHT DER FIRMA:\n${lagebericht()}`;
+  const rules = `${GRUNDREGELN}\nDu hilfst Geschäftsführung und Mitarbeitenden bei Personal, Finanzen, Steuern, Liquidität, Fuhrpark, Inventar, Verträgen, Ausschreibungen und Organisation. Du kannst keine Daten ändern – sage, in welchem Bereich der App (Personal, Finanzen, Ausschreibungen, Fuhrpark, Inventar, Verträge, Firmenprofil) der Nutzer etwas erledigt. Antworte mit kurzen Absätzen und Aufzählungen.\n\nAKTUELLER LAGEBERICHT DER FIRMA:\n${lagebericht()}`;
   try {
     const s = await ki();
     const { text: t } = await s([{ role: 'user', content: rules }, ...history, { role: 'user', content: text }], {
@@ -1065,18 +1432,17 @@ async function sendChat(text) {
 }
 
 PAGES.firma = () => {
-  $('#main').innerHTML = head('Firmenprofil', 'Diese Angaben nutzt Claude für Angebote, Stellenanzeigen, Mahnungen, Rechnungen und die Eignungsprüfung bei Ausschreibungen.');
-  $('#page').innerHTML = `<div class="panel"><form class="form" id="ff">${FIRMA_FIELDS.map((f) => fieldInput(f, S.firma[f.key])).join('')}</form>
-    <div class="dlg-actions"><button class="btn primary" id="fsave">Speichern</button></div></div>`;
+  $('#main').innerHTML = head('Einstellungen', 'Firmenprofil', 'Diese Angaben nutzt Claude für Angebote, Stellenanzeigen, Mahnungen, Kündigungen und die Eignungsprüfung bei Ausschreibungen.');
+  $('#body').innerHTML = `<div class="card card-pad"><form class="form" id="ff">${FIRMA_FIELDS.map((f) => fieldInput(f, S.firma[f.key])).join('')}</form>
+    <div class="toolbar" style="justify-content:flex-end;margin:20px 0 0"><button class="btn primary" id="fsave">Speichern</button></div></div>`;
   $('#fsave').onclick = async () => {
     const f = Object.fromEntries(new FormData($('#ff')).entries());
     if (f.jahresumsatz) f.jahresumsatz = Number(String(f.jahresumsatz).replace(',', '.')) || '';
-    try { await saveFirma(f); $('#firmenname').textContent = f.name || ''; toast('Firmenprofil gespeichert'); }
-    catch { toast('Speichern fehlgeschlagen.', true); }
+    try { await saveFirma(f); renderNav(); toast('Firmenprofil gespeichert'); } catch { toast('Speichern fehlgeschlagen.', true); }
   };
 };
 
-// ======================= Navigation =======================
+// ======================= Steuerung =======================
 
 function go(page) {
   UI.page = PAGES[page] ? page : 'uebersicht';
@@ -1085,22 +1451,19 @@ function go(page) {
   window.scrollTo(0, 0);
 }
 
-// Bei Live-Aktualisierungen nicht neu zeichnen, solange der Nutzer in einem Feld der Seite tippt.
+// Live-Aktualisierungen zeichnen nicht neu, solange im Seiteninhalt getippt wird oder der Chat offen ist.
 function render(fromData = false) {
   if (fromData) {
     const a = document.activeElement;
     if (a && $('#main').contains(a) && /INPUT|TEXTAREA|SELECT/.test(a.tagName) && a.type !== 'search') return;
     if (UI.page === 'assistent') return;
   }
-  document.querySelectorAll('.nav [data-page]').forEach((b) => { if (b.dataset.page === UI.page) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+  renderNav();
   PAGES[UI.page]();
 }
 
-document.querySelector('.nav').addEventListener('click', (e) => { const b = e.target.closest('[data-page]'); if (b) go(b.dataset.page); });
-
 (async () => {
   await initStore();
-  $('#firmenname').textContent = S.firma.name || '';
   const start = location.hash.replace('#', '');
   go(PAGES[start] ? start : 'uebersicht');
 })();
