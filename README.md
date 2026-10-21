@@ -31,4 +31,12 @@ Die gesetzlichen Beträge stehen im Objekt `PG` in `index.html`, Beispielpreise 
 ## Hinweise
 
 - Das Buchungsformular überträgt keine Daten; Anfragen werden nur im `localStorage` des Browsers gespeichert. Für den Livebetrieb braucht es ein Backend mit DSGVO-konformer Verarbeitung von Gesundheitsdaten.
-- Die Bilder in `img/` sind derzeit Vorschaugrößen (200 px). Die Originale (1680×944 bzw. 1264×1264) liegen in Canva und können unter gleichem Dateinamen ersetzt werden.
+- Die Bilder in `img/` sind derzeit Vorschaugrößen (ca. 160×200 px), weil die Arbeitsumgebung `media.canva.com` nicht erreicht. Die Originale (1264×1580) liegen in Canva und werden unter gleichem Dateinamen ersetzt:
+
+  | Datei | Canva-Medien-ID |
+  |---|---|
+  | `img/hero.jpg` | MAHYqpRM7pE |
+  | `img/paket-basis.jpg` | MAHYqhMVlgU |
+  | `img/paket-plus.jpg` | MAHYqoiFb5I |
+  | `img/paket-komfort.jpg` | MAHYqsVDBTs |
+  | `img/paket-premium.jpg` | MAHYqnqVGSM |

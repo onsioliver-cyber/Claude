@@ -8,236 +8,279 @@
 <meta name="description" content="Pflege im Abo: Pflegehilfsmittel, Medikamentenservice, Alltagshilfe und ambulante Pflege – mit Kostenrechner nach Pflegegrad (Stand 2026).">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible+Mono:wght@400;600&family=Literata:opsz,wght@7..72,500;7..72,650&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: ruhige Einspaltigkeit mit breiten Bändern; Werkzeuge (Rechner, Buchung) als zweispaltige Arbeitsflächen, die auf dem Handy stapeln. */
+/* Layout: großzügige Editorial-Seite. Bogenförmige Bildrahmen, Messing-Haarlinien, ein dunkelgrünes Band für den Rechner als Ruhepol. */
 :root {
-  --bg: #f5f8f6;
+  --bg: #f4f5f1;
   --surface: #ffffff;
-  --tint: #e4eee8;
-  --ink: #15302a;
-  --muted: #4d6660;
-  --line: #cfdcd5;
-  --accent: #2e6b57;
-  --accent-ink: #ffffff;
-  --sun: #f2c45a;
-  --sun-ink: #3d2c00;
-  --ok: #2c7a4b;
-  --warn: #9a5b00;
-  --warn-bg: #fff3dc;
-  --font-display: "Literata", Georgia, "Times New Roman", serif;
-  --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
-  --font-data: "Atkinson Hyperlegible Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --step--1: 0.9rem;
+  --sage: #e6ebe4;
+  --ink: #15261f;
+  --muted: #5a6b63;
+  --line: #d8ddd4;
+  --green: #1d3a31;
+  --green-2: #264a3f;
+  --on-green: #eeece4;
+  --on-green-muted: #b9c4bb;
+  --brass: #9c7a43;
+  --brass-soft: #e9dcc3;
+  --warn: #8a5300;
+  --warn-bg: #f8eedb;
+  --cta: #1d3a31;
+  --cta-ink: #eeece4;
+  --font-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --step--1: 0.875rem;
   --step-0: 1.0625rem;
-  --step-1: 1.3rem;
-  --step-2: 1.7rem;
-  --step-3: clamp(2rem, 1.4rem + 2.6vw, 3.1rem);
-  --radius: 14px;
+  --step-1: 1.5rem;
+  --step-2: clamp(2rem, 1.5rem + 1.8vw, 2.75rem);
+  --step-3: clamp(2.6rem, 1.6rem + 4vw, 4.6rem);
+  --arch: 999px 999px 18px 18px;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0f1a17; --surface: #16241f; --tint: #1d302a; --ink: #e6efea; --muted: #a3b8b0;
-    --line: #2b413a; --accent: #7cc3a6; --accent-ink: #0b1b15; --sun: #e7b84a; --sun-ink: #2a1e00;
-    --ok: #7fd3a0; --warn: #f0b860; --warn-bg: #33270f; color-scheme: dark;
+    --bg: #0f1714; --surface: #16211d; --sage: #1b2924; --ink: #ecebe4; --muted: #a2b1aa; --line: #2c3c36;
+    --green: #12211c; --green-2: #1a2e27; --on-green: #ecebe4; --on-green-muted: #a2b1aa;
+    --brass: #d1b07a; --brass-soft: #3a3020; --warn: #f0bd6a; --warn-bg: #2e2412; --cta: #d1b07a; --cta-ink: #17130b; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0f1a17; --surface: #16241f; --tint: #1d302a; --ink: #e6efea; --muted: #a3b8b0;
-  --line: #2b413a; --accent: #7cc3a6; --accent-ink: #0b1b15; --sun: #e7b84a; --sun-ink: #2a1e00;
-  --ok: #7fd3a0; --warn: #f0b860; --warn-bg: #33270f; color-scheme: dark;
+  --bg: #0f1714; --surface: #16211d; --sage: #1b2924; --ink: #ecebe4; --muted: #a2b1aa; --line: #2c3c36;
+  --green: #12211c; --green-2: #1a2e27; --on-green: #ecebe4; --on-green-muted: #a2b1aa;
+  --brass: #d1b07a; --brass-soft: #3a3020; --warn: #f0bd6a; --warn-bg: #2e2412; --cta: #d1b07a; --cta-ink: #17130b; color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
-body {
-  margin: 0; background: var(--bg); color: var(--ink);
-  font-family: var(--font-body); font-size: var(--step-0); line-height: 1.6;
-}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before { transition: none !important; animation: none !important; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: var(--step-0); line-height: 1.65; font-variant-numeric: lining-nums; -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; height: auto; display: block; }
-h1, h2, h3 { font-family: var(--font-display); font-weight: 650; line-height: 1.15; text-wrap: balance; margin: 0; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.05; letter-spacing: -0.01em; text-wrap: balance; margin: 0; }
+h1 em, h2 em { font-style: italic; color: var(--brass); }
 h2 { font-size: var(--step-2); }
-h3 { font-size: var(--step-1); }
+h3 { font-size: var(--step-1); line-height: 1.15; }
 p { margin: 0; }
-a { color: var(--accent); }
-:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; border-radius: 4px; }
-.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
-.eyebrow { font-size: var(--step--1); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
-.wrap {
-  max-width: 1160px; margin: 0 auto;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-}
-.band { padding-block: clamp(48px, 7vw, 88px); }
-.band.tint { background: var(--tint); }
-.section-head { display: grid; gap: 10px; max-width: 64ch; margin-bottom: 32px; }
-.section-head p { color: var(--muted); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; border-radius: 4px; }
+.num { font-variant-numeric: tabular-nums lining-nums; }
+.eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); }
+.eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.band { padding-block: clamp(64px, 9vw, 120px); }
+.section-head { display: grid; gap: 16px; max-width: 46rem; margin-bottom: clamp(36px, 5vw, 56px); }
+.section-head p { color: var(--muted); max-width: 60ch; }
 
-/* Header */
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
-header.site { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--surface); border-bottom: 1px solid var(--line); }
-header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; flex-wrap: wrap; }
-.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font-family: var(--font-display); font-weight: 650; font-size: 1.25rem; }
-.brand svg { width: 30px; height: 30px; flex: none; }
-nav.main { display: flex; gap: 4px 18px; flex-wrap: wrap; }
-nav.main a { color: var(--ink); text-decoration: none; font-weight: 700; padding: 6px 2px; border-bottom: 2px solid transparent; }
-nav.main a:hover { border-color: var(--accent); }
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  font: 700 var(--step-0)/1 var(--font-body); padding: 14px 22px; min-height: 48px;
-  border-radius: 999px; border: 2px solid var(--accent); background: var(--accent); color: var(--accent-ink);
-  cursor: pointer; text-decoration: none;
-}
-.btn:hover { filter: brightness(1.08); }
-.btn.ghost { background: transparent; color: var(--accent); }
-.btn.small { padding: 10px 16px; min-height: 40px; font-size: var(--step--1); }
+/* Kopfzeile */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+header.site { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; padding-block: 14px; flex-wrap: wrap; }
+.brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+.brand b { font-family: var(--font-display); font-weight: 600; font-size: 1.7rem; letter-spacing: 0.01em; }
+.brand span { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass); font-weight: 700; }
+nav.main { display: flex; gap: 6px 28px; flex-wrap: wrap; align-items: center; }
+nav.main a { text-decoration: none; font-weight: 600; font-size: 0.95rem; padding-block: 6px; background: linear-gradient(var(--brass), var(--brass)) left bottom / 0 1px no-repeat; transition: background-size .25s; }
+nav.main a:hover { background-size: 100% 1px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font: 600 var(--step-0)/1 var(--font-body); letter-spacing: 0.01em; padding: 16px 28px; min-height: 52px; border-radius: 999px; border: 1px solid var(--cta); background: var(--cta); color: var(--cta-ink); cursor: pointer; text-decoration: none; transition: background .2s, color .2s, border-color .2s; }
+.btn:hover { filter: brightness(1.12); }
+.btn.line { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn.line:hover { background: var(--ink); color: var(--bg); }
+.btn.small { padding: 12px 20px; min-height: 44px; font-size: 0.92rem; }
+.btn .arr { transition: transform .2s; }
+.btn:hover .arr { transform: translateX(3px); }
+nav.main .btn { color: var(--cta-ink); background: var(--cta); padding: 10px 20px; min-height: 42px; }
 
 /* Hero */
-.hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(24px, 4vw, 56px); align-items: center; padding-block: clamp(32px, 6vw, 72px); }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(32px, 6vw, 96px); align-items: center; padding-block: clamp(40px, 7vw, 96px) clamp(48px, 7vw, 88px); }
+.hero-copy { display: grid; gap: 28px; min-width: 0; }
 .hero h1 { font-size: var(--step-3); }
-.hero-copy { display: grid; gap: 20px; min-width: 0; }
-.hero-copy > p { font-size: var(--step-1); color: var(--muted); max-width: 34ch; line-height: 1.45; }
-.hero-figure { position: relative; margin: 0; }
-.hero-figure img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 22px; background: var(--tint); }
-.hero-figure figcaption {
-  position: absolute; left: 16px; bottom: 16px; right: 16px; max-width: 300px;
-  background: var(--surface); border-radius: 12px; padding: 12px 14px; font-size: var(--step--1);
-  box-shadow: 0 6px 24px rgb(0 0 0 / 0.12);
-}
-.hero-figure figcaption strong { display: block; font-family: var(--font-data); font-size: 1.35rem; color: var(--accent); }
-.pg-quick { display: grid; gap: 10px; }
-.pg-quick label { font-weight: 700; }
+.lead { font-size: 1.2rem; color: var(--muted); max-width: 36ch; line-height: 1.6; }
+.pg-pick { display: grid; gap: 12px; padding-top: 4px; }
+.pg-pick .label { font-weight: 600; font-size: 0.95rem; }
 .seg { display: flex; flex-wrap: wrap; gap: 8px; }
-.seg button {
-  font: 700 var(--step-0)/1 var(--font-body); min-width: 52px; min-height: 48px; padding: 0 14px;
-  border-radius: 12px; border: 2px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer;
-}
-.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-.trust { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: var(--step--1); padding: 0; margin: 0; list-style: none; }
-.trust li::before { content: "✓ "; color: var(--ok); font-weight: 700; }
+.seg button { font: 600 1rem/1 var(--font-body); min-width: 52px; min-height: 52px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; transition: border-color .2s, background .2s; }
+.seg button:hover { border-color: var(--brass); }
+.seg button[aria-pressed="true"] { background: var(--cta); border-color: var(--cta); color: var(--cta-ink); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+.hero-figure { position: relative; margin: 0; justify-self: end; width: min(100%, 470px); }
+.hero-figure::before { content: ""; position: absolute; inset: -14px 14px 14px -14px; border: 1px solid var(--brass); border-radius: var(--arch); opacity: .7; }
+.hero-figure img { position: relative; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--arch); background: var(--sage); }
+.budget-card { position: absolute; left: -40px; bottom: 36px; width: min(260px, 70%); background: var(--surface); border-radius: 16px; padding: 18px 20px; box-shadow: 0 18px 48px rgb(10 30 22 / 0.16); display: grid; gap: 2px; }
+.budget-card .k { font-size: 0.82rem; color: var(--muted); }
+.budget-card .v { font-family: var(--font-display); font-size: 2.4rem; line-height: 1.1; font-weight: 600; color: var(--ink); }
+.budget-card .s { font-size: 0.82rem; color: var(--brass); font-weight: 600; }
+
+/* Kennzahlen */
+.facts { border-block: 1px solid var(--line); }
+.facts .wrap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.fact { padding: 28px 24px; display: grid; gap: 4px; border-left: 1px solid var(--line); }
+.fact:first-child { border-left: 0; padding-left: 0; }
+.fact .v { font-family: var(--font-display); font-size: 2.3rem; font-weight: 600; line-height: 1; }
+.fact .k { font-size: 0.9rem; color: var(--muted); }
 
 /* Pakete */
-.packages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
-.pkg {
-  display: grid; grid-template-rows: auto auto 1fr auto; background: var(--surface);
-  border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
-}
-.pkg.featured { border: 2px solid var(--accent); }
-.pkg img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--tint); }
-.pkg-head { padding: 18px 18px 0; display: grid; gap: 6px; }
-.pkg-tier { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.pill { display: inline-block; font-size: 0.8rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--tint); color: var(--accent); white-space: nowrap; }
-.pill.sun { background: var(--sun); color: var(--sun-ink); }
-.pkg-price { font-family: var(--font-data); font-size: 1.5rem; font-weight: 600; }
-.pkg-price small { font-family: var(--font-body); font-size: var(--step--1); font-weight: 400; color: var(--muted); display: block; }
-.pkg ul { margin: 0; padding: 14px 18px 0 38px; display: grid; gap: 6px; font-size: 0.98rem; align-content: start; }
-.pkg ul li::marker { color: var(--accent); }
-.pkg-foot { padding: 18px; display: grid; gap: 10px; }
-.pkg-foot .payer { font-size: var(--step--1); color: var(--muted); }
+.packages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; align-items: stretch; }
+.pkg { display: grid; grid-template-rows: auto auto 1fr auto; gap: 0; background: var(--surface); border-radius: 22px; padding: 14px 14px 22px; border: 1px solid var(--line); }
+.pkg.featured { background: var(--green); color: var(--on-green); border-color: var(--green); }
+.pkg-img { position: relative; }
+.pkg-img img { width: 100%; aspect-ratio: 4 / 4.4; object-fit: cover; border-radius: var(--arch); background: var(--sage); }
+.pkg-img .tag { position: absolute; top: 14px; right: 14px; }
+.tag { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; background: var(--brass-soft); color: var(--ink); }
+.pkg.featured .tag { background: var(--brass); color: #1b160c; }
+.pkg-head { padding: 22px 8px 0; display: grid; gap: 6px; }
+.pkg-tier { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); }
+.pkg h3 { font-size: 1.9rem; }
+.pkg-price { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; padding-top: 10px; margin-top: 8px; border-top: 1px solid var(--line); }
+.pkg.featured .pkg-price { border-color: color-mix(in srgb, var(--on-green) 22%, transparent); }
+.pkg-price b { font-family: var(--font-display); font-size: 2.2rem; font-weight: 600; line-height: 1.1; }
+.pkg-price small { font-size: 0.85rem; color: var(--muted); }
+.pkg.featured .pkg-price small, .pkg.featured .payer { color: var(--on-green-muted); }
+.pkg ul { list-style: none; margin: 0; padding: 18px 8px 0; display: grid; gap: 9px; font-size: 0.97rem; align-content: start; }
+.pkg li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; }
+.pkg li::before { content: ""; width: 14px; height: 8px; margin-top: 7px; border-left: 1.5px solid var(--brass); border-bottom: 1.5px solid var(--brass); transform: rotate(-45deg); }
+.pkg-foot { padding: 22px 8px 0; display: grid; gap: 14px; }
+.payer { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+.pkg.featured .btn { background: var(--on-green); color: var(--green); border-color: var(--on-green); }
+.pkg .btn.line { border-color: var(--line); }
+.pkg .btn.line:hover { border-color: var(--ink); }
 
-/* Rechner */
-.calc { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 24px; align-items: start; }
-.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
-.form-grid { display: grid; gap: 18px; }
-.field { display: grid; gap: 6px; }
-.field > label, .field > .label { font-weight: 700; }
-.field .hint { font-size: var(--step--1); color: var(--muted); }
-select, input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="number"] {
-  font: var(--step-0) var(--font-body); color: var(--ink); background: var(--bg);
-  border: 2px solid var(--line); border-radius: 10px; padding: 10px 12px; min-height: 48px; width: 100%;
+/* Rechner (dunkles Band) */
+.dark { background: var(--green); color: var(--on-green); }
+.dark .section-head p { color: var(--on-green-muted); }
+.dark h2 em { color: var(--brass); }
+.calc { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 28px; align-items: start; }
+.calc-form { background: var(--green-2); border-radius: 22px; padding: 28px; display: grid; gap: 22px; border: 1px solid color-mix(in srgb, var(--on-green) 10%, transparent); }
+.field { display: grid; gap: 8px; }
+.field > label, .field .label { font-weight: 600; font-size: 0.95rem; }
+.hint { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+.dark .hint { color: var(--on-green-muted); }
+select, input[type="text"], input[type="email"], input[type="tel"], input[type="date"] {
+  font: 1rem var(--font-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; min-height: 52px; width: 100%;
 }
-select:focus, input:focus { border-color: var(--accent); outline: none; }
-input[type="range"] { width: 100%; accent-color: var(--accent); min-height: 32px; }
+select:focus, input:focus { border-color: var(--brass); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--brass) 25%, transparent); }
+.dark select { background: var(--green); color: var(--on-green); border-color: color-mix(in srgb, var(--on-green) 18%, transparent); }
+input[type="range"] { width: 100%; accent-color: var(--brass); min-height: 30px; }
 .range-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-.range-row output { font-family: var(--font-data); font-weight: 600; }
-.check { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
-.check input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--accent); flex: none; }
+.range-row output { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; color: var(--brass); }
+.check { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-size: 0.97rem; }
+.check input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--brass); flex: none; }
 
-.result { display: grid; gap: 20px; min-width: 0; }
+.result { display: grid; gap: 22px; min-width: 0; }
 .result > * { min-width: 0; }
-.summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: grid; gap: 4px; }
-.stat .k { font-size: var(--step--1); color: var(--muted); }
-.stat .v { font-family: var(--font-data); font-size: 1.6rem; font-weight: 600; }
-.stat.main { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-.stat.main .k { color: inherit; opacity: 0.85; }
-.bar { display: flex; height: 14px; border-radius: 999px; overflow: hidden; background: var(--tint); }
-.bar span { display: block; height: 100%; transition: width .3s; }
-.bar .b-kasse { background: var(--accent); }
-.bar .b-eigen { background: var(--sun); }
-.legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: var(--step--1); color: var(--muted); }
-.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.totals { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr); background: var(--surface); color: var(--ink); border-radius: 22px; overflow: hidden; }
+.total { padding: 24px; display: grid; gap: 2px; border-left: 1px solid var(--line); }
+.total:first-child { border-left: 0; background: var(--brass-soft); }
+.total .k { font-size: 0.85rem; color: var(--muted); }
+.total .v { font-family: var(--font-display); font-size: 2.6rem; font-weight: 600; line-height: 1.1; }
+.total:first-child .v { font-size: 3.2rem; }
+.bar { display: flex; height: 6px; border-radius: 999px; overflow: hidden; background: color-mix(in srgb, var(--on-green) 15%, transparent); }
+.bar span { display: block; height: 100%; transition: width .35s ease; }
+.bar .b-kasse { background: var(--on-green); }
+.bar .b-eigen { background: var(--brass); }
+.legend { display: flex; gap: 22px; flex-wrap: wrap; font-size: 0.85rem; color: var(--on-green-muted); margin-top: 10px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+.table-card { background: var(--surface); color: var(--ink); border-radius: 22px; padding: 8px 20px; }
 .table-scroll { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
-th, td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
-th { font-size: var(--step--1); color: var(--muted); font-weight: 700; }
+table { width: 100%; border-collapse: collapse; font-size: 0.96rem; }
+th, td { text-align: left; padding: 14px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 td.r, th.r { text-align: right; white-space: nowrap; }
-td .law { display: block; font-size: 0.82rem; color: var(--muted); }
+td .law { display: block; font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
 tfoot td { font-weight: 700; border-bottom: 0; }
-.notice { background: var(--warn-bg); color: var(--ink); border-left: 4px solid var(--warn); border-radius: 8px; padding: 12px 14px; font-size: 0.98rem; }
+.notice { background: var(--warn-bg); color: var(--ink); border-radius: 14px; padding: 14px 18px; font-size: 0.95rem; }
 .notice strong { color: var(--warn); }
-.rest { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; padding: 14px 16px; border: 2px dashed var(--accent); border-radius: var(--radius); }
-.rest .v { font-family: var(--font-data); font-size: 1.3rem; font-weight: 600; color: var(--accent); }
+.rest { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; padding: 18px 22px; border: 1px solid var(--brass); border-radius: 18px; }
+.rest .v { font-family: var(--font-display); font-size: 1.9rem; font-weight: 600; color: var(--brass); }
+.dark .btn { background: var(--on-green); color: var(--green); border-color: var(--on-green); }
+.dark .btn:hover { background: var(--brass-soft); }
 
 /* Wissen */
-.know { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-.know .panel { display: grid; gap: 12px; align-content: start; min-width: 0; }
-.know .panel.wide { grid-column: 1 / -1; }
-.know ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
-.payers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-.payer-card { border-radius: 12px; padding: 16px; background: var(--tint); display: grid; gap: 8px; min-width: 0; }
-.sources { font-size: var(--step--1); color: var(--muted); display: grid; gap: 4px; }
-.sources ol { margin: 0; padding-left: 20px; }
+.payers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-bottom: 22px; }
+.payer-card { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: clamp(24px, 3vw, 36px); display: grid; gap: 14px; align-content: start; min-width: 0; }
+.payer-card .law-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); }
+.payer-card h3 { font-size: 2.1rem; }
+.payer-card p { color: var(--muted); }
+.payer-card ul { list-style: none; margin: 0; padding: 0; display: grid; }
+.payer-card li { padding: 11px 0; border-top: 1px solid var(--line); }
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: clamp(20px, 3vw, 36px); display: grid; gap: 16px; margin-bottom: 22px; min-width: 0; }
+.sheet table td.r { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; }
+.sheet .foot { font-size: 0.88rem; color: var(--muted); }
+.notes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.note { background: var(--sage); border-radius: 22px; padding: clamp(22px, 3vw, 32px); display: grid; gap: 14px; align-content: start; min-width: 0; }
+.note ul { margin: 0; padding-left: 18px; display: grid; gap: 10px; }
+.note li::marker { color: var(--brass); }
+.sources { margin-top: 28px; font-size: 0.88rem; color: var(--muted); display: grid; gap: 6px; }
+.sources ol { margin: 0; padding-left: 20px; columns: 2 280px; column-gap: 32px; }
+.sources a { text-decoration-color: var(--brass); text-underline-offset: 3px; }
 
 /* Buchung */
-.booking { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 320px); gap: 24px; align-items: start; }
-.steps { display: flex; gap: 6px; flex-wrap: wrap; list-style: none; padding: 0; margin: 0 0 20px; counter-reset: s; }
-.steps li { counter-increment: s; font-size: var(--step--1); font-weight: 700; color: var(--muted); padding: 6px 12px; border-radius: 999px; background: var(--tint); }
-.steps li::before { content: counter(s) " · "; }
-.steps li[aria-current="step"] { background: var(--accent); color: var(--accent-ink); }
-.steps li.done { color: var(--accent); }
-fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 16px; }
-legend { font-family: var(--font-display); font-size: var(--step-1); font-weight: 650; margin-bottom: 4px; padding: 0; }
-.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.booking { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 340px); gap: 28px; align-items: start; }
+.book-card { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: clamp(22px, 4vw, 40px); }
+.steps { display: flex; gap: 0; list-style: none; padding: 0; margin: 0 0 32px; counter-reset: s; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.steps li { counter-increment: s; font-size: 0.85rem; font-weight: 600; color: var(--muted); padding: 0 16px 14px 0; margin-right: 16px; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.steps li::before { content: counter(s, decimal-leading-zero) "  "; font-family: var(--font-display); font-size: 1.05rem; color: var(--brass); white-space: pre; }
+.steps li[aria-current="step"] { color: var(--ink); border-color: var(--brass); }
+.steps li.done { color: var(--ink); }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 18px; }
+legend { font-family: var(--font-display); font-size: 2rem; font-weight: 500; margin-bottom: 8px; padding: 0; }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .choice-list { display: grid; gap: 10px; }
-.choice { display: flex; gap: 12px; align-items: flex-start; border: 2px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: pointer; background: var(--bg); }
-.choice:has(input:checked) { border-color: var(--accent); background: var(--tint); }
-.choice input { margin-top: 4px; accent-color: var(--accent); width: 20px; height: 20px; flex: none; }
-.choice span small { display: block; color: var(--muted); font-size: var(--step--1); }
-.form-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
-.error { color: var(--warn); font-weight: 700; font-size: var(--step--1); }
-.side-summary { display: grid; gap: 10px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 84px); }
-.side-summary dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; font-size: 0.98rem; }
-.side-summary dt { color: var(--muted); }
-.side-summary dd { margin: 0; text-align: right; font-weight: 700; }
-.review dl { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 8px 16px; margin: 0; }
-.review dt { color: var(--muted); }
-.review dd { margin: 0; font-weight: 700; overflow-wrap: anywhere; }
-.done-box { display: grid; gap: 14px; text-align: left; }
-.done-box .ref { font-family: var(--font-data); font-size: 1.3rem; color: var(--accent); }
+.choice { display: flex; gap: 14px; align-items: flex-start; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; cursor: pointer; transition: border-color .2s, background .2s; }
+.choice:hover { border-color: var(--brass); }
+.choice:has(input:checked) { border-color: var(--brass); background: color-mix(in srgb, var(--brass-soft) 45%, var(--surface)); }
+.choice input { margin-top: 4px; accent-color: var(--green); width: 18px; height: 18px; flex: none; }
+.choice small { display: block; color: var(--muted); font-size: 0.85rem; }
+.form-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+.error { color: var(--warn); font-weight: 600; font-size: 0.92rem; margin-top: 16px; }
+.error:empty { display: none; }
+.side { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 96px); background: var(--green); color: var(--on-green); border-radius: 22px; padding: 28px; display: grid; gap: 14px; }
+.side .tier { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); }
+.side h3 { font-size: 2rem; }
+.side dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 10px 12px; padding-top: 14px; border-top: 1px solid color-mix(in srgb, var(--on-green) 20%, transparent); }
+.side dt { color: var(--on-green-muted); font-size: 0.92rem; }
+.side dd { margin: 0; text-align: right; font-weight: 600; }
+.side dd.big { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; }
+.side p { font-size: 0.85rem; color: var(--on-green-muted); }
+.review dl { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 0; margin: 0; }
+.review dt, .review dd { padding: 12px 0; border-top: 1px solid var(--line); }
+.review dt { color: var(--muted); font-size: 0.92rem; }
+.review dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+.done-box { display: grid; gap: 16px; }
+.done-box h3 { font-size: 2.2rem; }
+.done-box .ref { font-family: var(--font-display); font-size: 2rem; font-weight: 600; color: var(--brass); }
 
-footer.site { border-top: 1px solid var(--line); background: var(--surface); }
-footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: var(--step--1); color: var(--muted); }
+footer.site { background: var(--green); color: var(--on-green-muted); }
+footer.site .wrap { padding-block: 44px; display: flex; gap: 16px 40px; flex-wrap: wrap; justify-content: space-between; font-size: 0.88rem; }
+footer.site b { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; color: var(--on-green); }
+footer.site p { max-width: 62ch; }
 
-@media (max-width: 1020px) {
+@media (max-width: 1080px) {
   .packages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .calc, .booking { grid-template-columns: minmax(0, 1fr); }
-  .side-summary { position: static; }
+  .side { position: static; }
+  .facts .wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fact:nth-child(3) { border-left: 0; padding-left: 0; }
+  .fact:nth-child(n+3) { border-top: 1px solid var(--line); }
 }
-@media (max-width: 760px) {
+@media (max-width: 800px) {
   .hero .wrap { grid-template-columns: minmax(0, 1fr); }
-  .hero-figure { order: -1; }
-  .know, .payers, .two { grid-template-columns: minmax(0, 1fr); }
-  .summary { grid-template-columns: minmax(0, 1fr); }
+  .hero-figure { justify-self: center; width: min(100%, 400px); margin-top: 8px; }
+  .budget-card { left: -8px; bottom: 20px; }
+  .payers, .notes, .two { grid-template-columns: minmax(0, 1fr); }
+  .totals { grid-template-columns: minmax(0, 1fr); }
+  .total { border-left: 0; border-top: 1px solid var(--line); }
+  .total:first-child { border-top: 0; }
   .review dl { grid-template-columns: minmax(0, 1fr); }
-  .review dd { margin-bottom: 6px; }
+  .review dd { border-top: 0; padding-top: 0; }
+  nav.main { width: 100%; flex-wrap: nowrap; justify-content: space-between; gap: 12px; }
+  nav.main .long { display: none; }
 }
 @media (max-width: 560px) {
   .packages { grid-template-columns: minmax(0, 1fr); }
-  nav.main { width: 100%; justify-content: space-between; }
+  .hero-figure::before { inset: -10px 10px 10px -10px; }
+  .fact { padding: 20px 14px; }
+  .fact .v { font-size: 1.9rem; }
+  nav.main a:not(.btn) { font-size: 0.9rem; }
 }
 </style>
 </head>
@@ -245,15 +288,12 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
 
 <header class="site">
   <div class="wrap">
-    <a class="brand" href="#start" aria-label="Sorgenfrei Pflege-Abo, zum Seitenanfang">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--accent)"/><path d="M16 24s-7-4.4-7-9.4A4 4 0 0 1 16 12a4 4 0 0 1 7 2.6C23 19.6 16 24 16 24z" fill="var(--accent-ink)"/></svg>
-      Sorgenfrei
-    </a>
+    <a class="brand" href="#start" aria-label="Sorgenfrei Pflege-Abo, zum Seitenanfang"><b>Sorgenfrei</b><span>Pflege-Abo</span></a>
     <nav class="main" aria-label="Hauptnavigation">
       <a href="#pakete">Pakete</a>
       <a href="#rechner">Kostenrechner</a>
-      <a href="#kasse">Was zahlt die Kasse?</a>
-      <a href="#buchen">Buchen</a>
+      <a href="#kasse"><span class="long">Was zahlt die </span>Kasse?</a>
+      <a class="btn small" href="#buchen">Anfragen</a>
     </nav>
   </div>
 </header>
@@ -263,10 +303,10 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
     <div class="wrap">
       <div class="hero-copy">
         <span class="eyebrow">Pflege-Abo für Deutschland</span>
-        <h1>Pflege, die jeden Monat einfach ankommt.</h1>
-        <p>Von der kostenlosen Pflegebox bis zur kompletten ambulanten Pflege. Wir rechnen direkt mit Ihrer Pflege- und Krankenkasse ab.</p>
-        <div class="pg-quick">
-          <label id="pg-quick-label">Welchen Pflegegrad hat die pflegebedürftige Person?</label>
+        <h1>Gute Pflege, <em>jeden Monat</em> zu Hause.</h1>
+        <p class="lead">Von der Pflegebox bis zur kompletten ambulanten Pflege. Wir rechnen direkt mit Ihrer Pflege- und Krankenkasse ab und übernehmen die Anträge.</p>
+        <div class="pg-pick">
+          <span class="label" id="pg-quick-label">Welcher Pflegegrad liegt vor?</span>
           <div class="seg" role="group" aria-labelledby="pg-quick-label" data-pg-seg>
             <button type="button" data-pg="0">Keiner</button>
             <button type="button" data-pg="1">1</button>
@@ -277,42 +317,50 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
           </div>
         </div>
         <div class="hero-actions">
-          <a class="btn" href="#rechner">Kosten berechnen</a>
-          <a class="btn ghost" href="#pakete">Pakete ansehen</a>
+          <a class="btn" href="#rechner">Kosten berechnen <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn line" href="#pakete">Pakete ansehen</a>
         </div>
-        <ul class="trust">
-          <li>Abrechnung direkt mit der Kasse</li>
-          <li>Monatlich kündbar</li>
-          <li>Anträge übernehmen wir</li>
-        </ul>
       </div>
       <figure class="hero-figure">
-        <img src="img/hero-pflege.jpg" alt="Eine Pflegekraft sitzt mit einer lächelnden älteren Frau auf dem Sofa in deren Wohnzimmer." width="1680" height="944">
-        <figcaption>Ihr Budget von der Pflegekasse bei <span data-pg-label>Pflegegrad 3</span>:<strong class="num" data-hero-budget>1.497 € / Monat</strong>für ambulante Pflege (Sachleistung)</figcaption>
+        <img src="img/hero.jpg" alt="Eine Pflegekraft in grüner Kleidung hält die Hand einer lächelnden älteren Dame im Wohnzimmer." width="1264" height="1580">
+        <figcaption class="budget-card">
+          <span class="k">Budget der Pflegekasse bei <span data-pg-label>Pflegegrad 3</span></span>
+          <span class="v num" data-hero-budget>1.497 €</span>
+          <span class="s" data-hero-budget-note>pro Monat für ambulante Pflege</span>
+        </figcaption>
       </figure>
     </div>
   </section>
 
-  <section class="band tint" id="pakete">
+  <section class="facts" aria-label="Leistungen der Pflegekasse 2026 auf einen Blick">
+    <div class="wrap">
+      <div class="fact"><span class="v num">42 €</span><span class="k">Pflegehilfsmittel im Monat, ab Pflegegrad 1</span></div>
+      <div class="fact"><span class="v num">131 €</span><span class="k">Entlastungsbetrag für Alltagshilfe</span></div>
+      <div class="fact"><span class="v num">2.299 €</span><span class="k">Pflegesachleistung bei Pflegegrad 5</span></div>
+      <div class="fact"><span class="v num">3.539 €</span><span class="k">Verhinderungs- und Kurzzeitpflege im Jahr</span></div>
+    </div>
+  </section>
+
+  <section class="band" id="pakete">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Vier Pakete</span>
-        <h2>Wählen Sie, wie viel Unterstützung Sie brauchen</h2>
+        <span class="eyebrow">Die Pakete</span>
+        <h2>So viel Unterstützung, <em>wie Sie brauchen</em></h2>
         <p>Jedes Paket enthält das vorherige. Die Preise zeigen Ihren Eigenanteil bei <strong data-pg-label>Pflegegrad 3</strong>, nachdem Pflege- und Krankenkasse ihren Teil übernommen haben.</p>
       </div>
       <div class="packages" data-packages></div>
     </div>
   </section>
 
-  <section class="band" id="rechner">
+  <section class="band dark" id="rechner">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Kostenrechner</span>
-        <h2>Was zahlt die Kasse, was zahlen Sie?</h2>
+        <h2>Was zahlt die Kasse, <em>was zahlen Sie?</em></h2>
         <p>Beispielrechnung mit den gesetzlichen Leistungsbeträgen 2026. Stundensätze und Servicepreise sind Beispielwerte; die Preise Ihres Pflegedienstes vor Ort können abweichen.</p>
       </div>
       <div class="calc">
-        <form class="panel form-grid" id="calc-form" aria-label="Eingaben für den Kostenrechner">
+        <form class="calc-form" id="calc-form" aria-label="Eingaben für den Kostenrechner">
           <div class="field">
             <label for="c-pg">Pflegegrad</label>
             <select id="c-pg" name="pg">
@@ -348,17 +396,17 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
         </form>
 
         <div class="result" aria-live="polite">
-          <div class="summary">
-            <div class="stat main"><span class="k">Ihr Eigenanteil</span><span class="v" data-out="eigen">0 €</span><span class="k">pro Monat</span></div>
-            <div class="stat"><span class="k">Übernimmt die Kasse</span><span class="v" data-out="kasse">0 €</span><span class="k">pro Monat</span></div>
-            <div class="stat"><span class="k">Gesamtwert</span><span class="v" data-out="total">0 €</span><span class="k">pro Monat</span></div>
+          <div class="totals">
+            <div class="total"><span class="k">Ihr Eigenanteil pro Monat</span><span class="v num" data-out="eigen">0 €</span></div>
+            <div class="total"><span class="k">Übernimmt die Kasse</span><span class="v num" data-out="kasse">0 €</span></div>
+            <div class="total"><span class="k">Gesamtwert</span><span class="v num" data-out="total">0 €</span></div>
           </div>
           <div>
             <div class="bar" role="img" data-out="bar-label"><span class="b-kasse" data-out="bar-kasse"></span><span class="b-eigen" data-out="bar-eigen"></span></div>
-            <div class="legend" style="margin-top:8px"><span><i style="background:var(--accent)"></i>Pflege-/Krankenkasse</span><span><i style="background:var(--sun)"></i>Eigenanteil</span></div>
+            <div class="legend"><span><i style="background:var(--on-green)"></i>Pflege- und Krankenkasse</span><span><i style="background:var(--brass)"></i>Ihr Eigenanteil</span></div>
           </div>
-          <div data-out="notices"></div>
-          <div class="panel" style="padding:8px 12px">
+          <div data-out="notices" style="display:grid;gap:10px"></div>
+          <div class="table-card">
             <div class="table-scroll">
               <table>
                 <thead><tr><th>Leistung</th><th class="r">Wert</th><th class="r">Kasse</th><th class="r">Sie</th></tr></thead>
@@ -368,107 +416,106 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
             </div>
           </div>
           <div class="rest" data-out="rest-box" hidden>
-            <span>Zusätzlich zahlt die Pflegekasse Ihnen anteiliges Pflegegeld aus (Kombinationsleistung):</span>
-            <span class="v" data-out="rest">0 €</span>
+            <span>Zusätzlich zahlt Ihnen die Pflegekasse anteiliges Pflegegeld aus (Kombinationsleistung)</span>
+            <span class="v num" data-out="rest">0 €</span>
           </div>
-          <div><a class="btn" href="#buchen" data-book-from-calc>Dieses Paket anfragen</a></div>
+          <div><a class="btn" href="#buchen" data-book-from-calc>Dieses Paket anfragen <span class="arr" aria-hidden="true">→</span></a></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="band tint" id="kasse">
+  <section class="band" id="kasse">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Wissen · Stand Oktober 2026</span>
-        <h2>Was Pflegekasse und Krankenkasse übernehmen</h2>
+        <h2>Was Pflegekasse und Krankenkasse <em>übernehmen</em></h2>
         <p>Pflege wird in Deutschland von zwei Kassen bezahlt, die unter einem Dach sitzen. Welche zuständig ist, hängt davon ab, ob es um Pflegebedürftigkeit oder um eine ärztlich verordnete Behandlung geht.</p>
       </div>
-      <div class="know">
-        <div class="panel wide">
-          <div class="payers">
-            <div class="payer-card">
-              <span class="eyebrow">Pflegeversicherung · SGB XI</span>
-              <h3>Pflegekasse</h3>
-              <p>Zahlt bei dauerhafter Pflegebedürftigkeit, also ab einem anerkannten Pflegegrad. Den Pflegegrad stellt der Medizinische Dienst nach einem Hausbesuch fest (privat Versicherte: Medicproof).</p>
-              <ul>
-                <li>Pflegegeld oder Pflegesachleistung (ambulanter Dienst)</li>
-                <li>Pflegehilfsmittel zum Verbrauch bis 42 € im Monat</li>
-                <li>Entlastungsbetrag 131 € im Monat</li>
-                <li>Hausnotruf, Wohnraumanpassung bis 4.180 €</li>
-                <li>Verhinderungs- und Kurzzeitpflege bis 3.539 € im Jahr</li>
-              </ul>
-            </div>
-            <div class="payer-card">
-              <span class="eyebrow">Krankenversicherung · SGB V</span>
-              <h3>Krankenkasse</h3>
-              <p>Zahlt, wenn eine Ärztin oder ein Arzt etwas verordnet. Dafür ist kein Pflegegrad nötig. Volljährige leisten gesetzliche Zuzahlungen.</p>
-              <ul>
-                <li>Verschreibungspflichtige Medikamente (Zuzahlung 10 %, mind. 5 €, max. 10 €)</li>
-                <li>Hilfsmittel wie Rollator, Pflegebett, Inkontinenzmaterial (§ 33 SGB V)</li>
-                <li>Häusliche Krankenpflege bzw. Behandlungspflege: Verbandswechsel, Injektionen, Medikamentengabe (§ 37 SGB V)</li>
-                <li>Zuzahlungen höchstens bis 2 % des Bruttojahreseinkommens, bei chronisch Kranken 1 %</li>
-              </ul>
-            </div>
-          </div>
-        </div>
 
-        <div class="panel wide">
-          <h3>Leistungen der Pflegekasse 2026 nach Pflegegrad</h3>
-          <div class="table-scroll">
-            <table>
-              <thead><tr><th>Leistung pro Monat</th><th class="r">PG 1</th><th class="r">PG 2</th><th class="r">PG 3</th><th class="r">PG 4</th><th class="r">PG 5</th></tr></thead>
-              <tbody class="num">
-                <tr><td>Pflegegeld <span class="law">§ 37 SGB XI, bei Pflege durch Angehörige</span></td><td class="r">–</td><td class="r">347 €</td><td class="r">599 €</td><td class="r">800 €</td><td class="r">990 €</td></tr>
-                <tr><td>Pflegesachleistung <span class="law">§ 36 SGB XI, ambulanter Pflegedienst</span></td><td class="r">–</td><td class="r">796 €</td><td class="r">1.497 €</td><td class="r">1.859 €</td><td class="r">2.299 €</td></tr>
-                <tr><td>Entlastungsbetrag <span class="law">§ 45b SGB XI, zweckgebunden, per Rechnung</span></td><td class="r">131 €</td><td class="r">131 €</td><td class="r">131 €</td><td class="r">131 €</td><td class="r">131 €</td></tr>
-                <tr><td>Pflegehilfsmittel zum Verbrauch <span class="law">§ 40 Abs. 2 SGB XI, z. B. Handschuhe, Desinfektion, Bettschutz</span></td><td class="r">42 €</td><td class="r">42 €</td><td class="r">42 €</td><td class="r">42 €</td><td class="r">42 €</td></tr>
-                <tr><td>Hausnotruf <span class="law">§ 40 SGB XI, Zuschuss Basisgerät</span></td><td class="r">25,50 €</td><td class="r">25,50 €</td><td class="r">25,50 €</td><td class="r">25,50 €</td><td class="r">25,50 €</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="hint" style="color:var(--muted);font-size:var(--step--1)">Die Beträge gelten unverändert seit 1. Januar 2025. Die nächste gesetzliche Anpassung ist nach aktuellem Recht frühestens für 2028 vorgesehen. Private Pflegepflichtversicherungen zahlen dieselben Beträge, meist im Erstattungsverfahren; bei Beihilfeberechtigten übernimmt die Pflegeversicherung die Hälfte.</p>
-        </div>
+      <div class="payers">
+        <article class="payer-card">
+          <span class="law-tag">Pflegeversicherung · SGB XI</span>
+          <h3>Pflegekasse</h3>
+          <p>Zahlt bei dauerhafter Pflegebedürftigkeit, also ab einem anerkannten Pflegegrad. Den Pflegegrad stellt der Medizinische Dienst nach einem Hausbesuch fest, bei privat Versicherten Medicproof.</p>
+          <ul>
+            <li>Pflegegeld oder Pflegesachleistung für den ambulanten Dienst</li>
+            <li>Pflegehilfsmittel zum Verbrauch bis 42 € im Monat</li>
+            <li>Entlastungsbetrag 131 € im Monat</li>
+            <li>Hausnotruf und Wohnraumanpassung bis 4.180 €</li>
+            <li>Verhinderungs- und Kurzzeitpflege bis 3.539 € im Jahr</li>
+          </ul>
+        </article>
+        <article class="payer-card">
+          <span class="law-tag">Krankenversicherung · SGB V</span>
+          <h3>Krankenkasse</h3>
+          <p>Zahlt, wenn eine Ärztin oder ein Arzt etwas verordnet. Dafür ist kein Pflegegrad nötig. Volljährige leisten gesetzliche Zuzahlungen.</p>
+          <ul>
+            <li>Medikamente auf Rezept, Zuzahlung 10 %, mindestens 5 €, höchstens 10 €</li>
+            <li>Hilfsmittel wie Rollator, Pflegebett oder Inkontinenzmaterial</li>
+            <li>Behandlungspflege: Verbandswechsel, Injektionen, Medikamentengabe</li>
+            <li>Zuzahlungen höchstens 2 % des Bruttojahreseinkommens, chronisch Kranke 1 %</li>
+          </ul>
+        </article>
+      </div>
 
-        <div class="panel">
+      <div class="sheet">
+        <h3>Leistungen der Pflegekasse 2026 nach Pflegegrad</h3>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Pro Monat</th><th class="r">PG 1</th><th class="r">PG 2</th><th class="r">PG 3</th><th class="r">PG 4</th><th class="r">PG 5</th></tr></thead>
+            <tbody class="num">
+              <tr><td>Pflegegeld <span class="law">§ 37 SGB XI · bei Pflege durch Angehörige</span></td><td class="r">–</td><td class="r">347 €</td><td class="r">599 €</td><td class="r">800 €</td><td class="r">990 €</td></tr>
+              <tr><td>Pflegesachleistung <span class="law">§ 36 SGB XI · ambulanter Pflegedienst</span></td><td class="r">–</td><td class="r">796 €</td><td class="r">1.497 €</td><td class="r">1.859 €</td><td class="r">2.299 €</td></tr>
+              <tr><td>Entlastungsbetrag <span class="law">§ 45b SGB XI · zweckgebunden, per Rechnung</span></td><td class="r">131 €</td><td class="r">131 €</td><td class="r">131 €</td><td class="r">131 €</td><td class="r">131 €</td></tr>
+              <tr><td>Pflegehilfsmittel zum Verbrauch <span class="law">§ 40 Abs. 2 SGB XI · Handschuhe, Desinfektion, Bettschutz</span></td><td class="r">42 €</td><td class="r">42 €</td><td class="r">42 €</td><td class="r">42 €</td><td class="r">42 €</td></tr>
+              <tr><td>Hausnotruf <span class="law">§ 40 SGB XI · Zuschuss Basisgerät</span></td><td class="r">25,50 €</td><td class="r">25,50 €</td><td class="r">25,50 €</td><td class="r">25,50 €</td><td class="r">25,50 €</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="foot">Die Beträge gelten unverändert seit 1. Januar 2025; die nächste gesetzliche Anpassung ist frühestens für 2028 vorgesehen. Private Pflegepflichtversicherungen zahlen dieselben Beträge, meist im Erstattungsverfahren. Bei Beihilfeberechtigten übernimmt die Pflegeversicherung die Hälfte.</p>
+      </div>
+
+      <div class="notes">
+        <div class="note">
           <h3>Gut zu wissen</h3>
           <ul>
-            <li><strong>Kombinationsleistung:</strong> Wird das Sachleistungsbudget nicht voll genutzt, zahlt die Pflegekasse den Rest anteilig als Pflegegeld aus (§ 38 SGB XI).</li>
+            <li><strong>Kombinationsleistung:</strong> Wird das Budget für den Pflegedienst nicht voll genutzt, zahlt die Pflegekasse den Rest anteilig als Pflegegeld aus (§ 38 SGB XI).</li>
             <li><strong>Umwandlung:</strong> Bis zu 40 % der ungenutzten Sachleistung können für Alltagshilfe eingesetzt werden (§ 45a SGB XI).</li>
-            <li><strong>Beratungsbesuch:</strong> Wer nur Pflegegeld bezieht, muss bei PG 2–3 halbjährlich und bei PG 4–5 vierteljährlich einen Beratungsbesuch nachweisen. Die Kosten trägt die Pflegekasse.</li>
+            <li><strong>Beratungsbesuch:</strong> Wer nur Pflegegeld bezieht, braucht bei PG 2–3 halbjährlich und bei PG 4–5 vierteljährlich einen Beratungsbesuch. Die Kosten trägt die Pflegekasse.</li>
             <li><strong>Pflegebox:</strong> Verbrauchsprodukte bis 42 € sind zuzahlungsfrei. Technische Pflegehilfsmittel kosten 10 % Zuzahlung, höchstens 25 €.</li>
           </ul>
         </div>
-        <div class="panel">
-          <h3>Ohne Pflegegrad?</h3>
+        <div class="note">
+          <h3>Noch kein Pflegegrad?</h3>
           <p>Den Pflegegrad beantragen Sie formlos bei der Pflegekasse, ein Anruf genügt. Leistungen gibt es rückwirkend ab dem Monat der Antragstellung. Wir helfen beim Antrag und bereiten Sie auf die Begutachtung vor.</p>
-          <p>Häusliche Krankenpflege nach § 37 SGB V und Medikamente auf Rezept zahlt die Krankenkasse auch ohne Pflegegrad.</p>
-          <div class="notice"><strong>Wichtig:</strong> Ambulante Pflege rechnet nur ein Pflegedienst mit Versorgungsvertrag nach § 72 SGB XI mit der Pflegekasse ab. Pflegehilfsmittel setzen einen Vertrag des Lieferanten mit der Pflegekasse voraus.</div>
+          <p>Behandlungspflege nach § 37 SGB V und Medikamente auf Rezept zahlt die Krankenkasse auch ohne Pflegegrad.</p>
+          <p class="notice"><strong>Wichtig:</strong> Ambulante Pflege rechnet nur ein Pflegedienst mit Versorgungsvertrag nach § 72 SGB XI ab. Pflegehilfsmittel setzen einen Vertrag des Lieferanten mit der Pflegekasse voraus.</p>
         </div>
+      </div>
 
-        <div class="panel wide sources">
-          <strong>Quellen der Recherche</strong>
-          <ol>
-            <li><a href="https://www.bundesgesundheitsministerium.de/fileadmin/Dateien/3_Downloads/P/Pflegeversicherung_Leistungsbeitraege/Uebersicht_Leistungsbetraege_2026.pdf" rel="noopener" target="_blank">Bundesgesundheitsministerium: Übersicht Leistungsbeträge 2026 (PDF)</a></li>
-            <li><a href="https://www.gesetze-im-internet.de/sgb_5/__37.html" rel="noopener" target="_blank">§ 37 SGB V Häusliche Krankenpflege</a></li>
-            <li><a href="https://www.gkv-spitzenverband.de/krankenversicherung/ambulante_leistungen/haeusliche_krankenpflege/haeusliche_krankenpflege_1.jsp" rel="noopener" target="_blank">GKV-Spitzenverband: Häusliche Krankenpflege</a></li>
-            <li><a href="https://www.vdek.com/presse/daten/d_versorgung_zuzahlung.html" rel="noopener" target="_blank">vdek: Zuzahlungen und Belastungsgrenzen</a></li>
-            <li><a href="https://www.familienratgeber.de/rechte-leistungen/pflege/leistungen-der-pflegeversicherung" rel="noopener" target="_blank">Familienratgeber: Leistungen der Pflegeversicherung 2026</a></li>
-          </ol>
-        </div>
+      <div class="sources">
+        <strong>Quellen der Recherche</strong>
+        <ol>
+          <li><a href="https://www.bundesgesundheitsministerium.de/fileadmin/Dateien/3_Downloads/P/Pflegeversicherung_Leistungsbeitraege/Uebersicht_Leistungsbetraege_2026.pdf" rel="noopener" target="_blank">Bundesgesundheitsministerium: Leistungsbeträge 2026</a></li>
+          <li><a href="https://www.gesetze-im-internet.de/sgb_5/__37.html" rel="noopener" target="_blank">§ 37 SGB V Häusliche Krankenpflege</a></li>
+          <li><a href="https://www.gkv-spitzenverband.de/krankenversicherung/ambulante_leistungen/haeusliche_krankenpflege/haeusliche_krankenpflege_1.jsp" rel="noopener" target="_blank">GKV-Spitzenverband: Häusliche Krankenpflege</a></li>
+          <li><a href="https://www.vdek.com/presse/daten/d_versorgung_zuzahlung.html" rel="noopener" target="_blank">vdek: Zuzahlungen und Belastungsgrenzen</a></li>
+          <li><a href="https://www.familienratgeber.de/rechte-leistungen/pflege/leistungen-der-pflegeversicherung" rel="noopener" target="_blank">Familienratgeber: Leistungen der Pflegeversicherung</a></li>
+        </ol>
       </div>
     </div>
   </section>
 
-  <section class="band" id="buchen">
+  <section class="band" id="buchen" style="padding-top:0">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Buchen</span>
-        <h2>Pflege-Abo anfragen</h2>
-        <p>In fünf Schritten. Wir prüfen Ihre Angaben, klären die Kostenübernahme mit Ihrer Kasse und melden uns innerhalb von zwei Werktagen.</p>
+        <span class="eyebrow">Anfragen</span>
+        <h2>Ihr Pflege-Abo <em>in fünf Schritten</em></h2>
+        <p>Wir prüfen Ihre Angaben, klären die Kostenübernahme mit Ihrer Kasse und melden uns innerhalb von zwei Werktagen.</p>
       </div>
       <div class="booking">
-        <form class="panel" id="book-form" novalidate>
+        <form class="book-card" id="book-form" novalidate>
           <ol class="steps" data-steps>
             <li>Paket</li><li>Person</li><li>Versicherung</li><li>Kontakt</li><li>Prüfen</li>
           </ol>
@@ -476,17 +523,19 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
           <fieldset data-step="0">
             <legend>Paket und Pflegegrad</legend>
             <div class="choice-list" data-pkg-choices></div>
-            <div class="field">
-              <label for="b-pg">Pflegegrad</label>
-              <select id="b-pg" name="pg">
-                <option value="0">Noch kein Pflegegrad (Antrag gewünscht)</option>
-                <option value="1">Pflegegrad 1</option><option value="2">Pflegegrad 2</option>
-                <option value="3" selected>Pflegegrad 3</option><option value="4">Pflegegrad 4</option><option value="5">Pflegegrad 5</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="b-start">Gewünschter Beginn</label>
-              <input type="date" id="b-start" name="start" required>
+            <div class="two">
+              <div class="field">
+                <label for="b-pg">Pflegegrad</label>
+                <select id="b-pg" name="pg">
+                  <option value="0">Noch keiner (Antrag gewünscht)</option>
+                  <option value="1">Pflegegrad 1</option><option value="2">Pflegegrad 2</option>
+                  <option value="3" selected>Pflegegrad 3</option><option value="4">Pflegegrad 4</option><option value="5">Pflegegrad 5</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="b-start">Gewünschter Beginn</label>
+                <input type="date" id="b-start" name="start" required>
+              </div>
             </div>
           </fieldset>
 
@@ -526,7 +575,7 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
               <input type="text" id="b-kvnr" name="kvnr" placeholder="A123456789" maxlength="12" autocomplete="off">
               <span class="hint">Steht auf der Gesundheitskarte. Ohne Nummer fragen wir sie später ab.</span>
             </div>
-            <label class="check"><input type="checkbox" id="b-free" name="free"> <span>Liegt eine Zuzahlungsbefreiung für dieses Jahr vor?</span></label>
+            <label class="check"><input type="checkbox" id="b-free" name="free"> <span>Für dieses Jahr liegt eine Zuzahlungsbefreiung vor</span></label>
           </fieldset>
 
           <fieldset data-step="3" hidden>
@@ -550,35 +599,36 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
           <fieldset data-step="4" hidden>
             <legend>Angaben prüfen</legend>
             <div class="review" data-review></div>
-            <div class="notice"><strong>Prototyp:</strong> In dieser Demo werden keine Daten übertragen. Ihre Anfrage wird nur in diesem Browser gespeichert.</div>
+            <p class="notice"><strong>Prototyp:</strong> In dieser Demo werden keine Daten übertragen. Ihre Anfrage wird nur in diesem Browser gespeichert.</p>
           </fieldset>
 
           <div data-step="5" hidden>
             <div class="done-box">
-              <h3>Vielen Dank, Ihre Anfrage ist eingegangen.</h3>
-              <p>Ihre Vorgangsnummer:</p>
-              <p class="ref" data-ref></p>
+              <span class="eyebrow">Anfrage eingegangen</span>
+              <h3>Vielen Dank. Wir kümmern uns.</h3>
+              <p>Ihre Vorgangsnummer</p>
+              <p class="ref num" data-ref></p>
               <p>Als Nächstes prüfen wir die Kostenübernahme mit Ihrer Kasse und rufen Sie innerhalb von zwei Werktagen an. Für die Pflegebox brauchen wir nur Ihre Unterschrift auf dem Antrag, den wir vorausgefüllt zusenden.</p>
-              <div><button type="button" class="btn ghost" data-restart>Neue Anfrage</button></div>
+              <div><button type="button" class="btn line" data-restart>Neue Anfrage</button></div>
             </div>
           </div>
 
           <p class="error" data-error role="alert"></p>
           <div class="form-nav" data-nav>
-            <button type="button" class="btn ghost" data-prev>Zurück</button>
-            <button type="button" class="btn" data-next>Weiter</button>
+            <button type="button" class="btn line" data-prev>Zurück</button>
+            <button type="button" class="btn" data-next>Weiter <span class="arr" aria-hidden="true">→</span></button>
           </div>
         </form>
 
-        <aside class="panel side-summary" aria-label="Ihre Auswahl">
-          <span class="eyebrow">Ihre Auswahl</span>
-          <h3 data-side-pkg>Paket</h3>
+        <aside class="side" aria-label="Ihre Auswahl">
+          <span class="tier" data-side-tier>Komfort</span>
+          <h3 data-side-pkg>Alltag</h3>
           <dl>
             <dt>Pflegegrad</dt><dd data-side-pg></dd>
             <dt>Kasse zahlt</dt><dd class="num" data-side-kasse></dd>
-            <dt>Ihr Anteil</dt><dd class="num" data-side-eigen></dd>
+            <dt>Ihr Anteil</dt><dd class="num big" data-side-eigen></dd>
           </dl>
-          <p style="font-size:var(--step--1);color:var(--muted)">Werte aus dem Kostenrechner, pro Monat. Monatlich kündbar.</p>
+          <p>Werte aus dem Kostenrechner, pro Monat. Monatlich kündbar.</p>
         </aside>
       </div>
     </div>
@@ -587,8 +637,8 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
 
 <footer class="site">
   <div class="wrap">
-    <strong style="color:var(--ink)">Sorgenfrei Pflege-Abo · Prototyp</strong>
-    <p>Alle Angaben ohne Gewähr und ohne Rechts- oder Sozialberatung. Leistungsbeträge nach SGB XI und SGB V, Stand Oktober 2026. Stundensätze und Servicepreise sind Beispielwerte. Bilder erstellt mit Canva.</p>
+    <b>Sorgenfrei</b>
+    <p>Prototyp. Alle Angaben ohne Gewähr und ohne Rechts- oder Sozialberatung. Leistungsbeträge nach SGB XI und SGB V, Stand Oktober 2026. Stundensätze und Servicepreise sind Beispielwerte. Bilder erstellt mit Canva.</p>
   </div>
 </footer>
 
@@ -619,20 +669,20 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
   };
 
   var PACKAGES = [
-    { id: "basis", tier: "Basis", name: "Pflegebox", img: "img/paket-pflegebox.jpg",
-      alt: "Geöffnete Box mit Handschuhen, Desinfektionsmittel, Masken, Bettschutzeinlagen und Tücher.",
+    { id: "basis", tier: "Basis", name: "Pflegebox", img: "img/paket-basis.jpg",
+      alt: "Geöffnete grüne Leinenbox mit Handschuhen, Desinfektionsmittel und Bettschutzeinlagen.",
       items: ["Pflegehilfsmittel nach Wahl bis 42 € im Monat", "Lieferung jeden Monat frei Haus", "Antrag bei der Pflegekasse übernehmen wir"],
       payer: "Pflegekasse, ab Pflegegrad 1" },
-    { id: "plus", tier: "Plus", name: "Versorgung", img: "img/paket-medikamente.jpg",
-      alt: "Eine Apothekerin übergibt einem älteren Mann an der Haustür einen Wochenblister mit Medikamenten.",
+    { id: "plus", tier: "Plus", name: "Versorgung", img: "img/paket-plus.jpg",
+      alt: "Ein älterer Mann greift zu einer Medikamentenbox auf einem Holztisch am Fenster.",
       items: ["Alles aus Basis", "Rezepte mit der Hausarztpraxis organisieren", "Medikamente im Wochenblister, geliefert", "Inkontinenzversorgung", "Hausnotruf"],
-      payer: "Pflegekasse und Krankenkasse, Servicepauschale 14,90 €" },
-    { id: "komfort", tier: "Komfort", name: "Alltag", img: "img/hero-pflege.jpg",
-      alt: "Eine Pflegekraft und eine ältere Frau sitzen zusammen auf dem Sofa.",
+      payer: "Pflege- und Krankenkasse, Servicepauschale 14,90 €" },
+    { id: "komfort", tier: "Komfort", name: "Alltag", img: "img/paket-komfort.jpg",
+      alt: "Eine junge Alltagsbegleiterin und eine ältere Dame stecken zusammen Blumen in der Küche.",
       items: ["Alles aus Plus", "Alltagshilfe: Haushalt, Einkauf, Arztbegleitung", "Pflegeberatung und Antragshilfe", "Feste Ansprechperson"],
       payer: "Entlastungsbetrag 131 € der Pflegekasse", featured: true },
-    { id: "premium", tier: "Premium", name: "Ambulant komplett", img: "img/paket-ambulant.jpg",
-      alt: "Eine Pflegekraft misst einem älteren Mann im Sessel den Blutdruck, seine Tochter steht daneben.",
+    { id: "premium", tier: "Premium", name: "Ambulant komplett", img: "img/paket-premium.jpg",
+      alt: "Eine Pflegekraft misst einem älteren Herrn im Sessel den Blutdruck.",
       items: ["Alles aus Komfort", "Grundpflege durch zugelassenen Pflegedienst", "Behandlungspflege nach ärztlicher Verordnung", "Feste Bezugspflegekraft", "Rufbereitschaft rund um die Uhr"],
       payer: "Pflegesachleistung ab Pflegegrad 2, Krankenkasse für Behandlungspflege" }
   ];
@@ -649,9 +699,9 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
   // Kernberechnung: liefert Positionen, Summen und Restpflegegeld
   function calc(s) {
     var pg = PG[s.pg], lv = level(s.pkg), rows = [], notices = [];
-    function add(label, law, cost, kasse, note) {
+    function add(label, law, cost, kasse) {
       kasse = round2(Math.min(cost, kasse));
-      rows.push({ label: label, law: law, cost: round2(cost), kasse: kasse, eigen: round2(cost - kasse), note: note });
+      rows.push({ label: label, law: law, cost: round2(cost), kasse: kasse, eigen: round2(cost - kasse) });
     }
 
     add("Pflegebox", "§ 40 Abs. 2 SGB XI · Pflegekasse", PFLEGEHILFSMITTEL, s.pg >= 1 ? PFLEGEHILFSMITTEL : 0);
@@ -666,7 +716,7 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
       }
       if (s.inko) {
         var inkoCopay = s.free ? 0 : Math.min(10, PRICE.inko * 0.1);
-        add("Inkontinenzversorgung", "§ 33 SGB V · Krankenkasse, max. 10 € Zuzahlung/Monat", PRICE.inko, PRICE.inko - inkoCopay);
+        add("Inkontinenzversorgung", "§ 33 SGB V · Krankenkasse, max. 10 € Zuzahlung im Monat", PRICE.inko, PRICE.inko - inkoCopay);
       }
     }
     if (lv >= 2) {
@@ -677,12 +727,12 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
     var rest = 0;
     if (lv >= 3) {
       var pflegeCost = s.hours * PRICE.weeksPerMonth * PRICE.pflegeHour;
-      if (pflegeCost > 0) add("Ambulante Pflege (" + fmtH(s.hours) + "/Woche)", "§ 36 SGB XI · Pflegesachleistung", pflegeCost, pg.sach);
+      if (pflegeCost > 0) add("Ambulante Pflege (" + fmtH(s.hours) + " pro Woche)", "§ 36 SGB XI · Pflegesachleistung", pflegeCost, pg.sach);
       if (pg.sach > 0) {
         var used = Math.min(pflegeCost, pg.sach) / pg.sach;
         rest = round2(pg.geld * (1 - used));
       }
-      rows.push({ label: "Behandlungspflege", law: "§ 37 SGB V · Krankenkasse, nach Verordnung", info: "Zuzahlung 10 % + 10 € je Verordnung, für max. 28 Tage im Jahr" });
+      rows.push({ label: "Behandlungspflege", law: "§ 37 SGB V · Krankenkasse, nach Verordnung", info: "Zuzahlung 10 % + 10 € je Verordnung, für höchstens 28 Tage im Jahr" });
       if (s.pg < 2) notices.push("Ambulante Pflege zahlt die Pflegekasse erst ab <strong>Pflegegrad 2</strong>. Bis dahin tragen Sie die Kosten selbst; Behandlungspflege nach ärztlicher Verordnung zahlt die Krankenkasse trotzdem.");
     }
     if (s.pg === 0) notices.push("<strong>Ohne Pflegegrad</strong> zahlt die Pflegekasse nichts. Beantragen Sie den Pflegegrad, wir helfen dabei. Leistungen gibt es rückwirkend ab dem Antragsmonat.");
@@ -697,25 +747,24 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
   try {
     var saved = JSON.parse(localStorage.getItem("sorgenfrei-calc") || "null");
     if (saved && typeof saved === "object") Object.keys(state).forEach(function (k) { if (k in saved) state[k] = saved[k]; });
+    if (level(state.pkg) < 0) state.pkg = "komfort";
   } catch (e) { /* Speicher nicht verfügbar */ }
   function persist() { try { localStorage.setItem("sorgenfrei-calc", JSON.stringify(state)); } catch (e) {} }
 
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
 
-  // Paketkarten
   function renderPackages() {
     $("[data-packages]").innerHTML = PACKAGES.map(function (p) {
       var r = calc(Object.assign({}, state, { pkg: p.id }));
+      var tag = p.featured ? '<span class="tag">Beliebt</span>' : (r.eigen === 0 ? '<span class="tag">0 € Eigenanteil</span>' : "");
       return '<article class="pkg' + (p.featured ? " featured" : "") + '">' +
-        '<img src="' + p.img + '" alt="' + p.alt + '" loading="lazy" width="1264" height="1264">' +
-        '<div class="pkg-head"><div class="pkg-tier"><span class="eyebrow">' + p.tier + '</span>' +
-        (p.featured ? '<span class="pill sun">Beliebt</span>' : (r.eigen === 0 ? '<span class="pill">0 € Eigenanteil</span>' : "")) + '</div>' +
-        '<h3>' + p.name + '</h3>' +
-        '<div class="pkg-price num">' + money(r.eigen) + '<small>Eigenanteil pro Monat · Wert ' + money(r.total) + '</small></div></div>' +
+        '<div class="pkg-img"><img src="' + p.img + '" alt="' + p.alt + '" loading="lazy" width="1264" height="1580">' + tag + '</div>' +
+        '<div class="pkg-head"><span class="pkg-tier">' + p.tier + '</span><h3>' + p.name + '</h3>' +
+        '<div class="pkg-price"><b class="num">' + money(r.eigen) + '</b><small>Eigenanteil im Monat · Wert ' + money(r.total) + '</small></div></div>' +
         '<ul>' + p.items.map(function (i) { return "<li>" + i + "</li>"; }).join("") + '</ul>' +
         '<div class="pkg-foot"><span class="payer">' + p.payer + '</span>' +
-        '<button type="button" class="btn small' + (p.featured ? "" : " ghost") + '" data-pick="' + p.id + '">' + p.name + ' berechnen</button></div>' +
+        '<button type="button" class="btn small' + (p.featured ? "" : " line") + '" data-pick="' + p.id + '">Berechnen</button></div>' +
         '</article>';
     }).join("");
   }
@@ -747,15 +796,15 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
     }).join("");
     $('[data-out="notices"]').innerHTML = r.notices.map(function (n) { return '<p class="notice">' + n + '</p>'; }).join("");
     $('[data-out="rest-box"]').hidden = !(r.rest > 0);
-    $('[data-out="rest"]').textContent = money(r.rest) + " / Monat";
+    $('[data-out="rest"]').textContent = money(r.rest) + " im Monat";
 
-    // Hero und Paketbereich
     $$("[data-pg-seg] button").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-pg") === state.pg)); });
-    var pgText = state.pg ? "Pflegegrad " + state.pg : "ohne Pflegegrad";
+    var pgText = state.pg ? "Pflegegrad " + state.pg : "keinem Pflegegrad";
     $$("[data-pg-label]").forEach(function (el) { el.textContent = pgText; });
-    var heroBudget = $("[data-hero-budget]");
-    if (PG[state.pg].sach) { heroBudget.textContent = eur0.format(PG[state.pg].sach) + " / Monat"; heroBudget.nextSibling.textContent = "für ambulante Pflege (Sachleistung)"; }
-    else { heroBudget.textContent = (state.pg ? eur0.format(PG[state.pg].entl + PFLEGEHILFSMITTEL) : "0 €") + " / Monat"; heroBudget.nextSibling.textContent = state.pg ? "für Pflegebox und Alltagshilfe" : "Pflegegrad beantragen lohnt sich"; }
+    var budget = $("[data-hero-budget]"), note = $("[data-hero-budget-note]");
+    if (PG[state.pg].sach) { budget.textContent = eur0.format(PG[state.pg].sach); note.textContent = "pro Monat für ambulante Pflege"; }
+    else if (state.pg) { budget.textContent = eur0.format(PG[state.pg].entl + PFLEGEHILFSMITTEL); note.textContent = "pro Monat für Pflegebox und Alltagshilfe"; }
+    else { budget.textContent = "0 €"; note.textContent = "Pflegegrad beantragen lohnt sich"; }
 
     renderPackages();
     renderSide(r);
@@ -765,7 +814,8 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
   function renderSide(r) {
     var p = PACKAGES[level(booking.pkg)];
     var rr = r && booking.pkg === state.pkg && booking.pg === state.pg ? r : calc(Object.assign({}, state, { pkg: booking.pkg, pg: booking.pg }));
-    $("[data-side-pkg]").textContent = p.tier + " · " + p.name;
+    $("[data-side-tier]").textContent = p.tier;
+    $("[data-side-pkg]").textContent = p.name;
     $("[data-side-pg]").textContent = booking.pg ? "Pflegegrad " + booking.pg : "Antrag gewünscht";
     $("[data-side-kasse]").textContent = money(rr.kasse);
     $("[data-side-eigen]").textContent = money(rr.eigen);
@@ -835,22 +885,23 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
     $("[data-steps]").hidden = n >= STEP_COUNT;
     $("[data-nav]").hidden = n >= STEP_COUNT;
     $("[data-prev]").style.visibility = n === 0 ? "hidden" : "visible";
-    $("[data-next]").textContent = n === STEP_COUNT - 1 ? "Anfrage absenden" : "Weiter";
+    $("[data-next]").innerHTML = n === STEP_COUNT - 1 ? "Anfrage absenden" : 'Weiter <span class="arr" aria-hidden="true">→</span>';
     $("[data-error]").textContent = "";
     if (n === STEP_COUNT - 1) renderReview();
   }
 
   function validateStep(n) {
     var fs = form.querySelector('[data-step="' + n + '"]');
+    if (n === 0 && !form.querySelector('input[name="pkg"]:checked')) return "Bitte wählen Sie ein Paket.";
     var bad = $$("input[required], select[required]", fs).filter(function (el) {
       if (el.type === "checkbox") return !el.checked;
       return !el.checkValidity() || !el.value.trim();
     });
-    if (n === 0 && !form.querySelector('input[name="pkg"]:checked')) return "Bitte wählen Sie ein Paket.";
     if (bad.length) {
       bad[0].focus();
       var lab = fs.querySelector('label[for="' + bad[0].id + '"]');
       if (bad[0].id === "b-zip") return "Bitte geben Sie eine fünfstellige Postleitzahl ein.";
+      if (bad[0].id === "b-mail") return "Bitte geben Sie eine gültige E-Mail-Adresse ein, z. B. name@beispiel.de.";
       if (bad[0].id === "b-privacy") return "Bitte bestätigen Sie die Einwilligung zur Datenverarbeitung, sonst können wir die Anfrage nicht bearbeiten.";
       return "Bitte füllen Sie das Feld „" + (lab ? lab.textContent.trim() : "Pflichtfeld") + "“ aus.";
     }
@@ -907,7 +958,6 @@ footer.site .wrap { padding-block: 32px; display: grid; gap: 10px; font-size: va
   showStep(0);
   renderCalc();
 
-  // Für Tests
   window.SorgenfreiCalc = calc;
 })();
 </script>
