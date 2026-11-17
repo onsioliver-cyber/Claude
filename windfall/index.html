@@ -1,32 +1,37 @@
 <title>Windfall</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-/* Layout: sticky top bar with role switch, one feed column of request cards + a side panel for the giver's ledger; stacks on phones. */
+/* Layout: sticky top bar (views + role), main column swaps between swipe deck / browse list / wins feed / leaderboard; giver wallet panel on the right, stacks under on phones. */
 :root {
   --bg: #f5f6f8;
   --surface: #ffffff;
   --ink: #16202e;
   --muted: #5d6879;
   --line: #e1e5ec;
-  --accent: #b9851a;      /* windfall gold */
+  --accent: #b9851a;
   --accent-ink: #ffffff;
   --accent-soft: #f6ecd6;
   --good: #1f7a4d;
   --good-soft: #e1f2e8;
+  --bad: #b23a3a;
+  --bad-soft: #f8e3e3;
   --warn: #9a5b00;
+  --shadow: 0 10px 30px rgb(22 32 46 / .12);
   --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --f-body: "Inter", system-ui, -apple-system, sans-serif;
   --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0f141b; --surface: #171e28; --ink: #e8ecf2; --muted: #9aa5b5; --line: #273141;
-  --accent: #e0aa3e; --accent-ink: #1a1305; --accent-soft: #2e2611; --good: #4cc489; --good-soft: #13291e; --warn: #f0a640;
+  --accent: #e0aa3e; --accent-ink: #1a1305; --accent-soft: #2e2611; --good: #4cc489; --good-soft: #13291e;
+  --bad: #ef7b7b; --bad-soft: #321a1a; --warn: #f0a640; --shadow: 0 10px 30px rgb(0 0 0 / .45);
   color-scheme: dark } }
 :root[data-theme="dark"] {
   --bg: #0f141b; --surface: #171e28; --ink: #e8ecf2; --muted: #9aa5b5; --line: #273141;
-  --accent: #e0aa3e; --accent-ink: #1a1305; --accent-soft: #2e2611; --good: #4cc489; --good-soft: #13291e; --warn: #f0a640;
+  --accent: #e0aa3e; --accent-ink: #1a1305; --accent-soft: #2e2611; --good: #4cc489; --good-soft: #13291e;
+  --bad: #ef7b7b; --bad-soft: #321a1a; --warn: #f0a640; --shadow: 0 10px 30px rgb(0 0 0 / .45);
   color-scheme: dark }
 
 * { box-sizing: border-box }
@@ -39,34 +44,67 @@ button { cursor: pointer }
 .num { font-family: var(--f-mono); font-variant-numeric: tabular-nums }
 
 header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line) }
-header .wrap { display: flex; align-items: center; gap: 16px; padding-block: 12px; flex-wrap: wrap }
+header .wrap { display: flex; align-items: center; gap: 12px 16px; padding-block: 10px; flex-wrap: wrap }
 .brand { font: 800 22px/1 var(--f-display); letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px }
 .brand i { width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #f3d27a, var(--accent)); display: inline-block }
+nav { display: flex; gap: 2px; flex-wrap: wrap; order: 3; width: 100% }
+@media (min-width: 760px) { nav { order: 0; width: auto; margin-left: 12px } }
+nav button { border: 0; background: none; padding: 7px 12px; border-radius: 8px; font-weight: 600; font-size: 14px; color: var(--muted) }
+nav button[aria-current="page"] { color: var(--ink); background: var(--bg) }
 .seg { display: inline-flex; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 3px; margin-left: auto }
 .seg button { border: 0; background: none; padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: 13px; color: var(--muted) }
 .seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg) }
 
-.hero { padding-block: 36px 20px }
-.hero h1 { font: 800 clamp(30px, 5vw, 48px)/1.05 var(--f-display); letter-spacing: -0.03em; margin: 0 0 10px; text-wrap: balance; max-width: 20ch }
-.hero h1 em { font-style: normal; color: var(--accent) }
-.hero p { color: var(--muted); max-width: 60ch; margin: 0 }
-.stats { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 22px }
-.stats div { display: grid }
-.stats b { font: 700 22px/1.1 var(--f-mono) }
-.stats span { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em }
+.strip { display: flex; gap: 28px; flex-wrap: wrap; padding-block: 18px 6px }
+.strip div { display: grid }
+.strip b { font: 700 20px/1.1 var(--f-mono) }
+.strip span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em }
 
-.grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; padding-block: 8px 48px; align-items: start }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; padding-block: 14px 40px; align-items: start }
 @media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr) } }
+h2.view-title { font: 800 26px/1.1 var(--f-display); letter-spacing: -0.02em; margin: 0 0 4px }
+.view-sub { color: var(--muted); margin: 0 0 16px; font-size: 14px }
 
+/* --- swipe deck --- */
+.deck-zone { display: grid; justify-items: center; gap: 18px }
+.deck { position: relative; width: min(380px, 100%); height: 450px }
+.sw { position: absolute; inset: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); overflow: hidden; display: grid; grid-template-rows: auto 1fr; touch-action: none; user-select: none; transition: transform .35s ease, opacity .35s ease; will-change: transform }
+.sw.dragging { transition: none; cursor: grabbing }
+.sw.top { cursor: grab }
+.sw-head { padding: 22px 22px 18px; color: #fff; display: grid; gap: 6px; position: relative }
+.sw-head .cat { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .85 }
+.sw-head .big { font: 800 44px/1 var(--f-display); letter-spacing: -0.03em }
+.sw-head .big small { font: 500 14px/1 var(--f-body); opacity: .85; letter-spacing: 0; margin-left: 6px }
+.sw-head .person { font-weight: 600; font-size: 15px }
+.sw-body { padding: 18px 22px 22px; display: grid; gap: 10px; align-content: start; min-height: 0; overflow: hidden }
+.sw-body h3 { font: 700 21px/1.2 var(--f-display); margin: 0; letter-spacing: -0.01em; text-wrap: balance }
+.sw-body p { margin: 0; color: var(--muted); font-size: 14px }
+.stamp { position: absolute; top: 26px; padding: 4px 12px; border: 3px solid; border-radius: 10px; font: 800 26px/1 var(--f-display); letter-spacing: .04em; opacity: 0; pointer-events: none; z-index: 2; background: var(--surface) }
+.stamp.pay { left: 20px; color: var(--good); transform: rotate(-12deg) }
+.stamp.skip { right: 20px; color: var(--bad); transform: rotate(12deg) }
+.stamp.all { left: 50%; top: auto; bottom: 30px; color: var(--accent); transform: translateX(-50%) }
+.deck-empty { position: absolute; inset: 0; border: 2px dashed var(--line); border-radius: 22px; display: grid; place-content: center; text-align: center; gap: 10px; padding: 24px }
+.deck-empty h3 { font: 700 22px/1.2 var(--f-display); margin: 0 }
+.deck-empty p { margin: 0; color: var(--muted) }
+.swipe-btns { display: flex; gap: 18px; align-items: center }
+.round { width: 62px; height: 62px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow); display: grid; place-items: center; font-weight: 800; font-size: 13px; font-family: var(--f-display) }
+.round svg { width: 26px; height: 26px }
+.round.skip { color: var(--bad) }
+.round.pay { color: var(--good); width: 72px; height: 72px }
+.round.all { color: var(--accent) }
+.round:hover { transform: translateY(-2px) }
+.hint { font-size: 12px; color: var(--muted); text-align: center }
+.kbd { font-family: var(--f-mono); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: 11px }
+
+/* --- list cards --- */
 .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; align-items: center }
 .tab { border: 1px solid var(--line); background: var(--surface); padding: 7px 14px; border-radius: 999px; font-weight: 600; font-size: 13px }
 .tab[aria-selected="true"] { border-color: var(--ink); background: var(--ink); color: var(--bg) }
 .tabs select { margin-left: auto; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 8px; font-size: 13px }
-
 .feed { display: grid; gap: 12px }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 10px }
-.card.done { opacity: .72 }
-.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap }
+.card.done { opacity: .75 }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap }
 .pill { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; padding: 3px 8px; border-radius: 999px; background: var(--bg); color: var(--muted); border: 1px solid var(--line) }
 .pill.ver { background: var(--good-soft); color: var(--good); border-color: transparent }
 .pill.urgent { background: var(--accent-soft); color: var(--warn); border-color: transparent }
@@ -84,17 +122,56 @@ header .wrap { display: flex; align-items: center; gap: 16px; padding-block: 12p
 .btn { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 8px 14px; font-weight: 600; font-size: 14px }
 .btn:hover { border-color: var(--ink) }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink) }
-.btn.primary:hover { filter: brightness(1.06) }
-.btn.dark { background: var(--ink); border-color: var(--ink); color: var(--bg) }
+.btn.small { padding: 5px 10px; font-size: 13px }
 .btn:disabled { opacity: .45; cursor: not-allowed }
 
-aside { display: grid; gap: 16px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 76px) }
+/* --- wins feed --- */
+.composer { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 10px; margin-bottom: 14px }
+.composer textarea { border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: var(--bg); min-height: 70px; resize: vertical; width: 100% }
+.composer .row { justify-content: space-between }
+.composer select { border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; background: var(--bg); font-size: 13px; max-width: 100% }
+.post { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 8px }
+.post.sys { background: var(--accent-soft); border-color: transparent }
+.post-head { display: flex; gap: 10px; align-items: center }
+.ava { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: #fff; font: 700 14px/1 var(--f-display); flex: none }
+.post-head b { font-weight: 600 }
+.post-head .who { display: block; font-size: 12px }
+.post p { margin: 0; overflow-wrap: anywhere }
+.linked { font-size: 12px; color: var(--muted) }
+.cheer { justify-self: start; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 12px; font-size: 13px; font-weight: 600; display: inline-flex; gap: 6px; align-items: center }
+.cheer[aria-pressed="true"] { border-color: var(--accent); color: var(--warn); background: var(--accent-soft) }
+.cheer svg { width: 14px; height: 14px }
+
+/* --- leaderboard --- */
+.board { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden }
+.lb { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--line) }
+.lb:last-child { border-bottom: 0 }
+.lb.me { background: var(--accent-soft) }
+.rank { font: 800 20px/1 var(--f-display); text-align: center; color: var(--muted) }
+.lb:nth-child(1) .rank { color: var(--accent) }
+.lb-name { min-width: 0 }
+.lb-name b { display: block; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.lb-name span { font-size: 12px; color: var(--muted) }
+.lb-amt { text-align: right; font: 700 16px/1.2 var(--f-mono) }
+.lb-amt small { display: block; font: 500 11px/1.3 var(--f-body); color: var(--muted) }
+.badges { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 3px }
+.badge { font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: var(--bg); color: var(--muted); border: 1px solid var(--line) }
+.badge.gold { background: var(--accent); color: var(--accent-ink); border-color: var(--accent) }
+.podium-note { font-size: 13px; color: var(--muted); margin-top: 12px }
+
+/* --- side --- */
+aside { display: grid; gap: 16px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 72px) }
 @media (max-width: 860px) { aside { position: static } }
 .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 12px }
 .panel h2 { font: 700 16px/1.2 var(--f-display); margin: 0 }
 .panel small { color: var(--muted) }
 .wallet { font: 700 30px/1 var(--f-mono) }
-.ledger { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; max-height: 260px; overflow: auto; font-size: 13px }
+.me-line { display: flex; gap: 8px; align-items: center }
+.me-line input { flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; background: var(--bg) }
+.chips { display: flex; gap: 6px; flex-wrap: wrap }
+.chips button { border: 1px solid var(--line); background: var(--bg); padding: 6px 10px; border-radius: 8px; font-family: var(--f-mono); font-weight: 500; font-size: 13px }
+.chips button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft) }
+.ledger { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; max-height: 220px; overflow: auto; font-size: 13px }
 .ledger li { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dashed var(--line); padding-bottom: 6px }
 .ledger li span:first-child { min-width: 0; overflow-wrap: anywhere }
 .roulette { background: var(--ink); color: var(--bg); border-color: var(--ink) }
@@ -102,7 +179,6 @@ aside { display: grid; gap: 16px; position: sticky; top: calc(env(safe-area-inse
 .roulette .btn { background: var(--accent); border-color: var(--accent); color: var(--accent-ink) }
 .roulette input { width: 100%; accent-color: var(--accent) }
 .steps { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13px; color: var(--muted) }
-
 form.panel label { display: grid; gap: 4px; font-size: 13px; font-weight: 600 }
 form.panel input, form.panel select, form.panel textarea { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--bg); font-weight: 400; width: 100% }
 form.panel textarea { min-height: 80px; resize: vertical }
@@ -112,17 +188,21 @@ form.panel textarea { min-height: 80px; resize: vertical }
 dialog { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); color: var(--ink); padding: 22px; width: min(420px, calc(100vw - 32px)) }
 dialog::backdrop { background: rgb(10 14 20 / .5) }
 dialog h3 { font: 700 20px/1.2 var(--f-display); margin: 0 0 6px }
-.chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0 }
-.chips button { border: 1px solid var(--line); background: var(--bg); padding: 8px 12px; border-radius: 10px; font-family: var(--f-mono); font-weight: 500 }
-.chips button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft) }
+dialog .chips { margin: 14px 0 }
 .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 14px; z-index: 20; max-width: calc(100vw - 32px) }
 .note { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 18px; padding-bottom: 32px }
-@media (prefers-reduced-motion: reduce) { .bar > i { transition: none } }
+@media (prefers-reduced-motion: reduce) { .bar > i, .sw { transition: none } }
 </style>
 
 <header>
   <div class="wrap">
     <div class="brand"><i aria-hidden="true"></i>Windfall</div>
+    <nav aria-label="Views">
+      <button data-view="swipe" aria-current="page">Swipe</button>
+      <button data-view="browse">Browse</button>
+      <button data-view="wins">Wins</button>
+      <button data-view="board">Leaderboard</button>
+    </nav>
     <div class="seg" role="group" aria-label="I am here to">
       <button id="role-give" aria-pressed="true">Give</button>
       <button id="role-ask" aria-pressed="false">Ask for help</button>
@@ -131,45 +211,94 @@ dialog h3 { font: 700 20px/1.2 var(--f-display); margin: 0 0 6px }
 </header>
 
 <main class="wrap">
-  <section class="hero">
-    <h1>Pay a stranger's bill. <em>Back</em> someone's next move.</h1>
-    <p>Every request is checked against the real bill or plan. Money goes straight to the landlord, hospital, utility or school, never as cash, so givers know exactly where it lands.</p>
-    <div class="stats">
-      <div><b class="num" id="st-paid">$0</b><span>Paid to billers</span></div>
-      <div><b class="num" id="st-cleared">0</b><span>Bills cleared</span></div>
-      <div><b class="num" id="st-backed">0</b><span>People backed</span></div>
-    </div>
-  </section>
+  <div class="strip">
+    <div><b class="num" id="st-paid">$0</b><span>Paid to billers</span></div>
+    <div><b class="num" id="st-cleared">0</b><span>Bills cleared</span></div>
+    <div><b class="num" id="st-givers">0</b><span>Givers</span></div>
+    <div><b class="num" id="st-rank">–</b><span>Your rank</span></div>
+  </div>
 
   <div class="grid">
-    <section aria-label="Requests">
-      <div class="tabs" role="tablist">
-        <button class="tab" role="tab" id="tab-bill" aria-selected="true">Bills &amp; debts</button>
-        <button class="tab" role="tab" id="tab-back" aria-selected="false">Back a person</button>
-        <button class="tab" role="tab" id="tab-done" aria-selected="false">Cleared</button>
-        <select id="sort" aria-label="Sort requests">
-          <option value="urgent">Most urgent</option>
-          <option value="closest">Closest to done</option>
-          <option value="small">Smallest first</option>
-          <option value="big">Biggest first</option>
-        </select>
+    <section id="main" aria-live="polite">
+      <!-- swipe -->
+      <div id="v-swipe">
+        <h2 class="view-title">Who are you paying for today?</h2>
+        <p class="view-sub">Swipe right to chip in, up to pay it all, left to pass. Every dollar goes to the biller, not the person.</p>
+        <div class="deck-zone">
+          <div class="deck" id="deck"></div>
+          <div class="swipe-btns">
+            <button class="round skip" id="b-skip" aria-label="Pass">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+            <button class="round pay" id="b-pay" aria-label="Chip in">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3.3 5 6.8 5c2 0 3.4 1.1 4.2 2.3h2C13.8 6.1 15.2 5 17.2 5c3.5 0 5.6 3.6 4.3 6.8C19.5 16.4 12 21 12 21z"/></svg></button>
+            <button class="round all" id="b-all" aria-label="Pay it all">ALL</button>
+          </div>
+          <div class="hint">Keys: <span class="kbd">←</span> pass · <span class="kbd">→</span> chip in <span class="num" id="hint-amt">$100</span> · <span class="kbd">↑</span> pay it all</div>
+        </div>
       </div>
-      <div class="feed" id="feed"></div>
+
+      <!-- browse -->
+      <div id="v-browse" hidden>
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" id="tab-bill" aria-selected="true">Bills &amp; debts</button>
+          <button class="tab" role="tab" id="tab-back" aria-selected="false">Back a person</button>
+          <button class="tab" role="tab" id="tab-done" aria-selected="false">Cleared</button>
+          <select id="sort" aria-label="Sort requests">
+            <option value="urgent">Most urgent</option>
+            <option value="closest">Closest to done</option>
+            <option value="small">Smallest first</option>
+            <option value="big">Biggest first</option>
+          </select>
+        </div>
+        <div class="feed" id="feed"></div>
+      </div>
+
+      <!-- wins -->
+      <div id="v-wins" hidden>
+        <h2 class="view-title">Wins</h2>
+        <p class="view-sub">Updates from people who got help, and the givers who made it happen.</p>
+        <form class="composer" id="composer">
+          <textarea id="c-text" maxlength="280" required placeholder="How are you doing since your bill was paid?"></textarea>
+          <div class="row">
+            <select id="c-link" aria-label="About which request"></select>
+            <button class="btn primary small" type="submit">Post</button>
+          </div>
+        </form>
+        <div class="feed" id="posts"></div>
+      </div>
+
+      <!-- leaderboard -->
+      <div id="v-board" hidden>
+        <h2 class="view-title">Leaderboard</h2>
+        <p class="view-sub">Givers ranked by what they've paid off. Climb it by clearing bills.</p>
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" id="lb-total" aria-selected="true">Most paid</button>
+          <button class="tab" role="tab" id="lb-cleared" aria-selected="false">Most bills cleared</button>
+          <button class="tab" role="tab" id="lb-people" aria-selected="false">Most people helped</button>
+        </div>
+        <div class="board" id="board"></div>
+        <p class="podium-note" id="board-note"></p>
+      </div>
     </section>
 
     <aside id="side-give">
       <div class="panel">
-        <h2>Your giving balance</h2>
+        <h2>You</h2>
+        <div class="me-line"><label for="me-handle" class="who">Name on board</label><input id="me-handle" maxlength="24"></div>
         <div class="wallet num" id="wallet">$0</div>
-        <small>Demo money. In the real app this is a funded donor account.</small>
+        <small>Demo balance. In the real app this is a funded giving account.</small>
         <div class="actions">
-          <button class="btn" id="topup">Add $10,000</button>
-          <button class="btn" id="reset">Reset demo</button>
+          <button class="btn small" id="topup">Add $10,000</button>
+          <button class="btn small" id="reset">Reset demo</button>
         </div>
+      </div>
+      <div class="panel">
+        <h2>Right-swipe amount</h2>
+        <div class="chips" id="swipe-amts"></div>
       </div>
       <div class="panel roulette">
         <h2>Bill roulette</h2>
-        <small>Bored? Set a budget and we clear the most urgent bills it can fully cover.</small>
+        <small>Set a budget and we clear the most urgent bills it can fully cover.</small>
         <label for="budget" class="num" id="budget-label" style="font-size:20px;font-weight:700">$5,000</label>
         <input type="range" id="budget" min="500" max="50000" step="500" value="5000">
         <button class="btn" id="spin">Clear bills for me</button>
@@ -208,18 +337,18 @@ dialog h3 { font: 700 20px/1.2 var(--f-display); margin: 0 0 6px }
         <ol class="steps">
           <li>Upload the real bill, statement or plan.</li>
           <li>We confirm it with the biller and verify your ID.</li>
-          <li>Your request goes live to givers.</li>
-          <li>Funds are sent to the biller, and you get a receipt.</li>
+          <li>Your request goes into givers' swipe decks.</li>
+          <li>Funds go to the biller. You get a receipt and can post a win.</li>
         </ol>
       </div>
     </aside>
   </div>
 
-  <p class="note">Prototype. All people, bills and payments on this page are fictional sample data and no money moves. A live version needs a licensed payments partner, identity checks and, for any “back with a return” option, securities compliance.</p>
+  <p class="note">Prototype. All people, givers, bills, posts and payments on this page are fictional sample data and no money moves. A live version needs a licensed payments partner, identity checks, moderation of posts and, for any “back with a return” option, securities compliance.</p>
 </main>
 
 <dialog id="pay-dlg">
-  <form method="dialog" id="pay-form">
+  <form method="dialog">
     <h3 id="pay-title"></h3>
     <div class="who" id="pay-sub"></div>
     <div class="chips" id="pay-chips"></div>
@@ -228,7 +357,7 @@ dialog h3 { font: 700 20px/1.2 var(--f-display); margin: 0 0 6px }
     </label>
     <p class="who" id="pay-dest" style="margin:12px 0"></p>
     <div class="actions">
-      <button class="btn primary" id="pay-go" value="go">Pay</button>
+      <button class="btn primary" value="go">Pay</button>
       <button class="btn" value="cancel">Cancel</button>
     </div>
   </form>
@@ -238,13 +367,29 @@ dialog h3 { font: 700 20px/1.2 var(--f-display); margin: 0 0 6px }
 
 <script>
 (() => {
-const KEY = "windfall-demo-v1";
+const KEY = "windfall-demo-v2";
 const today = new Date(); today.setHours(0,0,0,0);
 const inDays = d => { const x = new Date(today); x.setDate(x.getDate() + d); return x.toISOString().slice(0,10); };
+const ago = h => Date.now() - h * 36e5;
+const CAT_COLORS = { "Rent": "#3b5bdb", "Medical": "#c2255c", "Utilities": "#e8590c", "Student loan": "#5f3dc4", "Car repair": "#2b8a3e", "Business": "#b9851a", "Training": "#0b7285", "Education": "#5f3dc4" };
+const color = c => CAT_COLORS[c] || "#495057";
+const AVA = ["#3b5bdb", "#c2255c", "#2b8a3e", "#e8590c", "#5f3dc4", "#0b7285", "#b9851a"];
+const avaColor = s => AVA[[...s].reduce((a, c) => a + c.charCodeAt(0), 0) % AVA.length];
 
 const SAMPLE = () => ({
-  wallet: 25000,
+  wallet: 25000, me: "You", swipeAmt: 100, skipped: [], cheered: [],
   ledger: [],
+  // Fictional sample givers for the leaderboard
+  givers: [
+    { handle: "Northgate Family Office", total: 184200, cleared: 61, people: 58 },
+    { handle: "quietmoney", total: 96500, cleared: 44, people: 47 },
+    { handle: "Dr. Hal Ostrander", total: 71300, cleared: 19, people: 22 },
+    { handle: "RentSlayer", total: 52800, cleared: 31, people: 31 },
+    { handle: "The Okafor Fund", total: 38900, cleared: 12, people: 15 },
+    { handle: "anon_whale_22", total: 25000, cleared: 3, people: 3 },
+    { handle: "Bea from Boise", total: 6150, cleared: 9, people: 14 },
+    { handle: "lunchmoney", total: 2310, cleared: 4, people: 11 },
+  ],
   requests: [
     { id: 1, kind: "bill", cat: "Rent", title: "Two months of back rent after a plant closure", story: "I was laid off when the packaging plant shut down. New job starts on the 1st but I'm $2,700 behind and have an eviction notice.", name: "Marisol", city: "Dayton, OH", payee: "Brookline Apartments LLC", amount: 2700, raised: 850, due: inDays(6) },
     { id: 2, kind: "bill", cat: "Medical", title: "ER bill from my son's broken arm", story: "No insurance at the time. Payment plan fell through and it went to collections last month.", name: "Devon", city: "Tucson, AZ", payee: "Banner Health Billing", amount: 4180, raised: 0, due: inDays(20) },
@@ -256,6 +401,15 @@ const SAMPLE = () => ({
     { id: 8, kind: "back", cat: "Training", title: "CDL license to drive trucks", story: "Accepted into an 8-week CDL program. Starting pay at the carrier that sponsors grads is $68k.", name: "Terrence", city: "Memphis, TN", payee: "Southwest Tennessee CDL School", amount: 5200, raised: 800, due: inDays(25) },
     { id: 9, kind: "back", cat: "Education", title: "Last semester of my electrician apprenticeship", story: "Working days, classes at night. Tuition went up and I'm short for the final term.", name: "Priya", city: "Columbus, OH", payee: "IBEW Local 683 JATC", amount: 3100, raised: 2400, due: inDays(30) },
     { id: 10, kind: "back", cat: "Business", title: "Second chair for my barbershop", story: "Fully booked 3 weeks out. A second chair and equipment means I can hire my cousin.", name: "Jamal", city: "Detroit, MI", payee: "Kaemark Salon Furniture", amount: 6400, raised: 0, due: inDays(40) },
+    { id: 11, kind: "bill", cat: "Rent", title: "Security deposit to leave a bad situation", story: "Found a place for me and my daughter. Landlord needs first month plus deposit by Friday.", name: "Tasha", city: "Phoenix, AZ", payee: "Camelback Residential", amount: 2250, raised: 2250, due: inDays(2) },
+    { id: 12, kind: "back", cat: "Training", title: "Welding certification", story: "Three local shops are hiring certified welders. The course is 10 weeks.", name: "Luis", city: "Bakersfield, CA", payee: "Kern Welding Institute", amount: 4400, raised: 4400, due: inDays(10) },
+  ],
+  posts: [
+    { id: 1, author: "Tasha", role: "recipient", rid: 11, text: "We moved in Saturday. My daughter picked her room and painted it purple. Thank you RentSlayer, I don't know who you are but I think about you every day.", at: ago(5), cheers: 214 },
+    { id: 2, author: "RentSlayer", role: "giver", rid: 11, text: "Cleared Tasha's deposit. That's 31 rent bills this year. Northgate, come get me.", at: ago(6), cheers: 88 },
+    { id: 3, author: "Luis", role: "recipient", rid: 12, text: "Week 4 of welding school. Passed my first bend test today. Already have an interview lined up for after graduation.", at: ago(30), cheers: 132 },
+    { id: 4, author: "Northgate Family Office", role: "giver", rid: null, text: "Matching every bill cleared this week up to $20k. Leaderboard is open season.", at: ago(52), cheers: 301 },
+    { id: 5, author: "Bea from Boise", role: "giver", rid: null, text: "I'm not a billionaire, I just swipe right on every utility bill under $100 on my lunch break. 14 people so far.", at: ago(80), cheers: 456 },
   ],
 });
 
@@ -268,71 +422,238 @@ const usd = n => "$" + Math.round(n).toLocaleString("en-US");
 const left = r => Math.max(0, r.amount - r.raised);
 const daysLeft = r => Math.round((new Date(r.due + "T00:00:00") - today) / 864e5);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const rel = t => { const h = (Date.now() - t) / 36e5; return h < 1 ? "just now" : h < 24 ? Math.floor(h) + "h ago" : Math.floor(h / 24) + "d ago"; };
+const live = r => left(r) > 0 && r.status !== "pending";
 
-let tab = "bill", payingId = null, payAmt = 0;
+let view = "swipe", tab = "bill", lbSort = "total", payingId = null, payAmt = 0;
 
 function toast(msg) {
   const t = $("toast"); t.textContent = msg; t.hidden = false;
-  clearTimeout(toast.t); toast.t = setTimeout(() => t.hidden = true, 2800);
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.hidden = true, 3000);
 }
 
-function render() {
-  const sort = $("sort").value;
-  let list = S.requests.filter(r => tab === "done" ? left(r) === 0 : r.kind === tab && left(r) > 0 && r.status !== "pending");
-  if (tab !== "done") list = list.concat(S.requests.filter(r => r.kind === tab && r.status === "pending"));
-  const order = {
-    urgent: (a, b) => daysLeft(a) - daysLeft(b),
-    closest: (a, b) => left(a) - left(b),
-    small: (a, b) => a.amount - b.amount,
-    big: (a, b) => b.amount - a.amount,
-  }[sort];
-  list.sort((a, b) => (a.status === "pending") - (b.status === "pending") || order(a, b));
-
-  $("feed").innerHTML = list.length ? list.map(card).join("") :
-    `<div class="card"><h3>${tab === "done" ? "Nothing cleared yet" : "All caught up"}</h3><p>${tab === "done" ? "Pay off a bill in full and it shows up here with its receipt." : "Every request in this list is fully funded."}</p></div>`;
-
-  const paid = S.ledger.reduce((s, l) => s + l.amount, 0);
-  $("st-paid").textContent = usd(paid);
-  $("st-cleared").textContent = S.requests.filter(r => r.kind === "bill" && left(r) === 0).length;
-  $("st-backed").textContent = new Set(S.ledger.filter(l => l.kind === "back").map(l => l.rid)).size;
-  $("wallet").textContent = usd(S.wallet);
-  $("ledger").innerHTML = S.ledger.length ? S.ledger.slice().reverse().map(l =>
-    `<li><span>${esc(l.name)} → ${esc(l.payee)}</span><span class="num">${usd(l.amount)}</span></li>`).join("")
-    : `<li><span>No payments yet. Pick a bill to start.</span></li>`;
+/* ---------- giving ---------- */
+function myStats() {
+  const total = S.ledger.reduce((s, l) => s + l.amount, 0);
+  const people = new Set(S.ledger.map(l => l.rid)).size;
+  const cleared = S.ledger.filter(l => l.closed).length;
+  return { handle: S.me || "You", total, people, cleared, me: true };
+}
+function ranked() {
+  const key = { total: "total", cleared: "cleared", people: "people" }[lbSort];
+  return S.givers.concat([myStats()]).sort((a, b) => b[key] - a[key] || b.total - a.total);
 }
 
+function pay(r, amount, quiet) {
+  amount = Math.min(Math.round(amount), left(r));
+  if (amount <= 0) return false;
+  if (amount > S.wallet) { toast(`Your balance is ${usd(S.wallet)}. Add funds to pay ${usd(amount)}.`); return false; }
+  const before = ranked().findIndex(g => g.me);
+  S.wallet -= amount; r.raised += amount;
+  const closed = left(r) === 0;
+  S.ledger.push({ rid: r.id, kind: r.kind, name: r.name, payee: r.payee, amount, at: Date.now(), closed });
+  if (closed) S.posts.unshift({ id: Date.now(), author: S.me || "You", role: "giver", rid: r.id, sys: true,
+    text: `Paid off the last ${usd(amount)} of ${r.name}'s ${r.cat.toLowerCase()} ${r.kind === "bill" ? "bill" : "goal"}. Sent to ${r.payee}.`, at: Date.now(), cheers: 0 });
+  const after = ranked().findIndex(g => g.me);
+  if (!quiet) toast(after < before ? `${usd(amount)} sent to ${r.payee}. You moved up to #${after + 1}.`
+    : closed ? `${usd(amount)} sent. ${r.name}'s ${r.kind === "bill" ? "bill is cleared" : "goal is funded"}.` : `${usd(amount)} sent to ${r.payee}.`);
+  save();
+  return true;
+}
+
+/* ---------- swipe deck ---------- */
+function deckList() {
+  return S.requests.filter(r => live(r) && !S.skipped.includes(r.id)).sort((a, b) => daysLeft(a) - daysLeft(b));
+}
+function swCard(r, i) {
+  const pct = Math.min(100, r.raised / r.amount * 100), d = daysLeft(r);
+  return `<article class="sw${i === 0 ? " top" : ""}" data-id="${r.id}" style="z-index:${10 - i};transform:translateY(${i * 10}px) scale(${1 - i * 0.04});${i > 2 ? "opacity:0" : ""}" ${i ? 'aria-hidden="true"' : ""}>
+    <div class="sw-head" style="background:${color(r.cat)}">
+      <span class="cat">${esc(r.cat)} · ${r.kind === "bill" ? "Bill verified" : "Plan verified"}</span>
+      <span class="big num">${usd(left(r))}<small>to go</small></span>
+      <span class="person">${esc(r.name)} · ${esc(r.city)}</span>
+      <span class="stamp pay">PAY</span><span class="stamp skip">PASS</span>
+    </div>
+    <div class="sw-body">
+      <h3>${esc(r.title)}</h3>
+      <p>${esc(r.story)}</p>
+      <div class="payee"><span class="who">Paid directly to</span><b>${esc(r.payee)}</b></div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="money"><span><b class="num">${usd(r.raised)}</b> of <span class="num">${usd(r.amount)}</span></span>
+        <span>${d <= 7 ? `<b style="color:var(--warn)">Due in ${d} day${d === 1 ? "" : "s"}</b>` : "Due " + new Date(r.due + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span></div>
+    </div>
+    <span class="stamp all">PAY IT ALL</span>
+  </article>`;
+}
+function renderDeck() {
+  const list = deckList().slice(0, 4);
+  const giving = !$("side-give").hidden;
+  $("deck").innerHTML = list.length ? list.map(swCard).reverse().join("") :
+    `<div class="deck-empty"><h3>You've seen everyone</h3><p>${S.skipped.length ? `You passed on ${S.skipped.length}. Give them another look?` : "Every open request is funded. Check the Wins feed."}</p>
+     ${S.skipped.length ? `<button class="btn primary" id="deck-again">Show passed requests</button>` : ""}</div>`;
+  ["b-skip", "b-pay", "b-all"].forEach(id => $(id).disabled = !list.length || !giving);
+  const top = $("deck").querySelector(".sw.top");
+  if (top && giving) bindDrag(top);
+}
+function bindDrag(el) {
+  let sx, sy, dx = 0, dy = 0, down = false;
+  const stamps = { pay: el.querySelector(".stamp.pay"), skip: el.querySelector(".stamp.skip"), all: el.querySelector(".stamp.all") };
+  el.addEventListener("pointerdown", e => { down = true; sx = e.clientX; sy = e.clientY; el.setPointerCapture(e.pointerId); el.classList.add("dragging"); });
+  el.addEventListener("pointermove", e => {
+    if (!down) return;
+    dx = e.clientX - sx; dy = e.clientY - sy;
+    el.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx / 18}deg)`;
+    const up = dy < -60 && Math.abs(dy) > Math.abs(dx);
+    stamps.pay.style.opacity = !up && dx > 0 ? Math.min(1, dx / 100) : 0;
+    stamps.skip.style.opacity = !up && dx < 0 ? Math.min(1, -dx / 100) : 0;
+    stamps.all.style.opacity = up ? Math.min(1, -dy / 140) : 0;
+  });
+  const end = () => {
+    if (!down) return; down = false; el.classList.remove("dragging");
+    if (dy < -130 && Math.abs(dy) > Math.abs(dx)) decide("all");
+    else if (dx > 110) decide("pay");
+    else if (dx < -110) decide("skip");
+    else { el.style.transform = ""; Object.values(stamps).forEach(s => s.style.opacity = 0); }
+    dx = dy = 0;
+  };
+  el.addEventListener("pointerup", end);
+  el.addEventListener("pointercancel", end);
+}
+function decide(action) {
+  const el = $("deck").querySelector(".sw.top");
+  if (!el || $("side-give").hidden) return;
+  const r = S.requests.find(x => x.id == el.dataset.id);
+  if (action !== "skip") {
+    const amt = action === "all" ? left(r) : Math.min(S.swipeAmt, left(r));
+    if (amt > S.wallet) { el.style.transform = ""; toast(`Your balance is ${usd(S.wallet)}. Add funds to keep swiping.`); return; }
+  }
+  el.querySelector(".stamp." + action).style.opacity = 1;
+  el.style.transform = action === "all" ? "translateY(-140%) rotate(0)" : `translateX(${action === "pay" ? 150 : -150}%) rotate(${action === "pay" ? 24 : -24}deg)`;
+  el.style.opacity = 0;
+  setTimeout(() => {
+    if (action === "skip") { S.skipped.push(r.id); save(); }
+    else {
+      pay(r, action === "all" ? left(r) : S.swipeAmt);
+      // A partial chip-in moves the card to the back of this session's deck so the next person shows
+      if (left(r) > 0) { S.skipped.push(r.id); save(); }
+    }
+    render();
+  }, 280);
+}
+$("b-skip").onclick = () => decide("skip");
+$("b-pay").onclick = () => decide("pay");
+$("b-all").onclick = () => decide("all");
+document.addEventListener("keydown", e => {
+  if (view !== "swipe" || e.target.closest("input,textarea,select,dialog")) return;
+  const a = { ArrowLeft: "skip", ArrowRight: "pay", ArrowUp: "all" }[e.key];
+  if (a) { e.preventDefault(); decide(a); }
+});
+
+/* ---------- browse ---------- */
 function card(r) {
   const pct = Math.min(100, r.raised / r.amount * 100);
   const d = daysLeft(r), done = left(r) === 0, pending = r.status === "pending";
-  const urgent = !done && d <= 7;
   const giving = !$("side-give").hidden;
   return `<article class="card${done ? " done" : ""}">
     <div class="row">
       <span class="pill">${esc(r.cat)}</span>
       ${pending ? `<span class="pill">Verification pending</span>` : `<span class="pill ver">Bill verified</span>`}
-      ${urgent ? `<span class="pill urgent">Due in ${d} day${d === 1 ? "" : "s"}</span>` : ""}
+      ${!done && d <= 7 ? `<span class="pill urgent">Due in ${d} day${d === 1 ? "" : "s"}</span>` : ""}
     </div>
     <h3>${esc(r.title)}</h3>
     <div class="who">${esc(r.name)} · ${esc(r.city)}</div>
     <p>${esc(r.story)}</p>
     <div class="payee"><span class="who">Paid directly to</span><b>${esc(r.payee)}</b></div>
-    <div class="bar" role="progressbar" aria-valuenow="${Math.round(pct)}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>
+    <div class="bar"><i style="width:${pct}%"></i></div>
     <div class="money"><span><b class="num">${usd(r.raised)}</b> of <span class="num">${usd(r.amount)}</span></span>
-      <span>${done ? "Paid in full · receipt sent" : `<b class="num">${usd(left(r))}</b> to go · due ${new Date(r.due + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}`}</span></div>
+      <span>${done ? "Paid in full · receipt sent" : `<b class="num">${usd(left(r))}</b> to go`}</span></div>
     ${!done && !pending && giving ? `<div class="actions">
-      <button class="btn primary" data-all="${r.id}">${r.kind === "bill" ? "Pay it all" : "Fund the rest"} · <span class="num">${usd(left(r))}</span></button>
+      <button class="btn primary" data-all="${r.id}">Pay it all · <span class="num">${usd(left(r))}</span></button>
       <button class="btn" data-pay="${r.id}">Chip in</button></div>` : ""}
   </article>`;
 }
-
-function pay(r, amount) {
-  amount = Math.min(Math.round(amount), left(r));
-  if (amount <= 0) return false;
-  if (amount > S.wallet) { toast(`Your balance is ${usd(S.wallet)}. Add funds to pay ${usd(amount)}.`); return false; }
-  S.wallet -= amount; r.raised += amount;
-  S.ledger.push({ rid: r.id, kind: r.kind, name: r.name, payee: r.payee, amount, at: Date.now() });
-  return true;
+function renderBrowse() {
+  const sort = $("sort").value;
+  let list = S.requests.filter(r => tab === "done" ? left(r) === 0 : r.kind === tab && left(r) > 0);
+  const order = { urgent: (a, b) => daysLeft(a) - daysLeft(b), closest: (a, b) => left(a) - left(b), small: (a, b) => a.amount - b.amount, big: (a, b) => b.amount - a.amount }[sort];
+  list.sort((a, b) => (a.status === "pending") - (b.status === "pending") || order(a, b));
+  $("feed").innerHTML = list.length ? list.map(card).join("") :
+    `<div class="card"><h3>${tab === "done" ? "Nothing cleared yet" : "All caught up"}</h3><p>${tab === "done" ? "Pay off a request in full and it shows up here." : "Every request in this list is fully funded."}</p></div>`;
 }
+
+/* ---------- wins ---------- */
+function renderWins() {
+  const giving = !$("side-give").hidden;
+  $("c-text").placeholder = giving ? "Tell the board what you paid for and why." : "How are you doing since your bill was paid?";
+  const funded = S.requests.filter(r => r.raised > 0);
+  $("c-link").innerHTML = `<option value="">Not about a specific request</option>` + funded.map(r => `<option value="${r.id}">${esc(r.name)}: ${esc(r.title.slice(0, 40))}</option>`).join("");
+  $("posts").innerHTML = S.posts.map(p => {
+    const r = S.requests.find(x => x.id === p.rid), on = S.cheered.includes(p.id);
+    return `<article class="post${p.sys ? " sys" : ""}">
+      <div class="post-head"><span class="ava" style="background:${avaColor(p.author)}">${esc(p.author[0] || "?")}</span>
+        <div><b>${esc(p.author)}</b><span class="who">${p.role === "giver" ? "Giver" : "Got help"} · ${rel(p.at)}</span></div></div>
+      <p>${esc(p.text)}</p>
+      ${r ? `<div class="linked">Re: ${esc(r.name)}'s request · ${left(r) === 0 ? "paid in full" : usd(left(r)) + " to go"}</div>` : ""}
+      <button class="cheer" data-cheer="${p.id}" aria-pressed="${on}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.3 5.8 21l1.6-7L2 9.2l7.1-.6z"/></svg><span class="num">${p.cheers + (on ? 1 : 0)}</span> Cheer</button>
+    </article>`;
+  }).join("");
+}
+$("composer").addEventListener("submit", e => {
+  e.preventDefault();
+  const giving = !$("side-give").hidden;
+  const author = giving ? (S.me || "You") : ($("f-name").value.trim() || "Anonymous neighbor");
+  S.posts.unshift({ id: Date.now(), author, role: giving ? "giver" : "recipient", rid: +$("c-link").value || null, text: $("c-text").value.trim(), at: Date.now(), cheers: 0 });
+  save(); e.target.reset(); renderWins(); toast("Posted to Wins.");
+});
+
+/* ---------- leaderboard ---------- */
+function badges(g) {
+  const b = [];
+  if (g.total >= 100000) b.push(["Six figures", true]);
+  if (g.cleared >= 25) b.push(["Bill crusher", false]);
+  if (g.people >= 10 && g.total < 10000) b.push(["Small but mighty", false]);
+  if (g.people >= 1 && g.people < 10) b.push(["Rising", false]);
+  return b.map(([t, gold]) => `<span class="badge${gold ? " gold" : ""}">${t}</span>`).join("");
+}
+function renderBoard() {
+  const list = ranked();
+  const meIdx = list.findIndex(g => g.me);
+  const fmt = g => lbSort === "total" ? usd(g.total) : lbSort === "cleared" ? g.cleared : g.people;
+  const sub = g => lbSort === "total" ? `${g.people} people` : lbSort === "cleared" ? "bills cleared" : "people helped";
+  $("board").innerHTML = list.map((g, i) => `<div class="lb${g.me ? " me" : ""}">
+    <span class="rank">${i + 1}</span>
+    <div class="lb-name"><b>${esc(g.handle)}${g.me && g.handle !== "You" ? " (you)" : ""}</b><div class="badges">${badges(g)}</div></div>
+    <div class="lb-amt"><span class="num">${fmt(g)}</span><small>${sub(g)}</small></div></div>`).join("");
+  const ahead = list[meIdx - 1];
+  const key = { total: "total", cleared: "cleared", people: "people" }[lbSort];
+  $("board-note").textContent = meIdx === 0 ? "You're #1. Defend it." :
+    `${lbSort === "total" ? usd(ahead[key] - list[meIdx][key] + 1) : (ahead[key] - list[meIdx][key] + 1) + (lbSort === "cleared" ? " more bills" : " more people")} to pass ${ahead.handle}.`;
+}
+[["lb-total", "total"], ["lb-cleared", "cleared"], ["lb-people", "people"]].forEach(([id, k]) => $(id).onclick = () => {
+  lbSort = k; ["lb-total", "lb-cleared", "lb-people"].forEach(x => $(x).setAttribute("aria-selected", x === id)); renderBoard();
+});
+
+/* ---------- shell ---------- */
+function render() {
+  ["swipe", "browse", "wins", "board"].forEach(v => $("v-" + v).hidden = v !== view);
+  document.querySelectorAll("nav button").forEach(b => b.dataset.view === view ? b.setAttribute("aria-current", "page") : b.removeAttribute("aria-current"));
+  ({ swipe: renderDeck, browse: renderBrowse, wins: renderWins, board: renderBoard })[view]();
+
+  const all = S.givers.reduce((s, g) => s + g.total, 0) + myStats().total;
+  $("st-paid").textContent = usd(all);
+  $("st-cleared").textContent = S.givers.reduce((s, g) => s + g.cleared, 0) + myStats().cleared;
+  $("st-givers").textContent = S.givers.length + 1;
+  $("st-rank").textContent = "#" + (ranked().findIndex(g => g.me) + 1);
+  $("wallet").textContent = usd(S.wallet);
+  $("hint-amt").textContent = usd(S.swipeAmt);
+  $("swipe-amts").innerHTML = [25, 100, 500, 1000, 5000].map(v => `<button data-swipe="${v}" aria-pressed="${v === S.swipeAmt}">${usd(v)}</button>`).join("");
+  $("ledger").innerHTML = S.ledger.length ? S.ledger.slice().reverse().map(l =>
+    `<li><span>${esc(l.name)} → ${esc(l.payee)}</span><span class="num">${usd(l.amount)}</span></li>`).join("")
+    : `<li><span>No payments yet. Swipe right on someone.</span></li>`;
+}
+function setView(v) { view = v; try { history.replaceState(null, "", "#" + v); } catch {} render(); }
+document.querySelectorAll("nav button").forEach(b => b.onclick = () => setView(b.dataset.view));
+window.addEventListener("hashchange", () => { const v = location.hash.slice(1); if (["swipe","browse","wins","board"].includes(v) && v !== view) { view = v; render(); } });
 
 function openPay(r) {
   payingId = r.id;
@@ -345,36 +666,24 @@ function openPay(r) {
   $("pay-dest").textContent = `Sent to ${r.payee}, not to ${r.name}'s account.`;
   $("pay-dlg").showModal();
 }
-
 document.addEventListener("click", e => {
-  const all = e.target.closest("[data-all]"), part = e.target.closest("[data-pay]"), chip = e.target.closest("[data-amt]");
-  if (all) {
-    const r = S.requests.find(x => x.id == all.dataset.all);
-    const amt = left(r);
-    if (pay(r, amt)) { save(); render(); toast(`${usd(amt)} sent to ${r.payee}. ${r.name}'s ${r.kind === "bill" ? "bill is cleared" : "goal is funded"}.`); }
-  } else if (part) {
-    openPay(S.requests.find(x => x.id == part.dataset.pay));
-  } else if (chip) {
-    payAmt = +chip.dataset.amt; $("pay-custom").value = "";
-    document.querySelectorAll("#pay-chips button").forEach(b => b.setAttribute("aria-pressed", b === chip));
-  }
+  const t = e.target;
+  const all = t.closest("[data-all]"), part = t.closest("[data-pay]"), chip = t.closest("[data-amt]"), sw = t.closest("[data-swipe]"), ch = t.closest("[data-cheer]");
+  if (all) { const r = S.requests.find(x => x.id == all.dataset.all); if (pay(r, left(r))) render(); }
+  else if (part) openPay(S.requests.find(x => x.id == part.dataset.pay));
+  else if (chip) { payAmt = +chip.dataset.amt; $("pay-custom").value = ""; document.querySelectorAll("#pay-chips button").forEach(b => b.setAttribute("aria-pressed", b === chip)); }
+  else if (sw) { S.swipeAmt = +sw.dataset.swipe; save(); render(); }
+  else if (ch) { const id = +ch.dataset.cheer; S.cheered = S.cheered.includes(id) ? S.cheered.filter(x => x !== id) : S.cheered.concat(id); save(); renderWins(); }
+  else if (t.id === "deck-again") { S.skipped = []; save(); render(); }
 });
-$("pay-custom").addEventListener("input", e => {
-  payAmt = +e.target.value || 0;
-  document.querySelectorAll("#pay-chips button").forEach(b => b.setAttribute("aria-pressed", "false"));
-});
+$("pay-custom").addEventListener("input", e => { payAmt = +e.target.value || 0; document.querySelectorAll("#pay-chips button").forEach(b => b.setAttribute("aria-pressed", "false")); });
 $("pay-dlg").addEventListener("close", () => {
   if ($("pay-dlg").returnValue !== "go") return;
   const r = S.requests.find(x => x.id === payingId);
-  const amt = Math.min(payAmt, left(r));
-  if (pay(r, amt)) { save(); render(); toast(`${usd(amt)} sent to ${r.payee}.`); }
+  if (pay(r, Math.min(payAmt, left(r)))) render();
 });
 
-function setTab(t) {
-  tab = t;
-  ["bill", "back", "done"].forEach(x => $("tab-" + x).setAttribute("aria-selected", x === t));
-  render();
-}
+function setTab(t) { tab = t; ["bill", "back", "done"].forEach(x => $("tab-" + x).setAttribute("aria-selected", x === t)); render(); }
 $("tab-bill").onclick = () => setTab("bill");
 $("tab-back").onclick = () => setTab("back");
 $("tab-done").onclick = () => setTab("done");
@@ -389,18 +698,21 @@ function setRole(give) {
 $("role-give").onclick = () => setRole(true);
 $("role-ask").onclick = () => setRole(false);
 
+$("me-handle").value = S.me;
+$("me-handle").addEventListener("change", e => { S.me = e.target.value.trim() || "You"; save(); render(); });
 $("topup").onclick = () => { S.wallet += 10000; save(); render(); toast("Added $10,000 of demo money."); };
-$("reset").onclick = () => { S = SAMPLE(); save(); setTab("bill"); toast("Demo reset to sample requests."); };
+$("reset").onclick = () => { S = SAMPLE(); save(); $("me-handle").value = S.me; render(); toast("Demo reset to sample data."); };
 
 $("budget").oninput = e => $("budget-label").textContent = usd(+e.target.value);
 $("spin").onclick = () => {
   let budget = Math.min(+$("budget").value, S.wallet);
-  const open = S.requests.filter(r => r.kind === "bill" && left(r) > 0 && r.status !== "pending")
-    .sort((a, b) => daysLeft(a) - daysLeft(b));
+  const before = ranked().findIndex(g => g.me);
+  const open = S.requests.filter(r => r.kind === "bill" && live(r)).sort((a, b) => daysLeft(a) - daysLeft(b));
   const cleared = [];
-  for (const r of open) if (left(r) <= budget) { const a = left(r); if (pay(r, a)) { budget -= a; cleared.push(r.name); } }
-  save(); render();
-  toast(cleared.length ? `Cleared ${cleared.length} bill${cleared.length > 1 ? "s" : ""}: ${cleared.join(", ")}.` : "No open bill fits that budget. Raise it or add funds.");
+  for (const r of open) if (left(r) <= budget) { const a = left(r); if (pay(r, a, true)) { budget -= a; cleared.push(r.name); } }
+  const after = ranked().findIndex(g => g.me);
+  render();
+  toast(cleared.length ? `Cleared ${cleared.length} bill${cleared.length > 1 ? "s" : ""}: ${cleared.join(", ")}.${after < before ? ` You're now #${after + 1}.` : ""}` : "No open bill fits that budget. Raise it or add funds.");
 };
 
 $("f-kind").onchange = e => $("payee-label").firstChild.textContent = e.target.value === "bill" ? "Paid to (biller) " : "Paid to (school, vendor or supplier) ";
@@ -408,15 +720,15 @@ $("f-due").min = inDays(1);
 $("ask-form").addEventListener("submit", e => {
   e.preventDefault();
   const kind = $("f-kind").value;
-  S.requests.push({
-    id: Date.now(), kind, cat: kind === "bill" ? "New bill" : "New goal", status: "pending",
+  S.requests.push({ id: Date.now(), kind, cat: kind === "bill" ? "New bill" : "New goal", status: "pending",
     title: $("f-title").value.trim(), story: $("f-story").value.trim(), name: $("f-name").value.trim(), city: $("f-city").value.trim(),
-    payee: $("f-payee").value.trim(), amount: +$("f-amount").value, raised: 0, due: $("f-due").value,
-  });
-  save(); e.target.reset(); setTab(kind);
-  toast("Submitted. It goes live once the bill is verified.");
+    payee: $("f-payee").value.trim(), amount: +$("f-amount").value, raised: 0, due: $("f-due").value });
+  save(); e.target.reset(); tab = kind; setView("browse");
+  toast("Submitted. It goes into swipe decks once the bill is verified.");
 });
 
+const h = location.hash.slice(1);
+if (["swipe","browse","wins","board"].includes(h)) view = h;
 render();
 })();
 </script>
