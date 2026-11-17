@@ -1,0 +1,422 @@
+<title>Windfall</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: sticky top bar with role switch, one feed column of request cards + a side panel for the giver's ledger; stacks on phones. */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --ink: #16202e;
+  --muted: #5d6879;
+  --line: #e1e5ec;
+  --accent: #b9851a;      /* windfall gold */
+  --accent-ink: #ffffff;
+  --accent-soft: #f6ecd6;
+  --good: #1f7a4d;
+  --good-soft: #e1f2e8;
+  --warn: #9a5b00;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Inter", system-ui, -apple-system, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f141b; --surface: #171e28; --ink: #e8ecf2; --muted: #9aa5b5; --line: #273141;
+  --accent: #e0aa3e; --accent-ink: #1a1305; --accent-soft: #2e2611; --good: #4cc489; --good-soft: #13291e; --warn: #f0a640;
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0f141b; --surface: #171e28; --ink: #e8ecf2; --muted: #9aa5b5; --line: #273141;
+  --accent: #e0aa3e; --accent-ink: #1a1305; --accent-soft: #2e2611; --good: #4cc489; --good-soft: #13291e; --warn: #f0a640;
+  color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--f-body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface) }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+button, input, select, textarea { font: inherit; color: inherit }
+button { cursor: pointer }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums }
+
+header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line) }
+header .wrap { display: flex; align-items: center; gap: 16px; padding-block: 12px; flex-wrap: wrap }
+.brand { font: 800 22px/1 var(--f-display); letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px }
+.brand i { width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #f3d27a, var(--accent)); display: inline-block }
+.seg { display: inline-flex; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 3px; margin-left: auto }
+.seg button { border: 0; background: none; padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: 13px; color: var(--muted) }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg) }
+
+.hero { padding-block: 36px 20px }
+.hero h1 { font: 800 clamp(30px, 5vw, 48px)/1.05 var(--f-display); letter-spacing: -0.03em; margin: 0 0 10px; text-wrap: balance; max-width: 20ch }
+.hero h1 em { font-style: normal; color: var(--accent) }
+.hero p { color: var(--muted); max-width: 60ch; margin: 0 }
+.stats { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 22px }
+.stats div { display: grid }
+.stats b { font: 700 22px/1.1 var(--f-mono) }
+.stats span { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em }
+
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; padding-block: 8px 48px; align-items: start }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr) } }
+
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; align-items: center }
+.tab { border: 1px solid var(--line); background: var(--surface); padding: 7px 14px; border-radius: 999px; font-weight: 600; font-size: 13px }
+.tab[aria-selected="true"] { border-color: var(--ink); background: var(--ink); color: var(--bg) }
+.tabs select { margin-left: auto; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 8px; font-size: 13px }
+
+.feed { display: grid; gap: 12px }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 10px }
+.card.done { opacity: .72 }
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap }
+.pill { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; padding: 3px 8px; border-radius: 999px; background: var(--bg); color: var(--muted); border: 1px solid var(--line) }
+.pill.ver { background: var(--good-soft); color: var(--good); border-color: transparent }
+.pill.urgent { background: var(--accent-soft); color: var(--warn); border-color: transparent }
+.card h3 { font: 700 19px/1.25 var(--f-display); margin: 0; letter-spacing: -0.01em }
+.card p { margin: 0; color: var(--muted) }
+.who { font-size: 13px; color: var(--muted) }
+.payee { font-size: 13px; display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap }
+.payee b { font-weight: 600 }
+.bar { height: 8px; background: var(--bg); border-radius: 99px; overflow: hidden; border: 1px solid var(--line) }
+.bar > i { display: block; height: 100%; background: var(--accent); border-radius: 99px; transition: width .5s ease }
+.card.done .bar > i { background: var(--good) }
+.money { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); gap: 8px; flex-wrap: wrap }
+.money b { color: var(--ink) }
+.actions { display: flex; gap: 8px; flex-wrap: wrap }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 8px 14px; font-weight: 600; font-size: 14px }
+.btn:hover { border-color: var(--ink) }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink) }
+.btn.primary:hover { filter: brightness(1.06) }
+.btn.dark { background: var(--ink); border-color: var(--ink); color: var(--bg) }
+.btn:disabled { opacity: .45; cursor: not-allowed }
+
+aside { display: grid; gap: 16px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 76px) }
+@media (max-width: 860px) { aside { position: static } }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 12px }
+.panel h2 { font: 700 16px/1.2 var(--f-display); margin: 0 }
+.panel small { color: var(--muted) }
+.wallet { font: 700 30px/1 var(--f-mono) }
+.ledger { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; max-height: 260px; overflow: auto; font-size: 13px }
+.ledger li { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dashed var(--line); padding-bottom: 6px }
+.ledger li span:first-child { min-width: 0; overflow-wrap: anywhere }
+.roulette { background: var(--ink); color: var(--bg); border-color: var(--ink) }
+.roulette small { color: color-mix(in srgb, var(--bg) 70%, transparent) }
+.roulette .btn { background: var(--accent); border-color: var(--accent); color: var(--accent-ink) }
+.roulette input { width: 100%; accent-color: var(--accent) }
+.steps { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13px; color: var(--muted) }
+
+form.panel label { display: grid; gap: 4px; font-size: 13px; font-weight: 600 }
+form.panel input, form.panel select, form.panel textarea { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--bg); font-weight: 400; width: 100% }
+form.panel textarea { min-height: 80px; resize: vertical }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px }
+@media (max-width: 420px) { .two { grid-template-columns: 1fr } }
+
+dialog { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); color: var(--ink); padding: 22px; width: min(420px, calc(100vw - 32px)) }
+dialog::backdrop { background: rgb(10 14 20 / .5) }
+dialog h3 { font: 700 20px/1.2 var(--f-display); margin: 0 0 6px }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0 }
+.chips button { border: 1px solid var(--line); background: var(--bg); padding: 8px 12px; border-radius: 10px; font-family: var(--f-mono); font-weight: 500 }
+.chips button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft) }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 14px; z-index: 20; max-width: calc(100vw - 32px) }
+.note { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 18px; padding-bottom: 32px }
+@media (prefers-reduced-motion: reduce) { .bar > i { transition: none } }
+</style>
+
+<header>
+  <div class="wrap">
+    <div class="brand"><i aria-hidden="true"></i>Windfall</div>
+    <div class="seg" role="group" aria-label="I am here to">
+      <button id="role-give" aria-pressed="true">Give</button>
+      <button id="role-ask" aria-pressed="false">Ask for help</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Pay a stranger's bill. <em>Back</em> someone's next move.</h1>
+    <p>Every request is checked against the real bill or plan. Money goes straight to the landlord, hospital, utility or school, never as cash, so givers know exactly where it lands.</p>
+    <div class="stats">
+      <div><b class="num" id="st-paid">$0</b><span>Paid to billers</span></div>
+      <div><b class="num" id="st-cleared">0</b><span>Bills cleared</span></div>
+      <div><b class="num" id="st-backed">0</b><span>People backed</span></div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <section aria-label="Requests">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" id="tab-bill" aria-selected="true">Bills &amp; debts</button>
+        <button class="tab" role="tab" id="tab-back" aria-selected="false">Back a person</button>
+        <button class="tab" role="tab" id="tab-done" aria-selected="false">Cleared</button>
+        <select id="sort" aria-label="Sort requests">
+          <option value="urgent">Most urgent</option>
+          <option value="closest">Closest to done</option>
+          <option value="small">Smallest first</option>
+          <option value="big">Biggest first</option>
+        </select>
+      </div>
+      <div class="feed" id="feed"></div>
+    </section>
+
+    <aside id="side-give">
+      <div class="panel">
+        <h2>Your giving balance</h2>
+        <div class="wallet num" id="wallet">$0</div>
+        <small>Demo money. In the real app this is a funded donor account.</small>
+        <div class="actions">
+          <button class="btn" id="topup">Add $10,000</button>
+          <button class="btn" id="reset">Reset demo</button>
+        </div>
+      </div>
+      <div class="panel roulette">
+        <h2>Bill roulette</h2>
+        <small>Bored? Set a budget and we clear the most urgent bills it can fully cover.</small>
+        <label for="budget" class="num" id="budget-label" style="font-size:20px;font-weight:700">$5,000</label>
+        <input type="range" id="budget" min="500" max="50000" step="500" value="5000">
+        <button class="btn" id="spin">Clear bills for me</button>
+      </div>
+      <div class="panel">
+        <h2>Your ledger</h2>
+        <ul class="ledger" id="ledger"></ul>
+      </div>
+    </aside>
+
+    <aside id="side-ask" hidden>
+      <form class="panel" id="ask-form">
+        <h2>Post a request</h2>
+        <label>What kind of help
+          <select id="f-kind">
+            <option value="bill">Pay a bill or debt</option>
+            <option value="back">Fund a goal</option>
+          </select>
+        </label>
+        <label>Headline <input id="f-title" required maxlength="80" placeholder="Two months of rent after a layoff"></label>
+        <label>Your story <textarea id="f-story" required maxlength="400" placeholder="What happened, and what changes if this is paid."></textarea></label>
+        <div class="two">
+          <label>First name <input id="f-name" required maxlength="30"></label>
+          <label>City <input id="f-city" required maxlength="40"></label>
+        </div>
+        <div class="two">
+          <label>Amount (USD) <input id="f-amount" type="number" min="25" max="250000" required></label>
+          <label>Due by <input id="f-due" type="date" required></label>
+        </div>
+        <label id="payee-label">Paid to (biller) <input id="f-payee" required maxlength="60" placeholder="e.g. Oak Street Property Mgmt"></label>
+        <label>Bill, invoice or plan <input id="f-file" type="file" accept="image/*,.pdf" required></label>
+        <button class="btn primary" type="submit">Submit for verification</button>
+      </form>
+      <div class="panel">
+        <h2>How it works</h2>
+        <ol class="steps">
+          <li>Upload the real bill, statement or plan.</li>
+          <li>We confirm it with the biller and verify your ID.</li>
+          <li>Your request goes live to givers.</li>
+          <li>Funds are sent to the biller, and you get a receipt.</li>
+        </ol>
+      </div>
+    </aside>
+  </div>
+
+  <p class="note">Prototype. All people, bills and payments on this page are fictional sample data and no money moves. A live version needs a licensed payments partner, identity checks and, for any “back with a return” option, securities compliance.</p>
+</main>
+
+<dialog id="pay-dlg">
+  <form method="dialog" id="pay-form">
+    <h3 id="pay-title"></h3>
+    <div class="who" id="pay-sub"></div>
+    <div class="chips" id="pay-chips"></div>
+    <label style="display:grid;gap:4px;font-size:13px;font-weight:600">Other amount
+      <input id="pay-custom" type="number" min="1" style="border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--bg)">
+    </label>
+    <p class="who" id="pay-dest" style="margin:12px 0"></p>
+    <div class="actions">
+      <button class="btn primary" id="pay-go" value="go">Pay</button>
+      <button class="btn" value="cancel">Cancel</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(() => {
+const KEY = "windfall-demo-v1";
+const today = new Date(); today.setHours(0,0,0,0);
+const inDays = d => { const x = new Date(today); x.setDate(x.getDate() + d); return x.toISOString().slice(0,10); };
+
+const SAMPLE = () => ({
+  wallet: 25000,
+  ledger: [],
+  requests: [
+    { id: 1, kind: "bill", cat: "Rent", title: "Two months of back rent after a plant closure", story: "I was laid off when the packaging plant shut down. New job starts on the 1st but I'm $2,700 behind and have an eviction notice.", name: "Marisol", city: "Dayton, OH", payee: "Brookline Apartments LLC", amount: 2700, raised: 850, due: inDays(6) },
+    { id: 2, kind: "bill", cat: "Medical", title: "ER bill from my son's broken arm", story: "No insurance at the time. Payment plan fell through and it went to collections last month.", name: "Devon", city: "Tucson, AZ", payee: "Banner Health Billing", amount: 4180, raised: 0, due: inDays(20) },
+    { id: 3, kind: "bill", cat: "Utilities", title: "Keep the heat on this winter", story: "Shutoff notice for gas and electric. I'm a home health aide and my hours got cut.", name: "Linh", city: "Duluth, MN", payee: "Minnesota Power", amount: 612, raised: 200, due: inDays(3) },
+    { id: 4, kind: "bill", cat: "Student loan", title: "Finish paying off my nursing school loan", story: "Down to the last stretch. Clearing it frees $380 a month for my two kids.", name: "Andre", city: "Atlanta, GA", payee: "Nelnet", amount: 9350, raised: 1200, due: inDays(45) },
+    { id: 5, kind: "bill", cat: "Car repair", title: "Transmission repair so I can get to work", story: "45 minute drive to my warehouse shift, no bus route. Shop quoted the repair and is holding the car.", name: "Kayla", city: "Fresno, CA", payee: "Valley Auto & Transmission", amount: 1940, raised: 0, due: inDays(9) },
+    { id: 6, kind: "bill", cat: "Medical", title: "Insulin pump co-pay", story: "Insurance covers most of it. This is the part I can't get to this quarter.", name: "Omar", city: "Newark, NJ", payee: "Tandem Diabetes Care", amount: 1450, raised: 600, due: inDays(14) },
+    { id: 7, kind: "back", cat: "Business", title: "Food truck for my tamales", story: "I sell 300 tamales every weekend from my kitchen. A used truck and county permit would let me go full time.", name: "Rosa", city: "San Antonio, TX", payee: "Alamo Truck Sales (invoice)", amount: 38000, raised: 12500, due: inDays(60) },
+    { id: 8, kind: "back", cat: "Training", title: "CDL license to drive trucks", story: "Accepted into an 8-week CDL program. Starting pay at the carrier that sponsors grads is $68k.", name: "Terrence", city: "Memphis, TN", payee: "Southwest Tennessee CDL School", amount: 5200, raised: 800, due: inDays(25) },
+    { id: 9, kind: "back", cat: "Education", title: "Last semester of my electrician apprenticeship", story: "Working days, classes at night. Tuition went up and I'm short for the final term.", name: "Priya", city: "Columbus, OH", payee: "IBEW Local 683 JATC", amount: 3100, raised: 2400, due: inDays(30) },
+    { id: 10, kind: "back", cat: "Business", title: "Second chair for my barbershop", story: "Fully booked 3 weeks out. A second chair and equipment means I can hire my cousin.", name: "Jamal", city: "Detroit, MI", payee: "Kaemark Salon Furniture", amount: 6400, raised: 0, due: inDays(40) },
+  ],
+});
+
+let S;
+try { S = JSON.parse(localStorage.getItem(KEY)) || SAMPLE(); } catch { S = SAMPLE(); }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
+
+const $ = id => document.getElementById(id);
+const usd = n => "$" + Math.round(n).toLocaleString("en-US");
+const left = r => Math.max(0, r.amount - r.raised);
+const daysLeft = r => Math.round((new Date(r.due + "T00:00:00") - today) / 864e5);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+
+let tab = "bill", payingId = null, payAmt = 0;
+
+function toast(msg) {
+  const t = $("toast"); t.textContent = msg; t.hidden = false;
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.hidden = true, 2800);
+}
+
+function render() {
+  const sort = $("sort").value;
+  let list = S.requests.filter(r => tab === "done" ? left(r) === 0 : r.kind === tab && left(r) > 0 && r.status !== "pending");
+  if (tab !== "done") list = list.concat(S.requests.filter(r => r.kind === tab && r.status === "pending"));
+  const order = {
+    urgent: (a, b) => daysLeft(a) - daysLeft(b),
+    closest: (a, b) => left(a) - left(b),
+    small: (a, b) => a.amount - b.amount,
+    big: (a, b) => b.amount - a.amount,
+  }[sort];
+  list.sort((a, b) => (a.status === "pending") - (b.status === "pending") || order(a, b));
+
+  $("feed").innerHTML = list.length ? list.map(card).join("") :
+    `<div class="card"><h3>${tab === "done" ? "Nothing cleared yet" : "All caught up"}</h3><p>${tab === "done" ? "Pay off a bill in full and it shows up here with its receipt." : "Every request in this list is fully funded."}</p></div>`;
+
+  const paid = S.ledger.reduce((s, l) => s + l.amount, 0);
+  $("st-paid").textContent = usd(paid);
+  $("st-cleared").textContent = S.requests.filter(r => r.kind === "bill" && left(r) === 0).length;
+  $("st-backed").textContent = new Set(S.ledger.filter(l => l.kind === "back").map(l => l.rid)).size;
+  $("wallet").textContent = usd(S.wallet);
+  $("ledger").innerHTML = S.ledger.length ? S.ledger.slice().reverse().map(l =>
+    `<li><span>${esc(l.name)} → ${esc(l.payee)}</span><span class="num">${usd(l.amount)}</span></li>`).join("")
+    : `<li><span>No payments yet. Pick a bill to start.</span></li>`;
+}
+
+function card(r) {
+  const pct = Math.min(100, r.raised / r.amount * 100);
+  const d = daysLeft(r), done = left(r) === 0, pending = r.status === "pending";
+  const urgent = !done && d <= 7;
+  const giving = !$("side-give").hidden;
+  return `<article class="card${done ? " done" : ""}">
+    <div class="row">
+      <span class="pill">${esc(r.cat)}</span>
+      ${pending ? `<span class="pill">Verification pending</span>` : `<span class="pill ver">Bill verified</span>`}
+      ${urgent ? `<span class="pill urgent">Due in ${d} day${d === 1 ? "" : "s"}</span>` : ""}
+    </div>
+    <h3>${esc(r.title)}</h3>
+    <div class="who">${esc(r.name)} · ${esc(r.city)}</div>
+    <p>${esc(r.story)}</p>
+    <div class="payee"><span class="who">Paid directly to</span><b>${esc(r.payee)}</b></div>
+    <div class="bar" role="progressbar" aria-valuenow="${Math.round(pct)}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>
+    <div class="money"><span><b class="num">${usd(r.raised)}</b> of <span class="num">${usd(r.amount)}</span></span>
+      <span>${done ? "Paid in full · receipt sent" : `<b class="num">${usd(left(r))}</b> to go · due ${new Date(r.due + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}`}</span></div>
+    ${!done && !pending && giving ? `<div class="actions">
+      <button class="btn primary" data-all="${r.id}">${r.kind === "bill" ? "Pay it all" : "Fund the rest"} · <span class="num">${usd(left(r))}</span></button>
+      <button class="btn" data-pay="${r.id}">Chip in</button></div>` : ""}
+  </article>`;
+}
+
+function pay(r, amount) {
+  amount = Math.min(Math.round(amount), left(r));
+  if (amount <= 0) return false;
+  if (amount > S.wallet) { toast(`Your balance is ${usd(S.wallet)}. Add funds to pay ${usd(amount)}.`); return false; }
+  S.wallet -= amount; r.raised += amount;
+  S.ledger.push({ rid: r.id, kind: r.kind, name: r.name, payee: r.payee, amount, at: Date.now() });
+  return true;
+}
+
+function openPay(r) {
+  payingId = r.id;
+  $("pay-title").textContent = r.title;
+  $("pay-sub").textContent = `${r.name} · ${usd(left(r))} still needed`;
+  const opts = [25, 100, 500, 1000].filter(v => v < left(r)).concat([left(r)]);
+  payAmt = opts[Math.min(1, opts.length - 1)];
+  $("pay-chips").innerHTML = opts.map(v => `<button type="button" data-amt="${v}" aria-pressed="${v === payAmt}">${usd(v)}${v === left(r) ? " · all" : ""}</button>`).join("");
+  $("pay-custom").value = "";
+  $("pay-dest").textContent = `Sent to ${r.payee}, not to ${r.name}'s account.`;
+  $("pay-dlg").showModal();
+}
+
+document.addEventListener("click", e => {
+  const all = e.target.closest("[data-all]"), part = e.target.closest("[data-pay]"), chip = e.target.closest("[data-amt]");
+  if (all) {
+    const r = S.requests.find(x => x.id == all.dataset.all);
+    const amt = left(r);
+    if (pay(r, amt)) { save(); render(); toast(`${usd(amt)} sent to ${r.payee}. ${r.name}'s ${r.kind === "bill" ? "bill is cleared" : "goal is funded"}.`); }
+  } else if (part) {
+    openPay(S.requests.find(x => x.id == part.dataset.pay));
+  } else if (chip) {
+    payAmt = +chip.dataset.amt; $("pay-custom").value = "";
+    document.querySelectorAll("#pay-chips button").forEach(b => b.setAttribute("aria-pressed", b === chip));
+  }
+});
+$("pay-custom").addEventListener("input", e => {
+  payAmt = +e.target.value || 0;
+  document.querySelectorAll("#pay-chips button").forEach(b => b.setAttribute("aria-pressed", "false"));
+});
+$("pay-dlg").addEventListener("close", () => {
+  if ($("pay-dlg").returnValue !== "go") return;
+  const r = S.requests.find(x => x.id === payingId);
+  const amt = Math.min(payAmt, left(r));
+  if (pay(r, amt)) { save(); render(); toast(`${usd(amt)} sent to ${r.payee}.`); }
+});
+
+function setTab(t) {
+  tab = t;
+  ["bill", "back", "done"].forEach(x => $("tab-" + x).setAttribute("aria-selected", x === t));
+  render();
+}
+$("tab-bill").onclick = () => setTab("bill");
+$("tab-back").onclick = () => setTab("back");
+$("tab-done").onclick = () => setTab("done");
+$("sort").onchange = render;
+
+function setRole(give) {
+  $("role-give").setAttribute("aria-pressed", give);
+  $("role-ask").setAttribute("aria-pressed", !give);
+  $("side-give").hidden = !give; $("side-ask").hidden = give;
+  render();
+}
+$("role-give").onclick = () => setRole(true);
+$("role-ask").onclick = () => setRole(false);
+
+$("topup").onclick = () => { S.wallet += 10000; save(); render(); toast("Added $10,000 of demo money."); };
+$("reset").onclick = () => { S = SAMPLE(); save(); setTab("bill"); toast("Demo reset to sample requests."); };
+
+$("budget").oninput = e => $("budget-label").textContent = usd(+e.target.value);
+$("spin").onclick = () => {
+  let budget = Math.min(+$("budget").value, S.wallet);
+  const open = S.requests.filter(r => r.kind === "bill" && left(r) > 0 && r.status !== "pending")
+    .sort((a, b) => daysLeft(a) - daysLeft(b));
+  const cleared = [];
+  for (const r of open) if (left(r) <= budget) { const a = left(r); if (pay(r, a)) { budget -= a; cleared.push(r.name); } }
+  save(); render();
+  toast(cleared.length ? `Cleared ${cleared.length} bill${cleared.length > 1 ? "s" : ""}: ${cleared.join(", ")}.` : "No open bill fits that budget. Raise it or add funds.");
+};
+
+$("f-kind").onchange = e => $("payee-label").firstChild.textContent = e.target.value === "bill" ? "Paid to (biller) " : "Paid to (school, vendor or supplier) ";
+$("f-due").min = inDays(1);
+$("ask-form").addEventListener("submit", e => {
+  e.preventDefault();
+  const kind = $("f-kind").value;
+  S.requests.push({
+    id: Date.now(), kind, cat: kind === "bill" ? "New bill" : "New goal", status: "pending",
+    title: $("f-title").value.trim(), story: $("f-story").value.trim(), name: $("f-name").value.trim(), city: $("f-city").value.trim(),
+    payee: $("f-payee").value.trim(), amount: +$("f-amount").value, raised: 0, due: $("f-due").value,
+  });
+  save(); e.target.reset(); setTab(kind);
+  toast("Submitted. It goes live once the bill is verified.");
+});
+
+render();
+})();
+</script>
